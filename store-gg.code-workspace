@@ -1,0 +1,18 @@
+{
+  "folders": [
+    {
+      "name": "/",
+      "path": "."
+    },
+    {
+      "path": "client"
+    },
+    {
+      "path": "backend"
+    }
+  ],
+  "settings": {
+    "eslint.workingDirectories": ["client", "backend"],
+    "conventionalCommits.scopes": ["client", "backend"]
+  }
+}
