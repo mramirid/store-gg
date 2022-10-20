@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 
-const GameDetails: NextPage = () => (
+const Checkout: NextPage = () => (
   <>
     <Head>
       <title>Checkout</title>
@@ -261,4 +261,4 @@ const GameDetails: NextPage = () => (
   </>
 );
 
-export default GameDetails;
+export default Checkout;
