@@ -1,3 +1,4 @@
+import classnames from "classnames";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -11,7 +12,12 @@ const Home: NextPage = () => (
 
     {/* Navbar */}
     <header>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light bg-white pt-lg-40 pb-lg-40 pt-30 pb-50">
+      <nav
+        className={classnames(
+          "navbar navbar-expand-lg navbar-light bg-light bg-white pt-lg-40",
+          "pb-lg-40 pt-30 pb-50"
+        )}
+      >
         <div className="container-fluid">
           <Link className="navbar-brand" href="/">
             <a>
@@ -101,12 +107,12 @@ const Home: NextPage = () => (
     </header>
 
     {/* Hero */}
-    <section className="header pt-lg-60 pb-50">
+    <section className="hero pt-lg-60 pb-50">
       <div className="container-xxl container-fluid">
         <div className="row gap-lg-0 gap-5">
           <div className="col-lg-6 col-12 my-auto">
             <p className="text-support text-lg color-palette-2">Halo gamers,</p>
-            <h1 className="header-title color-palette-1 fw-bold">
+            <h1 className="hero-title color-palette-1 fw-bold">
               Topup &amp; Get <span className="d-sm-inline d-none">a</span>
               <span className="d-sm-none d-inline">a</span>
               <span className="underline-blue"> New</span>{" "}
@@ -980,27 +986,27 @@ const Home: NextPage = () => (
       }
       /*  */
 
-      /* Header */
-      .header .header-title {
+      /* Hero */
+      .hero .hero-title {
         font-size: 2.625rem;
         line-height: 1.5;
       }
 
-      .header .btn-get {
+      .hero .btn-get {
         background-color: #4d17e2;
         padding: 0.75rem 3rem;
       }
 
-      .header .btn-learn:hover {
+      .hero .btn-learn:hover {
         color: #0c145a;
       }
 
-      .header .card {
+      .hero .card {
         border-radius: 1rem;
         box-shadow: -8px 8px 58px 0px rgba(0, 0, 0, 0.1);
       }
 
-      .header .left-card {
+      .hero .left-card {
         width: 207px;
         height: 112px;
         top: 6.68rem;
@@ -1008,7 +1014,7 @@ const Home: NextPage = () => (
         padding: 0.875rem;
       }
 
-      .header .right-card {
+      .hero .right-card {
         width: 135px;
         height: 177px;
         bottom: 6.5rem;
@@ -1016,7 +1022,7 @@ const Home: NextPage = () => (
         padding: 1.25rem 1.5rem;
       }
 
-      .header .right-card-support {
+      .hero .right-card-support {
         padding: 0.063rem 0.625rem;
         background-color: #00baff;
         width: max-content;
@@ -1150,7 +1156,7 @@ const Home: NextPage = () => (
 
       /* Medium devices (tablets, 768px and up) */
       @media (min-width: 768px) {
-        /* Header */
+        /* Hero */
 
         /*  */
       }
@@ -1164,13 +1170,13 @@ const Home: NextPage = () => (
         }
         /*  */
 
-        /* Header */
-        .header .underline-blue {
+        /* Hero */
+        .hero .underline-blue {
           text-decoration: none;
           position: relative;
         }
 
-        .header .underline-blue:after {
+        .hero .underline-blue:after {
           position: absolute;
           content: "";
           height: 8px;
