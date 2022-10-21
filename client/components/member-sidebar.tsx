@@ -237,14 +237,9 @@ export default function MemberSidebar() {
                 </clipPath>
               </defs>
             </svg>
-            <p className="item-title m-0">
-              <a
-                href="../member/edit-profile.html"
-                className="text-lg text-decoration-none"
-              >
-                Settings
-              </a>
-            </p>
+            <Link className="item-title m-0" href="/member/edit-profile">
+              <a className="text-lg text-decoration-none">Settings</a>
+            </Link>
           </div>
           <div className="item mb-30">
             <svg
