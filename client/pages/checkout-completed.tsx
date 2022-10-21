@@ -307,7 +307,6 @@ const CheckoutCompleted: NextPage = () => (
           width: 250px;
         }
       }
-      /*  */
     `}</style>
   </>
 );

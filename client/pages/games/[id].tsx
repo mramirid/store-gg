@@ -281,7 +281,7 @@ const GameDetails: NextPage = () => (
                       </p>
                     </div>
                   </label>
-                  <div className="col-lg-4 col-sm-6">{/* Blank */}</div>
+                  <div className="col-lg-4 col-sm-6" />
                 </div>
               </div>
               <div className="pb-md-50 pb-20">
@@ -368,7 +368,7 @@ const GameDetails: NextPage = () => (
                         </p>
                       </div>
                     </label>
-                    <div className="col-lg-4 col-sm-6">{/* Blank */}</div>
+                    <div className="col-lg-4 col-sm-6" />
                   </div>
                 </fieldset>
               </div>

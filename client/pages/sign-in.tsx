@@ -179,8 +179,6 @@ const SignIn: NextPage = () => (
           max-width: 437px;
         }
       }
-
-      /*  */
     `}</style>
   </>
 );

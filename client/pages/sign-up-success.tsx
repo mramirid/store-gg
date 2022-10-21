@@ -65,8 +65,6 @@ const SignUpSuccess: NextPage = () => (
               >
                 Create My Account
               </a>
-              {/* <button type="submit" class="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
-                      role="button">Create My Account</button> */}
               <a
                 className="btn btn-tnc text-lg color-palette-1 text-decoration-underline pt-15"
                 href="#"

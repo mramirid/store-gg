@@ -107,8 +107,6 @@ const SignUp: NextPage = () => (
             >
               Continue
             </a>
-            {/* <button type="submit" class="btn btn-sign-up fw-medium text-lg text-white rounded-pill mb-16"
-                  role="button">Continue</button> */}
             <a
               className="btn btn-sign-in fw-medium text-lg color-palette-1 rounded-pill"
               href="../src/sign-in.html"
@@ -163,8 +161,6 @@ const SignUp: NextPage = () => (
           max-width: 437px;
         }
       }
-
-      /*  */
     `}</style>
   </>
 );

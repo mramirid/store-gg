@@ -248,8 +248,6 @@ const Checkout: NextPage = () => (
           border-radius: 1.625rem;
         }
       }
-
-      /*  */
     `}</style>
   </>
 );

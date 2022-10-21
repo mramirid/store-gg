@@ -157,8 +157,6 @@ const SignUpPhoto: NextPage = () => (
           max-width: 437px;
         }
       }
-
-      /*  */
     `}</style>
   </>
 );
