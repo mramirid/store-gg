@@ -22,7 +22,7 @@ const GameDetails: NextPage = () => (
           <div className="col-xl-3 col-lg-4 col-md-5 pb-30 pb-md-0 pe-md-25 text-md-start">
             <div className="row align-items-center">
               <div className="col-md-12 col-4">
-                <figure className="img-wrapper">
+                <div className="img-wrapper">
                   <Image
                     src="/images/Thumbnail-3.png"
                     width={280}
@@ -31,7 +31,7 @@ const GameDetails: NextPage = () => (
                     className="img-fluid"
                     alt=""
                   />
-                </figure>
+                </div>
               </div>
               {/* Mobile: Game title */}
               <div className="col-md-12 col-8 d-md-none d-block">
@@ -405,7 +405,6 @@ const GameDetails: NextPage = () => (
 
     <style jsx>{`
       .img-wrapper {
-        margin: 0;
         border-radius: 1.625rem;
         overflow: hidden;
       }

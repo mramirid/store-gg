@@ -55,7 +55,7 @@ const Checkout: NextPage = () => (
         </div>
         <div className="game-checkout d-flex flex-row align-items-center pt-md-50 pb-md-50 pt-30 pb-30">
           <div className="pe-4">
-            <figure className="cropped">
+            <div className="img-wrapper">
               <Image
                 src="/images/Thumbnail-3.png"
                 className="img-fluid"
@@ -63,7 +63,7 @@ const Checkout: NextPage = () => (
                 height={380}
                 alt=""
               />
-            </figure>
+            </div>
           </div>
           <div>
             <p className="fw-bold text-xl color-palette-1 mb-10">
@@ -145,21 +145,14 @@ const Checkout: NextPage = () => (
         max-width: 800px;
       }
 
-      .img-fluid {
-        max-width: 100%;
-        height: auto;
-        border-radius: 1.625rem;
-      }
-
-      .cropped {
-        margin: 0;
+      .img-wrapper {
         width: 200px;
         height: 130px;
         overflow: hidden;
         border-radius: 1.625rem;
       }
 
-      .cropped img {
+      .img-wrapper img {
         margin: -10px 0px 0px 0px;
       }
 
@@ -248,7 +241,7 @@ const Checkout: NextPage = () => (
           float: right;
         }
 
-        .cropped {
+        .img-wrapper {
           width: 200px;
           height: 130px;
           overflow: hidden;
