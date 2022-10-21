@@ -7,7 +7,7 @@ import Link from "next/link";
 const Home: NextPage = () => (
   <>
     <Head>
-      <title>StoreGG</title>
+      <title>Home - StoreGG</title>
     </Head>
 
     {/* Navbar */}

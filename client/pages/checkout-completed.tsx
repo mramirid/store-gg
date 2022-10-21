@@ -6,7 +6,7 @@ import Link from "next/link";
 const CheckoutCompleted: NextPage = () => (
   <>
     <Head>
-      <title>Checkout Completed</title>
+      <title>Checkout Completed - StoreGG</title>
     </Head>
 
     <section className="mx-auto pt-lg-145 pb-lg-145 pt-100 pb-80">

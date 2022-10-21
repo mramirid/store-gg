@@ -7,7 +7,7 @@ import Link from "next/link";
 const SignIn: NextPage = () => (
   <>
     <Head>
-      <title>Sign In</title>
+      <title>Sign In - StoreGG</title>
     </Head>
 
     <section className="mx-auto">
