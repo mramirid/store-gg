@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import ImageFuture from "next/future/image";
 import Head from "next/head";
 import Image from "next/image";
 
@@ -708,13 +707,14 @@ const MemberOverview: NextPage = () => (
                 <tbody>
                   <tr className="align-middle">
                     <th scope="row">
-                      <ImageFuture
-                        className="float-start me-3 mb-lg-0 mb-3"
-                        src="/images/overview-1.png"
-                        width={80}
-                        height={60}
-                        alt=""
-                      />
+                      <div className="float-start me-3 mb-lg-0 mb-3">
+                        <Image
+                          src="/images/overview-1.png"
+                          width={80}
+                          height={60}
+                          alt=""
+                        />
+                      </div>
                       <div className="game-title-header">
                         <p className="game-title fw-medium text-start color-palette-1 m-0">
                           Mobile Legends: The New Battle 2021
@@ -743,13 +743,14 @@ const MemberOverview: NextPage = () => (
                   </tr>
                   <tr className="align-middle text-center">
                     <th scope="row">
-                      <ImageFuture
-                        className="float-start me-3 mb-lg-0 mb-3"
-                        src="/images/overview-2.png"
-                        width={80}
-                        height={60}
-                        alt=""
-                      />
+                      <div className="float-start me-3 mb-lg-0 mb-3">
+                        <Image
+                          src="/images/overview-2.png"
+                          width={80}
+                          height={60}
+                          alt=""
+                        />
+                      </div>
                       <div className="game-title-header">
                         <p className="game-title fw-medium text-start color-palette-1 m-0">
                           Call of Duty:Modern
@@ -780,13 +781,14 @@ const MemberOverview: NextPage = () => (
                   </tr>
                   <tr className="align-middle text-center">
                     <th scope="row">
-                      <ImageFuture
-                        className="float-start me-3 mb-lg-0 mb-3"
-                        src="/images/overview-3.png"
-                        width={80}
-                        height={60}
-                        alt=""
-                      />
+                      <div className="float-start me-3 mb-lg-0 mb-3">
+                        <Image
+                          src="/images/overview-3.png"
+                          width={80}
+                          height={60}
+                          alt=""
+                        />
+                      </div>
                       <div className="game-title-header">
                         <p className="game-title fw-medium text-start color-palette-1 m-0">
                           Clash of Clans
@@ -817,13 +819,14 @@ const MemberOverview: NextPage = () => (
                   </tr>
                   <tr className="align-middle text-center">
                     <th scope="row">
-                      <ImageFuture
-                        className="float-start me-3 mb-lg-0 mb-3"
-                        src="/images/overview-4.png"
-                        width={80}
-                        height={60}
-                        alt=""
-                      />
+                      <div className="float-start me-3 mb-lg-0 mb-3">
+                        <Image
+                          src="/images/overview-4.png"
+                          width={80}
+                          height={60}
+                          alt=""
+                        />
+                      </div>
                       <div className="game-title-header">
                         <p className="game-title fw-medium text-start color-palette-1 m-0">
                           The Royal Game

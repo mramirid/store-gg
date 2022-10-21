@@ -529,13 +529,15 @@ const Home: NextPage = () => (
             <Link href="/games/123">
               <a>
                 <div className="blur-sharp">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/Thumbnail-1.png"
-                    width={205}
-                    height={270}
-                    alt=""
-                  />
+                  <div className="featured-game__img-wrapper">
+                    <Image
+                      src="/images/Thumbnail-1.png"
+                      width={205}
+                      height={270}
+                      layout="fixed"
+                      alt=""
+                    />
+                  </div>
                 </div>
                 <div className="cover position-absolute bottom-0 m-32">
                   <div className="d-flex flex-column h-100 justify-content-between text-decoration-none">
@@ -568,13 +570,15 @@ const Home: NextPage = () => (
             <Link href="/games/123">
               <a>
                 <div className="blur-sharp">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/Thumbnail-2.png"
-                    width={205}
-                    height={270}
-                    alt=""
-                  />
+                  <div className="featured-game__img-wrapper">
+                    <Image
+                      src="/images/Thumbnail-2.png"
+                      width={205}
+                      height={270}
+                      layout="fixed"
+                      alt=""
+                    />
+                  </div>
                 </div>
                 <div className="cover position-absolute bottom-0 m-32">
                   <div className="d-flex flex-column h-100 justify-content-between text-decoration-none">
@@ -607,13 +611,15 @@ const Home: NextPage = () => (
             <Link href="/games/123">
               <a>
                 <div className="blur-sharp">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/Thumbnail-3.png"
-                    width={205}
-                    height={270}
-                    alt=""
-                  />
+                  <div className="featured-game__img-wrapper">
+                    <Image
+                      src="/images/Thumbnail-3.png"
+                      width={205}
+                      height={270}
+                      layout="fixed"
+                      alt=""
+                    />
+                  </div>
                 </div>
                 <div className="cover position-absolute bottom-0 m-32">
                   <div className="d-flex flex-column h-100 justify-content-between text-decoration-none">
@@ -646,13 +652,15 @@ const Home: NextPage = () => (
             <Link href="/games/123">
               <a>
                 <div className="blur-sharp">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/Thumbnail-4.png"
-                    width={205}
-                    height={270}
-                    alt=""
-                  />
+                  <div className="featured-game__img-wrapper">
+                    <Image
+                      src="/images/Thumbnail-4.png"
+                      width={205}
+                      height={270}
+                      layout="fixed"
+                      alt=""
+                    />
+                  </div>
                 </div>
                 <div className="cover position-absolute bottom-0 m-32">
                   <div className="d-flex flex-column h-100 justify-content-between text-decoration-none">
@@ -685,13 +693,15 @@ const Home: NextPage = () => (
             <Link href="/games/123">
               <a>
                 <div className="blur-sharp">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/Thumbnail-5.png"
-                    width={205}
-                    height={270}
-                    alt=""
-                  />
+                  <div className="featured-game__img-wrapper">
+                    <Image
+                      src="/images/Thumbnail-5.png"
+                      width={205}
+                      height={270}
+                      layout="fixed"
+                      alt=""
+                    />
+                  </div>
                 </div>
                 <div className="cover position-absolute bottom-0 m-32">
                   <div className="d-flex flex-column h-100 justify-content-between text-decoration-none">
@@ -1070,12 +1080,16 @@ const Home: NextPage = () => (
         height: 270px;
       }
 
+      .featured-game .featured-game-card .featured-game__img-wrapper {
+        font-size: 0;
+      }
+
       .featured-game .featured-game-card:hover {
         transition: all 0.4s;
         border: 4px solid #2b2467;
       }
 
-      .featured-game .featured-game-card:hover img {
+      .featured-game .featured-game-card:hover .featured-game__img-wrapper {
         transition: all 0.4s;
         filter: blur(40px);
         width: 181px;
