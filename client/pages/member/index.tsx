@@ -6,7 +6,7 @@ import MemberSidebar from "../../components/member-sidebar";
 const MemberOverview: NextPage = () => (
   <>
     <Head>
-      <title>Overview</title>
+      <title>Overview - StoreGG</title>
     </Head>
 
     <section className="overview overflow-auto">

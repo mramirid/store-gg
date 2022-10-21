@@ -6,7 +6,7 @@ import MemberSidebar from "../../../components/member-sidebar";
 const MemberTransactionDetails: NextPage = () => (
   <>
     <Head>
-      <title>Transaction Details</title>
+      <title>Transaction Details - StoreGG</title>
     </Head>
 
     <section className="transactions-detail overflow-auto">
