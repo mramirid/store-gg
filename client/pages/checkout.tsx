@@ -58,9 +58,8 @@ const Checkout: NextPage = () => (
             <div className="img-wrapper">
               <Image
                 src="/images/Thumbnail-3.png"
-                className="img-fluid"
-                width={280}
-                height={380}
+                objectFit="cover"
+                layout="fill"
                 alt=""
               />
             </div>
@@ -146,6 +145,7 @@ const Checkout: NextPage = () => (
       }
 
       .img-wrapper {
+        position: relative;
         width: 200px;
         height: 130px;
         overflow: hidden;

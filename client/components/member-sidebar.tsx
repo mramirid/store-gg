@@ -11,7 +11,7 @@ export default function MemberSidebar() {
             width={90}
             height={90}
             alt="Your avatar"
-            className="img-fluid mb-20"
+            className="mb-20"
           />
           <h2 className="fw-bold text-xl color-palette-1 m-0">Harley Hanson</h2>
           <p className="color-palette-2 m-0">hanson@example.net</p>

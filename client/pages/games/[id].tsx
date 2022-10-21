@@ -28,7 +28,6 @@ const GameDetails: NextPage = () => (
                     width={280}
                     height={380}
                     layout="responsive"
-                    className="img-fluid"
                     alt=""
                   />
                 </div>
