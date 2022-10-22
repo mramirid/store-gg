@@ -64,7 +64,7 @@ const MemberTransactions: NextPage = () => (
               <table className="table table-borderless">
                 <thead>
                   <tr className="color-palette-1">
-                    <th className="" scope="col">
+                    <th scope="col">
                       Game
                     </th>
                     <th scope="col">Item</th>

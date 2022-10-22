@@ -58,22 +58,20 @@ const GameDetails: NextPage = () => (
             <hr />
             <form action="./checkout.html" method="POST">
               <div className="pt-md-50 pt-30">
-                <div className="">
-                  <label
-                    htmlFor="ID"
-                    className="form-label text-lg fw-medium color-palette-1 mb-10"
-                  >
-                    Verify ID
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control rounded-pill text-lg"
-                    id="ID"
-                    name="ID"
-                    aria-describedby="verifyID"
-                    placeholder="Enter your ID"
-                  />
-                </div>
+                <label
+                  htmlFor="ID"
+                  className="form-label text-lg fw-medium color-palette-1 mb-10"
+                >
+                  Verify ID
+                </label>
+                <input
+                  type="text"
+                  className="form-control rounded-pill text-lg"
+                  id="ID"
+                  name="ID"
+                  aria-describedby="verifyID"
+                  placeholder="Enter your ID"
+                />
               </div>
               <div className="pt-md-50 pb-md-50 pt-30 pb-20">
                 <p className="text-lg fw-medium color-palette-1 mb-md-10 mb-0">
