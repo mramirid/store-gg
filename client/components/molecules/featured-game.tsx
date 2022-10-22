@@ -72,8 +72,6 @@ export default function FeaturedGame(props: {
           border-radius: 1.625rem;
         }
         .featured-game__card:hover .blur-sharp {
-          width: 100%;
-          height: 100%;
           border: 7px solid white;
         }
 
@@ -91,6 +89,16 @@ export default function FeaturedGame(props: {
 
         .game-icon {
           margin-top: 3.125rem;
+        }
+
+        /* Large devices (desktops, 992px and up) */
+        @media (min-width: 992px) {
+          .featured-game__card:hover .blur-sharp {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
         }
       `}</style>
     </div>
