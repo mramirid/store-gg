@@ -1,7 +1,7 @@
+import MemberSidebar from "components/member-sidebar";
 import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import MemberSidebar from "../../../components/member-sidebar";
 
 const MemberTransactions: NextPage = () => (
   <>
@@ -64,9 +64,7 @@ const MemberTransactions: NextPage = () => (
               <table className="table table-borderless">
                 <thead>
                   <tr className="color-palette-1">
-                    <th scope="col">
-                      Game
-                    </th>
+                    <th scope="col">Game</th>
                     <th scope="col">Item</th>
                     <th scope="col">Price</th>
                     <th scope="col">Status</th>

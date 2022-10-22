@@ -1,7 +1,7 @@
+import MemberSidebar from "components/member-sidebar";
 import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import MemberSidebar from "../../components/member-sidebar";
 
 const EditProfile: NextPage = () => (
   <>

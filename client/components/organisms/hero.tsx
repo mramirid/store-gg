@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Star from "../../public/icons/star.svg";
+import Star from "public/icons/star.svg";
 
 export default function Hero() {
   return (

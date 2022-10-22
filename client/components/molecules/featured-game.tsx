@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import Console from "../../public/icons/console.svg";
+import Console from "public/icons/console.svg";
 
 export default function FeaturedGame(props: {
   id: string;
