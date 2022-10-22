@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Console from "../../public/icons/console.svg";
 
 export default function FeaturedGame(props: {
   id: string;
@@ -25,12 +26,7 @@ export default function FeaturedGame(props: {
           <div className="cover position-absolute bottom-0 m-32">
             <div className="d-flex flex-column h-100 justify-content-between text-decoration-none">
               <div className="game-icon mx-auto">
-                <Image
-                  src="/icons/console.svg"
-                  width={54}
-                  height={36}
-                  alt="Console"
-                />
+                <Console />
               </div>
               <div>
                 <p className="fw-semibold text-white text-xl m-0">

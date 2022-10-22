@@ -1,6 +1,7 @@
 import classnames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
+import Logo from "../../public/icons/logo.svg";
 
 const isLoggedIn = true;
 
@@ -15,8 +16,8 @@ export default function Navbar() {
       >
         <div className="container-fluid">
           <Link className="navbar-brand" href="/">
-            <a>
-              <Image src="/icons/logo.svg" width={60} height={60} alt="Logo" />
+            <a title="Homepage - StoreGG">
+              <Logo />
             </a>
           </Link>
           <ToggleMenu />

@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import Logo from "../../public/icons/logo.svg";
 
 export default function Footer() {
   return (
@@ -8,13 +8,8 @@ export default function Footer() {
         <div className="row">
           <div className="col-lg-4 text-lg-start text-center">
             <Link href="/">
-              <a className="d-block mb-30">
-                <Image
-                  src="/icons/logo.svg"
-                  width={60}
-                  height={60}
-                  alt="Logo"
-                />
+              <a className="d-block lh-1 mb-30" title="Homepage - StoreGG">
+                <Logo />
               </a>
             </Link>
             <p className="mt-30 text-lg color-palette-1 mb-30">
