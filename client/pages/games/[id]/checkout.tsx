@@ -1,10 +1,10 @@
+import Logo from "components/atoms/logo";
 import { CheckoutConfirmation } from "components/organisms/checkout-confirmation";
 import { CheckoutDetails } from "components/organisms/checkout-details";
 import { CheckoutGame } from "components/organisms/checkout-game";
 import { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import Logo from "public/icons/logo.svg";
 
 const Checkout: NextPage = () => (
   <>

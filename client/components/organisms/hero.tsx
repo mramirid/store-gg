@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Star from "public/icons/star.svg";
+import StarIcon from "components/atoms/star-icon";
 
 export default function Hero() {
   return (
@@ -113,11 +113,11 @@ function Ilustration() {
               </div>
             </div>
             <div className="d-flex gap-2">
-              <Star />
-              <Star />
-              <Star />
-              <Star />
-              <Star />
+              <StarIcon />
+              <StarIcon />
+              <StarIcon />
+              <StarIcon />
+              <StarIcon />
             </div>
           </div>
           <div className="card right-card position-absolute border-0">

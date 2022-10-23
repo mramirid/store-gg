@@ -1,7 +1,7 @@
 import classnames from "classnames";
+import Logo from "components/atoms/logo";
 import Image from "next/image";
 import Link from "next/link";
-import Logo from "public/icons/logo.svg";
 
 const isLoggedIn = true;
 
