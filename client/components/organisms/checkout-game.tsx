@@ -1,0 +1,48 @@
+import Image from "next/image";
+
+export function CheckoutGame() {
+  return (
+    <div className="d-flex flex-row align-items-center pt-md-50 pb-md-50 pt-30 pb-30">
+      <div className="pe-4">
+        <div className="img-wrapper">
+          <Image
+            src="/images/Thumbnail-3.png"
+            objectFit="cover"
+            layout="fill"
+            className="img-fluid"
+            alt=""
+          />
+        </div>
+      </div>
+      <div>
+        <p className="fw-bold text-xl color-palette-1 mb-10">
+          Mobile Legends:
+          <br /> The New Battle 2021
+        </p>
+        <p className="color-palette-2 m-0">Category: Mobile</p>
+      </div>
+
+      <style jsx>{`
+        .img-wrapper {
+          position: relative;
+          width: 110px;
+          height: 140px;
+          overflow: hidden;
+          border-radius: 1.625rem;
+        }
+
+        .img-wrapper img {
+          margin: -10px 0px 0px 0px;
+        }
+
+        /* Medium devices (landscape phones, 768px and up) */
+        @media (min-width: 768px) {
+          .img-wrapper {
+            width: 200px;
+            height: 130px;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
