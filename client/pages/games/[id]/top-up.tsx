@@ -1,15 +1,19 @@
-import GameDetails from "components/organisms/game-details";
+import Footer from "components/organisms/footer";
+import Navbar from "components/organisms/navbar";
+import TopUpGame from "components/organisms/top-up-game";
 import TopUpForm from "components/organisms/top-up-form";
 import { NextPage } from "next";
 import Head from "next/head";
 
-const GameDetailsPage: NextPage = () => (
+const TopUp: NextPage = () => (
   <>
     <Head>
-      <title>Details</title>
+      <title>Topup GAME_NAME - StoreGG</title>
     </Head>
 
-    <section className="pt-lg-60 pb-50">
+    <Navbar />
+
+    <section className="pt-lg-60 pb-100">
       <div className="container-xxl container-fluid">
         <div className="detail-header pb-50">
           <h2 className="text-4xl fw-bold color-palette-1 text-start mb-10">
@@ -21,10 +25,10 @@ const GameDetailsPage: NextPage = () => (
         </div>
         <div className="row">
           <div className="col-xl-3 col-lg-4 col-md-5 pb-30 pb-md-0 pe-md-25 text-md-start">
-            <GameDetails />
+            <TopUpGame forMobile />
           </div>
           <div className="col-xl-9 col-lg-8 col-md-7 ps-md-25">
-            <GameDetails forDesktop />
+            <TopUpGame />
             <hr />
             <TopUpForm />
           </div>
@@ -32,12 +36,9 @@ const GameDetailsPage: NextPage = () => (
       </div>
     </section>
 
-    <style jsx>{`
-      .img-wrapper {
-        border-radius: 1.625rem;
-        overflow: hidden;
-      }
+    <Footer />
 
+    <style jsx>{`
       hr {
         margin: 0;
         background-color: #e7eaf5;
@@ -48,4 +49,4 @@ const GameDetailsPage: NextPage = () => (
   </>
 );
 
-export default GameDetailsPage;
+export default TopUp;

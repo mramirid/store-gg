@@ -10,7 +10,7 @@ export default function FeaturedGame(props: {
 }) {
   return (
     <div className="featured-game__card position-relative">
-      <Link href={`/games/${props.id}`}>
+      <Link href={`/games/${props.id}/top-up`}>
         <a>
           <div className="blur-sharp">
             <div className="featured-game__img-wrapper">
