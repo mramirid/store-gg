@@ -10,7 +10,7 @@ export default function Story() {
             className="col-lg-7 col-12 d-lg-flex d-none justify-content-lg-end pe-lg-60"
             data-aos="zoom-in"
           >
-            <Image src="/images/Header-9.png" width={612} height={452} alt="" />
+            <Image src="/images/header-2.png" width={612} height={452} alt="" />
           </div>
           <div className="col-lg-5 col-12 ps-lg-60">
             <h2 className="text-4xl fw-bold color-palette-1 mb-30">

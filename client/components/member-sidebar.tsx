@@ -7,11 +7,11 @@ export default function MemberSidebar() {
       <div className="content pt-50 pb-30 ps-30">
         <div className="user text-center pb-50 pe-30">
           <Image
-            src="/images/avatar-1.png"
+            src="/images/avatar-1.jpg"
             width={90}
             height={90}
             alt="Your avatar"
-            className="mb-20"
+            className="mb-20 rounded-circle"
           />
           <h2 className="fw-bold text-xl color-palette-1 m-0">Harley Hanson</h2>
           <p className="color-palette-2 m-0">hanson@example.net</p>

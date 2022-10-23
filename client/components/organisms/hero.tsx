@@ -87,7 +87,7 @@ function Ilustration() {
       <div className="d-flex justify-content-lg-end justify-content-center me-lg-5">
         <div className="position-relative" data-aos="zoom-in">
           <Image
-            src="/images/Header-1.png"
+            src="/images/header-1.png"
             className="img-fluid"
             alt=""
             priority
@@ -97,7 +97,7 @@ function Ilustration() {
           <div className="card left-card position-absolute border-0">
             <div className="d-flex align-items-center mb-16 gap-3">
               <Image
-                src="/images/Header-2.png"
+                src="/images/avatar-1.jpg"
                 width={40}
                 height={40}
                 className="rounded-pill"
@@ -123,7 +123,7 @@ function Ilustration() {
           <div className="card right-card position-absolute border-0">
             <div className="position-relative d-flex flex-row justify-content-center mb-24">
               <Image
-                src="/images/Header-3.png"
+                src="/images/avatar-2.jpg"
                 className="rounded-pill"
                 alt=""
                 width={80}

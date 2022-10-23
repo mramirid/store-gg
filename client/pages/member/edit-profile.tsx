@@ -19,8 +19,8 @@ const EditProfile: NextPage = () => (
               <div className="photo d-flex">
                 <div className="avatar__wrapper me-20">
                   <Image
-                    className="avatar"
-                    src="/images/avatar-1.png"
+                    className="avatar rounded-circle"
+                    src="/images/avatar-1.jpg"
                     width={90}
                     height={90}
                     alt="Your current avatar"

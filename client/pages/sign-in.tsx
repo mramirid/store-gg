@@ -115,7 +115,7 @@ const SignIn: NextPage = () => (
           )}
         >
           <Image
-            src="/images/Header-9.png"
+            src="/images/header-2.png"
             width={502}
             height={391}
             className="img-fluid"

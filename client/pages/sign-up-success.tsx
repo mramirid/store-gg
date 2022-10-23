@@ -17,7 +17,7 @@ const SignUpSuccess: NextPage = () => (
                 <div className="image-upload text-center">
                   <label htmlFor="file-input">
                     <Image
-                      src="/images/avatar-1.png"
+                      src="/images/avatar-1.jpg"
                       width={120}
                       height={120}
                       className="rounded-circle"
