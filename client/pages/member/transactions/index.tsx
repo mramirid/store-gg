@@ -1,4 +1,4 @@
-import MemberSidebar from "components/member-sidebar";
+import MemberSidebar from "components/organisms/member-sidebar";
 import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
