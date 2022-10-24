@@ -12,27 +12,29 @@ const Checkout: NextPage = () => (
       <title>Checkout GAME_NAME - StoreGG</title>
     </Head>
 
-    <section className="checkout mx-auto pt-md-100 pb-md-145 pt-30 pb-30">
+    <div className="checkout mx-auto pt-md-100 pb-md-145 pt-30 pb-30">
       <div className="container-fluid">
-        <div className="logo text-md-center text-start pb-50">
+        <header className="logo text-md-center text-start pb-50">
           <Link href="/">
             <a title="Homepage - StoreGG">
               <Logo />
             </a>
           </Link>
-        </div>
-        <div className="title-text pt-md-50 pt-0">
-          <h2 className="text-4xl fw-bold color-palette-1 mb-10">Checkout</h2>
-          <p className="text-lg color-palette-1 mb-0">
-            Waktunya meningkatkan cara bermain
-          </p>
-        </div>
-        <CheckoutGame />
-        <hr />
-        <CheckoutDetails />
-        <CheckoutConfirmation />
+        </header>
+        <main>
+          <div className="title-text pt-md-50 pt-0">
+            <h1 className="text-4xl fw-bold color-palette-1 mb-10">Checkout</h1>
+            <p className="text-lg color-palette-1 mb-0">
+              Waktunya meningkatkan cara bermain
+            </p>
+          </div>
+          <CheckoutGame />
+          <hr />
+          <CheckoutDetails />
+          <CheckoutConfirmation />
+        </main>
       </div>
-    </section>
+    </div>
 
     <style jsx>{`
       .checkout {

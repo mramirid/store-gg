@@ -9,15 +9,15 @@ const NotFound: NextPage = () => (
       <title>Not Found - StoreGG</title>
     </Head>
 
-    <section className="mx-auto pt-145 pb-md-212 pb-100">
+    <main className="mx-auto pt-145 pb-md-212 pb-100">
       <div className="container-fluid">
         <div className="text-center">
           <Page404Ilustration className="img-fluid" />
         </div>
         <div className="pt-70 pb-50">
-          <h2 className="text-4xl fw-bold text-center color-palette-1 mb-10">
+          <h1 className="text-4xl fw-bold text-center color-palette-1 mb-10">
             Oops! Not Found
-          </h2>
+          </h1>
           <p className="text-lg text-center color-palette-1 m-0">
             Halaman yang anda kunjungi sudah
             <br className="d-sm-block d-none" />
@@ -35,7 +35,7 @@ const NotFound: NextPage = () => (
           </Link>
         </div>
       </div>
-    </section>
+    </main>
 
     <style jsx>{`
       .btn-homepage {

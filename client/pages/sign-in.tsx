@@ -12,20 +12,40 @@ const SignIn: NextPage = () => (
       <title>Sign In - StoreGG</title>
     </Head>
 
-    <section className="mx-auto">
+    <div className="mx-auto">
       <div className="row vh-100">
         <div className="col-xxl-5 col-lg-6 my-auto py-lg-0 pt-lg-50 pb-lg-50 pt-30 pb-47 px-0">
           <div className="container mx-auto">
-            <div className="pb-50">
+            <header className="pb-50">
               <Link href="/">
                 <a title="Homepage - StoreGG">
                   <Logo />
                 </a>
               </Link>
-            </div>
-            <SignInForm />
+            </header>
+
+            <main>
+              <h1 className="text-4xl fw-bold color-palette-1 mb-10">
+                Sign In
+              </h1>
+              <p className="text-lg color-palette-1 m-0">
+                Masuk untuk melakukan proses top up
+              </p>
+
+              <SignInForm />
+
+              <Link href="/sign-up">
+                <a
+                  className="d-block mt-3 btn btn-sign-up fw-medium text-lg color-palette-1 rounded-pill"
+                  role="button"
+                >
+                  Sign Up
+                </a>
+              </Link>
+            </main>
           </div>
         </div>
+
         <div
           className={classNames(
             "d-none d-lg-flex flex-column align-items-center justify-content-center",
@@ -52,9 +72,14 @@ const SignIn: NextPage = () => (
           </p>
         </div>
       </div>
-    </section>
+    </div>
 
     <style jsx>{`
+      .btn-sign-up {
+        padding: 0.75rem;
+        background-color: #e7eaf5;
+      }
+
       .bg-blue {
         background-color: #1a1640;
       }

@@ -2,12 +2,8 @@ import Link from "next/link";
 
 export default function SignUpEntryForm() {
   return (
-    <form action="">
-      <h2 className="text-4xl fw-bold color-palette-1 mb-10">Sign Up</h2>
-      <p className="text-lg color-palette-1 m-0">
-        Daftar dan bergabung dengan kami
-      </p>
-      <div className="pt-50">
+    <form className="mt-50">
+      <div>
         <label
           htmlFor="name"
           className="form-label text-lg fw-medium color-palette-1 mb-10"
@@ -55,24 +51,14 @@ export default function SignUpEntryForm() {
           placeholder="Your password"
         />
       </div>
-      <div className="button-group d-flex flex-column mx-auto pt-50">
-        <Link href="/sign-up/photo">
-          <a
-            className="btn btn-sign-up fw-medium text-lg text-white rounded-pill mb-16"
-            role="button"
-          >
-            Continue
-          </a>
-        </Link>
-        <Link href="/sign-in">
-          <a
-            className="btn btn-sign-in fw-medium text-lg color-palette-1 rounded-pill"
-            role="button"
-          >
-            Sign In
-          </a>
-        </Link>
-      </div>
+      <Link href="/sign-up/photo">
+        <a
+          className="d-block mt-50 btn btn-sign-up fw-medium text-lg text-white rounded-pill"
+          role="button"
+        >
+          Continue
+        </a>
+      </Link>
 
       <style jsx>{`
         input[type="password"],
@@ -98,15 +84,6 @@ export default function SignUpEntryForm() {
         .btn-sign-up {
           padding: 0.75rem;
           background-color: #4d17e2;
-        }
-
-        .btn-sign-in {
-          padding: 0.75rem;
-          background-color: #e7eaf5;
-        }
-
-        .button-group {
-          width: 100%;
         }
 
         @media (min-width: 992px) {

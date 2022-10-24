@@ -13,12 +13,12 @@ const TopUp: NextPage = () => (
 
     <Navbar />
 
-    <section className="pt-lg-60 pb-100">
+    <main className="pt-lg-60 pb-100">
       <div className="container-xxl container-fluid">
         <div className="detail-header pb-50">
-          <h2 className="text-4xl fw-bold color-palette-1 text-start mb-10">
+          <h1 className="text-4xl fw-bold color-palette-1 text-start mb-10">
             Top Up
-          </h2>
+          </h1>
           <p className="text-lg color-palette-1 mb-0">
             Perkuat akun dan jadilah pemenang
           </p>
@@ -34,7 +34,7 @@ const TopUp: NextPage = () => (
           </div>
         </div>
       </div>
-    </section>
+    </main>
 
     <Footer />
 

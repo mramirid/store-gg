@@ -15,10 +15,10 @@ export function CheckoutGame() {
         </div>
       </div>
       <div>
-        <p className="fw-bold text-xl color-palette-1 mb-10">
+        <h2 className="fw-bold text-xl color-palette-1 mb-10">
           Mobile Legends:
           <br /> The New Battle 2021
-        </p>
+        </h2>
         <p className="color-palette-2 m-0">Category: Mobile</p>
       </div>
 

@@ -9,7 +9,7 @@ const SignUpUploadPhoto: NextPage = () => (
       <title>Sign Up Upload Photo - StoreGG</title>
     </Head>
 
-    <section className="mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">
+    <main className="mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">
       <div className="container mx-auto">
         <form className="form-input d-md-block d-flex flex-column">
           <div>
@@ -76,7 +76,7 @@ const SignUpUploadPhoto: NextPage = () => (
           </div>
         </form>
       </div>
-    </section>
+    </main>
 
     <style jsx>{`
       .image-upload > input {
