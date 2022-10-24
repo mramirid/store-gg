@@ -1,4 +1,4 @@
-import Logo from "components/atoms/logo";
+import LogoIcon from "components/atoms/logo.icon";
 import Link from "next/link";
 
 export default function Footer() {
@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="col-lg-4 text-lg-start text-center">
             <Link href="/">
               <a className="d-block lh-1 mb-30" title="Homepage - StoreGG">
-                <Logo />
+                <LogoIcon />
               </a>
             </Link>
             <p className="mt-30 text-lg color-palette-1 mb-30">

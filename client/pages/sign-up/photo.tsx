@@ -1,9 +1,9 @@
-import UploadPhotoIcon from "components/atoms/upload-photo-icon";
+import UploadPhotoIcon from "components/atoms/upload-photo.icon";
 import { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
-const SignUpUploadPhoto: NextPage = () => (
+const SignUpPhoto: NextPage = () => (
   <>
     <Head>
       <title>Sign Up Upload Photo - StoreGG</title>
@@ -131,4 +131,4 @@ const SignUpUploadPhoto: NextPage = () => (
   </>
 );
 
-export default SignUpUploadPhoto;
+export default SignUpPhoto;

@@ -1,4 +1,4 @@
-import Logo from "components/atoms/logo";
+import LogoIcon from "components/atoms/logo.icon";
 import SignUpEntryForm from "components/organisms/sign-up-entry-form";
 import { NextPage } from "next";
 import Head from "next/head";
@@ -15,7 +15,7 @@ const SignUp: NextPage = () => (
         <header className="pb-50">
           <Link href="/">
             <a title="Homepage - StoreGG">
-              <Logo />
+              <LogoIcon />
             </a>
           </Link>
         </header>

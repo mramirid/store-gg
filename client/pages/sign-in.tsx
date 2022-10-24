@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import Logo from "components/atoms/logo";
+import LogoIcon from "components/atoms/logo.icon";
 import SignInForm from "components/organisms/sign-in-form";
 import { NextPage } from "next";
 import Head from "next/head";
@@ -19,7 +19,7 @@ const SignIn: NextPage = () => (
             <header className="pb-50">
               <Link href="/">
                 <a title="Homepage - StoreGG">
-                  <Logo />
+                  <LogoIcon />
                 </a>
               </Link>
             </header>

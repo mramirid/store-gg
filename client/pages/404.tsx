@@ -1,4 +1,4 @@
-import Page404Ilustration from "components/atoms/page-404-ilustration";
+import PageNotFoundIlustration from "components/atoms/page-not-found.ilustration";
 import { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -12,7 +12,7 @@ const NotFound: NextPage = () => (
     <main className="mx-auto pt-145 pb-md-212 pb-100">
       <div className="container-fluid">
         <div className="text-center">
-          <Page404Ilustration className="img-fluid" />
+          <PageNotFoundIlustration className="img-fluid" />
         </div>
         <div className="pt-70 pb-50">
           <h1 className="text-4xl fw-bold text-center color-palette-1 mb-10">

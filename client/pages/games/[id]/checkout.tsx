@@ -1,4 +1,4 @@
-import Logo from "components/atoms/logo";
+import LogoIcon from "components/atoms/logo.icon";
 import { CheckoutConfirmation } from "components/organisms/checkout-confirmation";
 import { CheckoutDetails } from "components/organisms/checkout-details";
 import { CheckoutGame } from "components/organisms/checkout-game";
@@ -17,7 +17,7 @@ const Checkout: NextPage = () => (
         <header className="logo text-md-center text-start pb-50">
           <Link href="/">
             <a title="Homepage - StoreGG">
-              <Logo />
+              <LogoIcon />
             </a>
           </Link>
         </header>

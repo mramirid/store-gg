@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import Logo from "components/atoms/logo";
+import LogoIcon from "components/atoms/logo.icon";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,7 +17,7 @@ export default function Navbar() {
         <div className="container-fluid">
           <Link className="navbar-brand" href="/">
             <a title="Homepage - StoreGG">
-              <Logo />
+              <LogoIcon />
             </a>
           </Link>
           <ToggleMenu />

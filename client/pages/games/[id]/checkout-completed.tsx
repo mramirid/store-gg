@@ -1,4 +1,4 @@
-import CheckoutCompletedIlustration from "components/atoms/checkout-completed-ilustration";
+import CheckoutCompletedIlustration from "components/atoms/checkout-completed.ilustration";
 import { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";

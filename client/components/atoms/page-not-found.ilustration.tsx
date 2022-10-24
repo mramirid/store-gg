@@ -1,6 +1,6 @@
 import { SVGProps } from "react";
 
-export default function Page404Ilustration(props: SVGProps<SVGSVGElement>) {
+export default function PageNotFoundIlustration(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       width={483}
