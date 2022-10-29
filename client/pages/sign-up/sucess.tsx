@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 
 const SignUpSuccess: NextPage = () => (
   <>
@@ -17,7 +18,7 @@ const SignUpSuccess: NextPage = () => (
                 <div className="image-upload text-center">
                   <label htmlFor="file-input">
                     <Image
-                      src="/images/avatar-1.png"
+                      src="/images/avatar-1.jpg"
                       width={120}
                       height={120}
                       className="rounded-circle"
@@ -58,20 +59,22 @@ const SignUpSuccess: NextPage = () => (
               </div>
             </div>
             <div className="button-group d-flex flex-column mx-auto">
-              <a
-                className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
-                href="./sign-up-success.html"
-                role="button"
-              >
-                Create My Account
-              </a>
-              <a
-                className="btn btn-tnc text-lg color-palette-1 text-decoration-underline pt-15"
-                href="#"
-                role="button"
-              >
-                Terms &amp; Conditions
-              </a>
+              <Link href="/member">
+                <a
+                  className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
+                  role="button"
+                >
+                  Create My Account
+                </a>
+              </Link>
+              <Link href="/404">
+                <a
+                  className="btn btn-tnc text-lg color-palette-1 text-decoration-underline pt-15"
+                  role="button"
+                >
+                  Terms &amp; Conditions
+                </a>
+              </Link>
             </div>
           </div>
         </form>
