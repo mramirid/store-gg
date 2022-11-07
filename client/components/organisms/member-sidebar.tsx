@@ -19,49 +19,49 @@ export default function MemberSidebar() {
       <nav>
         <ul className="menus p-0 m-0">
           <MenuItem
-            className="item mb-30"
+            className="mb-30"
             Icon={OverviewIcon}
             label="Overview"
             href="/member"
             isActive
           />
           <MenuItem
-            className="item mb-30"
+            className="mb-30"
             Icon={TransactionsIcon}
             label="Transactions"
             href="/member/transactions"
             isActive={false}
           />
           <MenuItem
-            className="item mb-30"
+            className="mb-30"
             Icon={MessagesIcon}
             label="Messages"
             href="/member/messages"
             isActive={false}
           />
           <MenuItem
-            className="item mb-30"
+            className="mb-30"
             Icon={CardIcon}
             label="Card"
             href="/member/card"
             isActive={false}
           />
           <MenuItem
-            className="item mb-30"
+            className="mb-30"
             Icon={RewardsIcon}
             label="Rewards"
             href="/member/rewards"
             isActive={false}
           />
           <MenuItem
-            className="item mb-30"
+            className="mb-30"
             Icon={SettingsIcon}
             label="Settings"
             href="/member/settings"
             isActive={false}
           />
           <MenuItem
-            className="item mb-30"
+            className="mb-30"
             Icon={LogoutIcon}
             label="Log Out"
             href="/member/logout"
@@ -126,8 +126,8 @@ function MenuItem(props: {
     <>
       <li className={classNames({ active: props.isActive }, props.className)}>
         <props.Icon />
-        <Link href={props.href} className="item-title m-0">
-          <a className="text-lg text-decoration-none">{props.label}</a>
+        <Link href={props.href} className="m-0 text-lg text-decoration-none">
+          <span className="label">{props.label}</span>
         </Link>
       </li>
 
@@ -138,8 +138,8 @@ function MenuItem(props: {
           position: relative;
         }
 
-        li.active a,
-        li:hover a {
+        li.active .label,
+        li:hover .label {
           color: #0c145a;
           font-weight: 500;
         }
@@ -162,7 +162,7 @@ function MenuItem(props: {
           transition: all 0.2s linear;
         }
 
-        li a {
+        .label {
           color: #7e8cac;
           transition: all 0.2s linear;
         }
@@ -183,13 +183,11 @@ function Footer() {
             Be The Winner
           </p>
         </div>
-        <a
-          className="btn btn-get-started w-100 fw-medium text-xs text-center text-white rounded-pill"
-          href="#"
-          role="button"
-        >
-          Get Started
-        </a>
+        <Link href="/#feature">
+          <button className="btn btn-get-started w-100 fw-medium text-xs text-center text-white rounded-pill">
+            Get Started
+          </button>
+        </Link>
       </div>
 
       <style jsx>{`

@@ -13,10 +13,8 @@ const SignUp: NextPage = () => (
     <div className="mx-auto pt-lg-100 pb-lg-100 pt-30 pb-47">
       <div className="container mx-auto">
         <header className="pb-50">
-          <Link href="/">
-            <a title="Homepage - StoreGG">
-              <LogoIcon />
-            </a>
+          <Link href="/" title="Homepage - StoreGG">
+            <LogoIcon />
           </Link>
         </header>
 
@@ -28,13 +26,10 @@ const SignUp: NextPage = () => (
 
           <SignUpEntryForm />
 
-          <Link href="/sign-in">
-            <a
-              className="btn d-block mt-3 btn-sign-in fw-medium text-lg color-palette-1 rounded-pill"
-              role="button"
-            >
+          <Link href="/sign-in" className="text-decoration-none" role="button">
+            <span className="btn d-block mt-3 btn-sign-in fw-medium text-lg color-palette-1 rounded-pill">
               Sign In
-            </a>
+            </span>
           </Link>
         </main>
       </div>

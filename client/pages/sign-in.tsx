@@ -17,10 +17,8 @@ const SignIn: NextPage = () => (
         <div className="col-xxl-5 col-lg-6 my-auto py-lg-0 pt-lg-50 pb-lg-50 pt-30 pb-47 px-0">
           <div className="container mx-auto">
             <header className="pb-50">
-              <Link href="/">
-                <a title="Homepage - StoreGG">
-                  <LogoIcon />
-                </a>
+              <Link href="/" title="Homepage - StoreGG">
+                <LogoIcon />
               </Link>
             </header>
 
@@ -34,13 +32,10 @@ const SignIn: NextPage = () => (
 
               <SignInForm />
 
-              <Link href="/sign-up">
-                <a
-                  className="d-block mt-3 btn btn-sign-up fw-medium text-lg color-palette-1 rounded-pill"
-                  role="button"
-                >
+              <Link href="/sign-up" className="text-decoration-none">
+                <span className="d-block mt-3 btn btn-sign-up fw-medium text-lg color-palette-1 rounded-pill w-100">
                   Sign Up
-                </a>
+                </span>
               </Link>
             </main>
           </div>

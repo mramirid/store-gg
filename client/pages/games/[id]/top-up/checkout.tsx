@@ -15,10 +15,8 @@ const Checkout: NextPage = () => (
     <div className="checkout mx-auto pt-md-100 pb-md-145 pt-30 pb-30">
       <div className="container-fluid">
         <header className="logo text-md-center text-start pb-50">
-          <Link href="/">
-            <a title="Homepage - StoreGG">
-              <LogoIcon />
-            </a>
+          <Link href="/" title="Homepage - StoreGG">
+            <LogoIcon />
           </Link>
         </header>
         <main>

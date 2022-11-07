@@ -3,7 +3,7 @@ import LogoIcon from "components/atoms/logo.icon";
 import Image from "next/image";
 import Link from "next/link";
 
-const isLoggedIn = true;
+const isLoggedIn = false;
 
 export default function Navbar() {
   return (
@@ -15,10 +15,8 @@ export default function Navbar() {
         )}
       >
         <div className="container-fluid">
-          <Link className="navbar-brand" href="/">
-            <a title="Homepage - StoreGG">
-              <LogoIcon />
-            </a>
+          <Link className="navbar-brand" href="/" title="Homepage - StoreGG">
+            <LogoIcon />
           </Link>
           <ToggleMenu />
           <div className="collapse navbar-collapse" id="navbarNav">
@@ -62,13 +60,12 @@ function NavItem(props: {
 }) {
   return (
     <li className="nav-item my-auto">
-      <Link href={props.href}>
-        <a
-          className={classnames("nav-link", { active: props.isActive })}
-          aria-current="page"
-        >
-          {props.children}
-        </a>
+      <Link
+        href={props.href}
+        className={classnames("nav-link", { active: props.isActive })}
+        aria-current="page"
+      >
+        <span className="nav-link__label">{props.children}</span>
       </Link>
 
       <style jsx>{`
@@ -88,9 +85,9 @@ function NavItem(props: {
 
         /* Large devices (desktops, 992px and up) */
         @media (min-width: 992px) {
-          .nav-link {
-            padding-right: 1.25rem !important;
-            padding-left: 1.25rem !important;
+          .nav-link__label {
+            padding-right: 1.25rem;
+            padding-left: 1.25rem;
           }
         }
       `}</style>
@@ -172,14 +169,13 @@ function DropdownItem(props: {
 }) {
   return (
     <li>
-      <Link href={props.href}>
-        <a
-          className={classnames("dropdown-item text-lg color-palette-2", {
-            active: props.isActive,
-          })}
-        >
-          {props.children}
-        </a>
+      <Link
+        href={props.href}
+        className={classnames("dropdown-item text-lg color-palette-2", {
+          active: props.isActive,
+        })}
+      >
+        {props.children}
       </Link>
 
       <style jsx>{`
@@ -202,13 +198,10 @@ function DropdownItem(props: {
 function UnauthNavItem() {
   return (
     <li className="nav-item my-auto">
-      <Link href="/sign-in">
-        <a
-          className="btn btn-sign-in d-flex justify-content-center rounded-pill ms-lg-4"
-          role="button"
-        >
+      <Link href="/sign-in" className="text-decoration-none">
+        <button className="btn btn-sign-in d-flex justify-content-center rounded-pill ms-lg-4">
           Sign In
-        </a>
+        </button>
       </Link>
 
       <style jsx>{`

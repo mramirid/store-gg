@@ -58,20 +58,15 @@ const SignUpPhoto: NextPage = () => (
           </div>
           <div className="button-group d-flex flex-column mx-auto">
             <Link href="/sign-up/sucess">
-              <a
-                className="btn btn-create fw-medium text-lg text-white rounded-pill mb-16"
-                role="button"
-              >
+              <button className="btn btn-create fw-medium text-lg text-white rounded-pill w-100 mb-16">
                 Create My Account
-              </a>
+              </button>
             </Link>
-            <Link href="/404">
-              <a
-                className="btn btn-tnc text-lg color-palette-1 text-decoration-underline pt-15"
-                role="button"
-              >
-                Terms &amp; Conditions
-              </a>
+            <Link
+              href="/terms-and-conditions"
+              className="btn btn-tnc text-lg color-palette-1 text-decoration-underline pt-15"
+            >
+              Terms &amp; Conditions
             </Link>
           </div>
         </form>

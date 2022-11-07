@@ -24,9 +24,10 @@ const MemberTransactionDetails: NextPage = () => (
                     <div className="pe-4">
                       <div className="cropped">
                         <Image
+                          className="img-fluid"
                           src="/images/Thumbnail-3.png"
-                          layout="fill"
-                          objectFit="cover"
+                          width={281}
+                          height={381}
                           alt=""
                         />
                       </div>

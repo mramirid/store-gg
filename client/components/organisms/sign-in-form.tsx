@@ -35,13 +35,10 @@ export default function SignInForm() {
           placeholder="Your password"
         />
       </div>
-      <Link href="/member">
-        <a
-          className="btn btn-sign-in fw-medium text-lg text-white rounded-pill d-block mt-50"
-          role="button"
-        >
+      <Link href="/member" className="text-decoration-none">
+        <button className="btn btn-sign-in fw-medium text-lg text-white rounded-pill d-block w-100 mt-50">
           Continue to Sign In
-        </a>
+        </button>
       </Link>
 
       <style jsx>{`

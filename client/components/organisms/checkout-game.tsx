@@ -7,8 +7,8 @@ export function CheckoutGame() {
         <div className="img-wrapper">
           <Image
             src="/images/Thumbnail-3.png"
-            objectFit="cover"
-            layout="fill"
+            width={281}
+            height={381}
             className="img-fluid"
             alt=""
           />

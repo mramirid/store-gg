@@ -25,21 +25,16 @@ const CheckoutCompleted: NextPage = () => (
         </div>
         <div className="button-group d-flex flex-column mx-auto">
           <Link href="/member">
-            <a
-              className="btn btn-dashboard fw-medium text-lg text-white rounded-pill mb-16"
-              role="button"
-            >
+            <button className="btn btn-dashboard fw-medium text-lg text-white rounded-pill mb-16">
               My Dashboard
-            </a>
+            </button>
           </Link>
-          <Link href="/404">
-            <a
-              className="btn btn-whatsapp fw-medium text-lg color-palette-1 rounded-pill"
-              role="button"
-            >
-              WhatsApp ke Admin
-            </a>
-          </Link>
+          <a
+            className="btn btn-whatsapp fw-medium text-lg color-palette-1 rounded-pill"
+            href="#"
+          >
+            WhatsApp ke Admin
+          </a>
         </div>
       </div>
     </main>

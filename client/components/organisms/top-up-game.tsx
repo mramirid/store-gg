@@ -5,12 +5,12 @@ export default function TopUpGame(props: { forMobile?: boolean }) {
     return (
       <div className="row align-items-center">
         <div className="col-md-12 col-4">
-          <div className="img-wrapper">
+          <div className="img-wrapper card">
             <Image
+              className="img-fluid w-100"
               src="/images/Thumbnail-3.png"
               width={280}
               height={380}
-              layout="responsive"
               priority
               alt=""
             />

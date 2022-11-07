@@ -25,13 +25,10 @@ const NotFound: NextPage = () => (
           </p>
         </div>
         <div className="button-group d-flex flex-column mx-auto">
-          <Link href="/">
-            <a
-              className="btn btn-homepage fw-medium text-lg text-white rounded-pill"
-              role="button"
-            >
+          <Link href="/" className="text-decoration-none">
+            <button className="btn btn-homepage w-100 fw-medium text-lg text-white rounded-pill">
               Homepage
-            </a>
+            </button>
           </Link>
         </div>
       </div>
@@ -39,6 +36,7 @@ const NotFound: NextPage = () => (
 
     <style jsx>{`
       .btn-homepage {
+        display: block;
         padding: 0.75rem;
         background-color: #4d17e2;
       }

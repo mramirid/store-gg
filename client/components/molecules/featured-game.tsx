@@ -9,54 +9,47 @@ export default function FeaturedGame(props: {
   category: string;
 }) {
   return (
-    <div className="featured-game__card position-relative">
-      <Link href={`/games/${props.id}`}>
-        <a>
-          <div className="blur-sharp">
-            <div className="featured-game__img-wrapper">
-              <Image
-                src={props.imageUrl}
-                width={205}
-                height={270}
-                layout="fixed"
-                alt=""
-              />
+    <div className="card position-relative">
+      <Link href={`/games/${props.id}/top-up`}>
+        <div className="blur-sharp">
+          <div className="img-wrapper">
+            <Image
+              className="img-fluid"
+              src={props.imageUrl}
+              width={205}
+              height={270}
+              alt=""
+            />
+          </div>
+        </div>
+        <div className="cover position-absolute bottom-0 m-32">
+          <div className="d-flex flex-column h-100 justify-content-between text-decoration-none">
+            <div className="game-icon mx-auto">
+              <ConsoleIcon />
+            </div>
+            <div>
+              <p className="fw-semibold text-white text-xl m-0">{props.name}</p>
+              <p className="fw-light text-white m-0">{props.name}</p>
             </div>
           </div>
-          <div className="cover position-absolute bottom-0 m-32">
-            <div className="d-flex flex-column h-100 justify-content-between text-decoration-none">
-              <div className="game-icon mx-auto">
-                <ConsoleIcon />
-              </div>
-              <div>
-                <p className="fw-semibold text-white text-xl m-0">
-                  {props.name}
-                </p>
-                <p className="fw-light text-white m-0">{props.name}</p>
-              </div>
-            </div>
-          </div>
-        </a>
+        </div>
       </Link>
 
       <style jsx>{`
-        .featured-game__card {
+        .card {
           transition: all 0.4s;
           border-radius: 1.625rem;
           width: 205px;
           height: 270px;
+          overflow: hidden;
         }
 
-        .featured-game__img-wrapper {
-          font-size: 0;
-        }
-
-        .featured-game__card:hover {
+        .card:hover {
           transition: all 0.4s;
           border: 4px solid #2b2467;
         }
 
-        .featured-game__card:hover .featured-game__img-wrapper {
+        .card:hover .img-wrapper {
           transition: all 0.4s;
           filter: blur(40px);
           width: 181px;
@@ -67,7 +60,7 @@ export default function FeaturedGame(props: {
           overflow: hidden;
           border-radius: 1.625rem;
         }
-        .featured-game__card:hover .blur-sharp {
+        .card:hover .blur-sharp {
           border: 7px solid white;
         }
 
@@ -79,7 +72,7 @@ export default function FeaturedGame(props: {
           height: -webkit-fill-available;
         }
 
-        .featured-game__card:hover .cover {
+        .card:hover .cover {
           opacity: 1;
         }
 
@@ -89,7 +82,7 @@ export default function FeaturedGame(props: {
 
         /* Large devices (desktops, 992px and up) */
         @media (min-width: 992px) {
-          .featured-game__card:hover .blur-sharp {
+          .card:hover .blur-sharp {
             position: absolute;
             top: 50%;
             left: 50%;

@@ -51,13 +51,10 @@ export default function SignUpEntryForm() {
           placeholder="Your password"
         />
       </div>
-      <Link href="/sign-up/photo">
-        <a
-          className="d-block mt-50 btn btn-sign-up fw-medium text-lg text-white rounded-pill"
-          role="button"
-        >
+      <Link href="/sign-up/photo" className="text-decoration-none">
+        <button className="d-block w-100 mt-50 btn btn-sign-up fw-medium text-lg text-white rounded-pill">
           Continue
-        </a>
+        </button>
       </Link>
 
       <style jsx>{`

@@ -24,10 +24,10 @@ export default function Story() {
               <br className="d-sm-block d-none" /> pemenang sejati
             </p>
             <div className="d-md-block d-flex flex-column w-100">
-              <Link href="/404">
-                <a className="btn btn-read text-lg rounded-pill" role="button">
+              <Link href="/stories">
+                <button className="btn btn-read text-lg rounded-pill">
                   Read Story
-                </a>
+                </button>
               </Link>
             </div>
           </div>

@@ -7,10 +7,12 @@ export default function Footer() {
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-4 text-lg-start text-center">
-            <Link href="/">
-              <a className="d-block lh-1 mb-30" title="Homepage - StoreGG">
-                <LogoIcon />
-              </a>
+            <Link
+              href="/"
+              className="d-block lh-1 mb-30"
+              title="Homepage - StoreGG"
+            >
+              <LogoIcon />
             </Link>
             <p className="mt-30 text-lg color-palette-1 mb-30">
               StoreGG membantu gamers
@@ -97,14 +99,13 @@ function NavItem(props: {
       <ul className="list-unstyled">
         {props.links.map((link, i) => (
           <li className="mb-6" key={i}>
-            <Link href={link.href}>
-              <a
-                className="text-lg color-palette-1 text-decoration-none"
-                target={link.isExternal ? "_blank" : undefined}
-                rel={link.isExternal ? "noopener noreferrer" : undefined}
-              >
-                {link.label}
-              </a>
+            <Link
+              href={link.href}
+              className="text-lg color-palette-1 text-decoration-none"
+              target={link.isExternal ? "_blank" : undefined}
+              rel={link.isExternal ? "noopener noreferrer" : undefined}
+            >
+              {link.label}
             </Link>
           </li>
         ))}

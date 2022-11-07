@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { SVGProps } from "react";
 
 export default function Hero() {
@@ -28,13 +29,12 @@ export default function Hero() {
               >
                 Get Started
               </a>
-              <a
+              <Link
                 className="btn-learn text-lg color-palette-1 my-auto text-center"
-                href="#"
-                role="button"
+                href="/404"
               >
                 Learn More
-              </a>
+              </Link>
             </div>
           </div>
           <Banner />
