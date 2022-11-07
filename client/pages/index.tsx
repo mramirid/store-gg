@@ -14,7 +14,10 @@ const Home: NextPage = () => (
       <title>Home - StoreGG</title>
     </Head>
 
-    <Navbar />
+    <header>
+      <Navbar />
+    </header>
+
     <main>
       <Hero />
       <Feature />
@@ -22,6 +25,7 @@ const Home: NextPage = () => (
       <Reached />
       <Story />
     </main>
+
     <Footer />
   </>
 );

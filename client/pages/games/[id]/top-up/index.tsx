@@ -11,7 +11,9 @@ const TopUp: NextPage = () => (
       <title>Topup GAME_NAME - StoreGG</title>
     </Head>
 
-    <Navbar />
+    <header>
+      <Navbar />
+    </header>
 
     <main className="pt-lg-60 pb-100">
       <div className="container-xxl container-fluid">
