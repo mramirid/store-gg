@@ -1,7 +1,8 @@
-import MemberSidebar from "components/organisms/member-sidebar";
-import { NextPage } from "next";
+import { game1, game2, game3, game4, Sidebar } from "features/dashboard";
+import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 
 const MemberTransactions: NextPage = () => (
   <>
@@ -10,7 +11,7 @@ const MemberTransactions: NextPage = () => (
     </Head>
 
     <section className="transactions overflow-auto">
-      <MemberSidebar />
+      <Sidebar />
       <main className="main-wrapper">
         <div className="ps-lg-0">
           <h2 className="text-4xl fw-bold color-palette-1 mb-30">
@@ -75,12 +76,7 @@ const MemberTransactions: NextPage = () => (
                   <tr data-category="pending" className="align-middle">
                     <th scope="row">
                       <div className="float-start me-3 mb-lg-0 mb-3">
-                        <Image
-                          src="/images/overview-1.png"
-                          width={80}
-                          height={60}
-                          alt=""
-                        />
+                        <Image src={game1} width={80} height={60} alt="" />
                       </div>
                       <div className="game-title-header">
                         <p className="game-title fw-medium text-start color-palette-1 m-0">
@@ -108,23 +104,17 @@ const MemberTransactions: NextPage = () => (
                       </div>
                     </td>
                     <td>
-                      <a
-                        href="../member/transactions-detail.html"
-                        className="btn btn-status rounded-pill text-sm"
-                      >
-                        Details
-                      </a>
+                      <Link href="/member/transactions/123">
+                        <span className="btn btn-status rounded-pill text-sm">
+                          Details
+                        </span>
+                      </Link>
                     </td>
                   </tr>
                   <tr data-category="success" className="align-middle">
                     <th scope="row">
                       <div className="float-start me-3 mb-lg-0 mb-3">
-                        <Image
-                          src="/images/overview-2.png"
-                          width={80}
-                          height={60}
-                          alt=""
-                        />
+                        <Image src={game2} width={80} height={60} alt="" />
                       </div>
                       <div className="game-title-header">
                         <p className="game-title fw-medium text-start color-palette-1 m-0">
@@ -152,23 +142,17 @@ const MemberTransactions: NextPage = () => (
                       </div>
                     </td>
                     <td>
-                      <a
-                        href="../member/transactions-detail.html"
-                        className="btn btn-status rounded-pill text-sm"
-                      >
-                        Details
-                      </a>
+                      <Link href="/member/transactions/123">
+                        <span className="btn btn-status rounded-pill text-sm">
+                          Details
+                        </span>
+                      </Link>
                     </td>
                   </tr>
                   <tr data-category="failed" className="align-middle">
                     <th scope="row">
                       <div className="float-start me-3 mb-lg-0 mb-3">
-                        <Image
-                          src="/images/overview-3.png"
-                          width={80}
-                          height={60}
-                          alt=""
-                        />
+                        <Image src={game3} width={80} height={60} alt="" />
                       </div>
                       <div className="game-title-header">
                         <p className="game-title fw-medium text-start color-palette-1 m-0">
@@ -196,23 +180,17 @@ const MemberTransactions: NextPage = () => (
                       </div>
                     </td>
                     <td>
-                      <a
-                        href="../member/transactions-detail.html"
-                        className="btn btn-status rounded-pill text-sm"
-                      >
-                        Details
-                      </a>
+                      <Link href="/member/transactions/123">
+                        <span className="btn btn-status rounded-pill text-sm">
+                          Details
+                        </span>
+                      </Link>
                     </td>
                   </tr>
                   <tr data-category="pending" className="align-middle">
                     <th scope="row">
                       <div className="float-start me-3 mb-lg-0 mb-3">
-                        <Image
-                          src="/images/overview-4.png"
-                          width={80}
-                          height={60}
-                          alt=""
-                        />
+                        <Image src={game4} width={80} height={60} alt="" />
                       </div>
                       <div className="game-title-header">
                         <p className="game-title fw-medium text-start color-palette-1 m-0">
@@ -240,12 +218,11 @@ const MemberTransactions: NextPage = () => (
                       </div>
                     </td>
                     <td>
-                      <a
-                        href="../member/transactions-detail.html"
-                        className="btn btn-status rounded-pill text-sm"
-                      >
-                        Details
-                      </a>
+                      <Link href="/member/transactions/123">
+                        <span className="btn btn-status rounded-pill text-sm">
+                          Details
+                        </span>
+                      </Link>
                     </td>
                   </tr>
                 </tbody>

@@ -1,5 +1,5 @@
-import UploadPhotoIcon from "components/atoms/upload-photo.icon";
-import { NextPage } from "next";
+import UploadPhotoIcon from "components/UploadPhotoIcon";
+import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -57,7 +57,7 @@ const SignUpPhoto: NextPage = () => (
             </div>
           </div>
           <div className="button-group d-flex flex-column mx-auto">
-            <Link href="/sign-up/sucess">
+            <Link href="/sign-up/success">
               <button className="btn btn-create fw-medium text-lg text-white rounded-pill w-100 mb-16">
                 Create My Account
               </button>

@@ -1,8 +1,10 @@
-import LogoIcon from "components/atoms/logo.icon";
-import { CheckoutConfirmation } from "components/organisms/checkout-confirmation";
-import { CheckoutDetails } from "components/organisms/checkout-details";
-import { CheckoutGame } from "components/organisms/checkout-game";
-import { NextPage } from "next";
+import LogoIcon from "components/LogoIcon";
+import {
+  CheckoutConfirmation,
+  CheckoutPaymentDetails,
+  CheckoutGameDetails,
+} from "features/top-up";
+import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -26,9 +28,9 @@ const Checkout: NextPage = () => (
               Waktunya meningkatkan cara bermain
             </p>
           </div>
-          <CheckoutGame />
+          <CheckoutGameDetails />
           <hr />
-          <CheckoutDetails />
+          <CheckoutPaymentDetails />
           <CheckoutConfirmation />
         </main>
       </div>

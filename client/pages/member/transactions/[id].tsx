@@ -1,5 +1,5 @@
-import MemberSidebar from "components/organisms/member-sidebar";
-import { NextPage } from "next";
+import { Sidebar } from "features/dashboard";
+import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 
@@ -10,7 +10,7 @@ const MemberTransactionDetails: NextPage = () => (
     </Head>
 
     <section className="transactions-detail overflow-auto">
-      <MemberSidebar />
+      <Sidebar />
       <main className="main-wrapper">
         <div className="ps-lg-0">
           <h2 className="text-4xl fw-bold color-palette-1 mb-30">
@@ -25,7 +25,7 @@ const MemberTransactionDetails: NextPage = () => (
                       <div className="cropped">
                         <Image
                           className="img-fluid"
-                          src="/images/Thumbnail-3.png"
+                          src="/images/game-3.png"
                           width={281}
                           height={381}
                           alt=""

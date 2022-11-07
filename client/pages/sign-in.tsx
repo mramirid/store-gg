@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import LogoIcon from "components/atoms/logo.icon";
-import SignInForm from "components/organisms/sign-in-form";
-import { NextPage } from "next";
+import LogoIcon from "components/LogoIcon";
+import { SignInForm } from "features/authentication";
+import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -41,14 +41,14 @@ const SignIn: NextPage = () => (
           </div>
         </div>
 
-        <div
+        <aside
           className={classNames(
             "d-none d-lg-flex flex-column align-items-center justify-content-center",
             "col-xxl-7 col-lg-6 bg-blue pt-lg-145 pb-lg-145"
           )}
         >
           <Image
-            src="/images/header-2.png"
+            src="/images/story-banner.png"
             width={502}
             height={391}
             className="img-fluid"
@@ -65,7 +65,7 @@ const SignIn: NextPage = () => (
             <br />
             pemenang sejati
           </p>
-        </div>
+        </aside>
       </div>
     </div>
 

@@ -1,6 +1,5 @@
-import MemberOverviewContent from "components/organisms/member-overview-content";
-import MemberSidebar from "components/organisms/member-sidebar";
-import { NextPage } from "next";
+import { OverviewContent, Sidebar } from "features/dashboard";
+import type { NextPage } from "next";
 import Head from "next/head";
 
 const MemberOverview: NextPage = () => (
@@ -10,8 +9,8 @@ const MemberOverview: NextPage = () => (
     </Head>
 
     <div className="overview overflow-auto">
-      <MemberSidebar />
-      <MemberOverviewContent />
+      <Sidebar />
+      <OverviewContent />
     </div>
 
     <style jsx>{`

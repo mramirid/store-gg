@@ -1,10 +1,12 @@
-import Feature from "components/organisms/feature";
-import FeaturedGames from "components/organisms/featured-games";
-import Footer from "components/organisms/footer";
-import Hero from "components/organisms/hero";
-import Navbar from "components/organisms/navbar";
-import Reached from "components/organisms/reached";
-import Story from "components/organisms/story";
+import Footer from "components/Footer";
+import Navbar from "components/Navbar";
+import {
+  Feature,
+  FeaturedGames,
+  Hero,
+  Statistics,
+  Story,
+} from "features/homepage";
 import type { NextPage } from "next";
 import Head from "next/head";
 
@@ -22,7 +24,7 @@ const Home: NextPage = () => (
       <Hero />
       <Feature />
       <FeaturedGames />
-      <Reached />
+      <Statistics />
       <Story />
     </main>
 

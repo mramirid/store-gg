@@ -1,6 +1,6 @@
-import LogoIcon from "components/atoms/logo.icon";
-import SignUpEntryForm from "components/organisms/sign-up-entry-form";
-import { NextPage } from "next";
+import LogoIcon from "components/LogoIcon";
+import { SignUpEntryForm } from "features/authentication";
+import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
