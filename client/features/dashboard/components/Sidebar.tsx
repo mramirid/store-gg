@@ -2,7 +2,6 @@ import classNames from "classnames";
 import WinnerIcon from "components/WinnerIcon";
 import Image from "next/image";
 import Link from "next/link";
-import type { FC } from "react";
 
 export default function Sidebar() {
   return (
@@ -110,7 +109,7 @@ function Profile() {
 
 function MenuItem(props: {
   className: string;
-  Icon: FC;
+  Icon: React.FC;
   label: string;
   href: string;
   isActive: boolean;

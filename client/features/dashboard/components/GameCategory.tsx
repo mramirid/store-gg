@@ -3,13 +3,13 @@ import { formatIDR } from "utils/format";
 
 type CallSignature = {
   (props: Props): JSX.Element;
-  DesktopIcon: () => JSX.Element;
-  MobileIcon: () => JSX.Element;
-  OthersIcon: () => JSX.Element;
+  DesktopIcon: React.FC;
+  MobileIcon: React.FC;
+  OthersIcon: React.FC;
 };
 
 type Props = {
-  Icon: () => JSX.Element;
+  Icon: React.FC;
   title: [string, string];
   totalSpent: number;
 };
