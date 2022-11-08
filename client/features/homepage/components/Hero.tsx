@@ -31,7 +31,7 @@ export default function Hero() {
               </a>
               <Link
                 className="btn-learn text-lg color-palette-1 my-auto text-center"
-                href="/404"
+                href="/learn"
               >
                 Learn More
               </Link>

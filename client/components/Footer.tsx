@@ -30,18 +30,18 @@ export default function Footer() {
               <NavItem
                 title="Company"
                 links={[
-                  { label: "About Us", href: "/404" },
-                  { label: "Press Release", href: "/404" },
-                  { label: "Terms of Use", href: "/404" },
-                  { label: "Privacy & Policy", href: "/404" },
+                  { label: "About Us", href: "/about" },
+                  { label: "Press Release", href: "/releases" },
+                  { label: "Terms of Use", href: "/terms" },
+                  { label: "Privacy & Policy", href: "/privacy" },
                 ]}
               />
               <NavItem
                 title="Support"
                 links={[
-                  { label: "Refund Policy", href: "/404" },
-                  { label: "Unlock Rewards", href: "/404" },
-                  { label: "Live Chatting", href: "/404" },
+                  { label: "Refund Policy", href: "/refund" },
+                  { label: "Unlock Rewards", href: "/rewards" },
+                  { label: "Live Chatting", href: "/chatting" },
                 ]}
               />
               <NavItem

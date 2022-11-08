@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import LogoIcon from "./LogoIcon";
 
-const isLoggedIn = false;
+const isLoggedIn = process.env["NEXT_PUBLIC_IS_LOGGED_IN"] === "true";
 
 export default function Navbar() {
   return (
@@ -23,10 +23,10 @@ export default function Navbar() {
             <NavItem href="/" isActive>
               Home
             </NavItem>
-            <NavItem href="/404">Games</NavItem>
-            <NavItem href="/404">Rewards</NavItem>
-            <NavItem href="/404">Discover</NavItem>
-            <NavItem href="/404">Global Rank</NavItem>
+            <NavItem href="/games">Games</NavItem>
+            <NavItem href="/rewards">Rewards</NavItem>
+            <NavItem href="/discover">Discover</NavItem>
+            <NavItem href="/rank">Global Rank</NavItem>
             {isLoggedIn ? <AuthNavItem /> : <UnauthNavItem />}
           </ul>
         </div>
@@ -121,7 +121,7 @@ function AuthNavItem() {
           <DropdownItem href="/member" isActive>
             My Profile
           </DropdownItem>
-          <DropdownItem href="/404">Wallet</DropdownItem>
+          <DropdownItem href="/wallet">Wallet</DropdownItem>
           <DropdownItem href="/member/edit-profile">
             Account Settings
           </DropdownItem>

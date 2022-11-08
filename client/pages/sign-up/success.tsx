@@ -65,7 +65,7 @@ const SignUpSuccess: NextPage = () => (
                 </button>
               </Link>
               <Link
-                href="/terms-and-conditions"
+                href="/terms"
                 className="btn btn-tnc text-lg color-palette-1 text-decoration-underline pt-15"
                 role="button"
               >
