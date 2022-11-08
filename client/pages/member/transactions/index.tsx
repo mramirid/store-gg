@@ -1,4 +1,4 @@
-import { game1, game2, game3, game4, Sidebar } from "features/dashboard";
+import { Sidebar } from "features/dashboard";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -76,7 +76,12 @@ const MemberTransactions: NextPage = () => (
                   <tr data-category="pending" className="align-middle">
                     <th scope="row">
                       <div className="float-start me-3 mb-lg-0 mb-3">
-                        <Image src={game1} width={80} height={60} alt="" />
+                        <Image
+                          src={require("features/dashboard/assets/game-1.png")}
+                          width={80}
+                          height={60}
+                          alt=""
+                        />
                       </div>
                       <div className="game-title-header">
                         <p className="game-title fw-medium text-start color-palette-1 m-0">
@@ -114,7 +119,12 @@ const MemberTransactions: NextPage = () => (
                   <tr data-category="success" className="align-middle">
                     <th scope="row">
                       <div className="float-start me-3 mb-lg-0 mb-3">
-                        <Image src={game2} width={80} height={60} alt="" />
+                        <Image
+                          src={require("features/dashboard/assets/game-2.png")}
+                          width={80}
+                          height={60}
+                          alt=""
+                        />
                       </div>
                       <div className="game-title-header">
                         <p className="game-title fw-medium text-start color-palette-1 m-0">
@@ -152,7 +162,12 @@ const MemberTransactions: NextPage = () => (
                   <tr data-category="failed" className="align-middle">
                     <th scope="row">
                       <div className="float-start me-3 mb-lg-0 mb-3">
-                        <Image src={game3} width={80} height={60} alt="" />
+                        <Image
+                          src={require("features/dashboard/assets/game-3.png")}
+                          width={80}
+                          height={60}
+                          alt=""
+                        />
                       </div>
                       <div className="game-title-header">
                         <p className="game-title fw-medium text-start color-palette-1 m-0">
@@ -190,7 +205,12 @@ const MemberTransactions: NextPage = () => (
                   <tr data-category="pending" className="align-middle">
                     <th scope="row">
                       <div className="float-start me-3 mb-lg-0 mb-3">
-                        <Image src={game4} width={80} height={60} alt="" />
+                        <Image
+                          src={require("features/dashboard/assets/game-4.png")}
+                          width={80}
+                          height={60}
+                          alt=""
+                        />
                       </div>
                       <div className="game-title-header">
                         <p className="game-title fw-medium text-start color-palette-1 m-0">

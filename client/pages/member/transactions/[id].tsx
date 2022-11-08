@@ -25,7 +25,7 @@ const MemberTransactionDetails: NextPage = () => (
                       <div className="cropped">
                         <Image
                           className="img-fluid"
-                          src="/images/game-3.png"
+                          src={require("features/homepage/assets/game-3.png")}
                           width={281}
                           height={381}
                           alt=""

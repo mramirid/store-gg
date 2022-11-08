@@ -21,7 +21,7 @@ const EditProfile: NextPage = () => (
                 <div className="avatar__wrapper me-20">
                   <Image
                     className="avatar rounded-circle"
-                    src="/images/avatar-1.jpg"
+                    src={require("features/homepage/assets/avatar-1.jpg")}
                     width={90}
                     height={90}
                     alt="Your current avatar"

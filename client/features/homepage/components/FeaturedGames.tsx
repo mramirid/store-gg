@@ -28,7 +28,7 @@ export default function FeaturedGames() {
           />
           <FeaturedGame
             id="678"
-            imageUrl="/images/game-3.png"
+            imageUrl={require("features/homepage/assets/game-3.png")}
             name="Mobile Legends"
             category="Mobile"
           />

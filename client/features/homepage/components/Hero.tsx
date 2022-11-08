@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { SVGProps } from "react";
+import avatar1 from "../assets/avatar-1.jpg";
+import avatar2 from "../assets/avatar-2.jpg";
+import heroBanner from "../assets/hero-banner.png";
 
 export default function Hero() {
   return (
@@ -87,7 +90,7 @@ function Banner() {
       <div className="d-flex justify-content-lg-end justify-content-center me-lg-5">
         <div className="position-relative" data-aos="zoom-in">
           <Image
-            src={require("../assets/hero-banner.png")}
+            src={heroBanner}
             className="img-fluid"
             alt=""
             priority
@@ -97,7 +100,7 @@ function Banner() {
           <div className="card left-card position-absolute border-0">
             <div className="d-flex align-items-center mb-16 gap-3">
               <Image
-                src="/images/avatar-1.jpg"
+                src={avatar1}
                 width={40}
                 height={40}
                 className="rounded-pill"
@@ -123,7 +126,7 @@ function Banner() {
           <div className="card right-card position-absolute border-0">
             <div className="position-relative d-flex flex-row justify-content-center mb-24">
               <Image
-                src={require("../assets/avatar-2.jpg")}
+                src={avatar2}
                 className="rounded-pill"
                 alt=""
                 width={80}

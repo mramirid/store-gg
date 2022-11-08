@@ -6,7 +6,7 @@ export default function CheckoutGameDetails() {
       <div className="pe-4">
         <div className="img-wrapper">
           <Image
-            src="/images/game-3.png"
+            src={require("features/homepage/assets/game-3.png")}
             width={281}
             height={381}
             className="img-fluid"

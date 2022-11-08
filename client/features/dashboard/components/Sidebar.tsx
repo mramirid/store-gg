@@ -103,7 +103,7 @@ function Profile() {
   return (
     <header className="user text-center pb-50 pe-30">
       <Image
-        src="/images/avatar-1.jpg"
+        src={require("features/homepage/assets/avatar-1.jpg")}
         width={90}
         height={90}
         alt="Your avatar"

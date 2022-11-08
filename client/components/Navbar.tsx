@@ -107,7 +107,7 @@ function AuthNavItem() {
           aria-expanded="false"
         >
           <Image
-            src="/images/avatar-1.jpg"
+            src={require("features/homepage/assets/avatar-1.jpg")}
             className="rounded-circle"
             width={40}
             height={40}
