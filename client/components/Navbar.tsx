@@ -118,10 +118,8 @@ function AuthNavItem() {
           className="dropdown-menu border-0"
           aria-labelledby="dropdownMenuLink"
         >
-          <DropdownItem href="/member" isActive>
-            My Profile
-          </DropdownItem>
-          <DropdownItem href="/wallet">Wallet</DropdownItem>
+          <DropdownItem href="/member">My Profile</DropdownItem>
+          <DropdownItem href="/member/wallet">Wallet</DropdownItem>
           <DropdownItem href="/member/edit-profile">
             Account Settings
           </DropdownItem>
