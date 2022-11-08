@@ -2,6 +2,7 @@ import classNames from "classnames";
 import WinnerIcon from "components/WinnerIcon";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Sidebar() {
   return (
@@ -15,49 +16,42 @@ export default function Sidebar() {
             Icon={OverviewIcon}
             label="Overview"
             href="/member"
-            isActive
           />
           <MenuItem
             className="mb-30"
             Icon={TransactionsIcon}
             label="Transactions"
             href="/member/transactions"
-            isActive={false}
           />
           <MenuItem
             className="mb-30"
             Icon={MessagesIcon}
             label="Messages"
             href="/member/messages"
-            isActive={false}
           />
           <MenuItem
             className="mb-30"
             Icon={CardIcon}
             label="Card"
             href="/member/card"
-            isActive={false}
           />
           <MenuItem
             className="mb-30"
             Icon={RewardsIcon}
             label="Rewards"
             href="/member/rewards"
-            isActive={false}
           />
           <MenuItem
             className="mb-30"
             Icon={SettingsIcon}
             label="Settings"
             href="/member/edit-profile"
-            isActive={false}
           />
           <MenuItem
             className="mb-30"
             Icon={LogoutIcon}
             label="Log Out"
             href="/member/logout"
-            isActive={false}
           />
         </ul>
       </nav>
@@ -112,11 +106,16 @@ function MenuItem(props: {
   Icon: React.FC;
   label: string;
   href: string;
-  isActive: boolean;
 }) {
+  const router = useRouter();
+
   return (
     <>
-      <li className={classNames({ active: props.isActive }, props.className)}>
+      <li
+        className={classNames(props.className, {
+          active: router.pathname === props.href,
+        })}
+      >
         <props.Icon />
         <Link href={props.href} className="m-0 text-lg text-decoration-none">
           <span className="label">{props.label}</span>
