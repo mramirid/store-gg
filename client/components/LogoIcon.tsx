@@ -1,13 +1,11 @@
-import type { SVGProps } from "react";
-
-export default function LogoIcon(props: SVGProps<SVGSVGElement>) {
+export default function LogoIcon() {
   return (
     <svg
       width={60}
       height={60}
       fill="none"
+      viewBox="0 0 60 60"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
     >
       <mask
         id="a"

@@ -1,4 +1,5 @@
-import Image from "next/image";
+import WinnerIcon from "components/WinnerIcon";
+import { FC, SVGProps, useId } from "react";
 
 export default function Feature() {
   return (
@@ -10,12 +11,12 @@ export default function Feature() {
         </h2>
         <div className="row gap-lg-0 gap-4" data-aos="fade-up">
           <FeatureStep
-            iconName="feature-step-1"
+            Icon={ChooseGameIcon}
             title="1. Start"
             descriptions={["Pilih salah satu game", "yang ingin kamu top up"]}
           />
           <FeatureStep
-            iconName="feature-step-2"
+            Icon={TopUpIcon}
             title="2. Fill Up"
             descriptions={[
               "Top up sesuai dengan",
@@ -23,7 +24,7 @@ export default function Feature() {
             ]}
           />
           <FeatureStep
-            iconName="feature-step-3"
+            Icon={WinnerIcon}
             title="3. Be a Winner"
             descriptions={["Siap digunakan untuk", "improve permainan kamu"]}
           />
@@ -34,21 +35,14 @@ export default function Feature() {
 }
 
 function FeatureStep(props: {
-  iconName: "feature-step-1" | "feature-step-2" | "feature-step-3";
+  Icon: FC<SVGProps<SVGSVGElement>>;
   title: string;
   descriptions: [string, string];
 }) {
   return (
     <div className="col-lg-4">
       <div className="card border-0">
-        <span>
-          <Image
-            src={require(`../assets/${props.iconName}.svg`)}
-            width={80}
-            height={80}
-            alt={props.title}
-          />
-        </span>
+        <props.Icon width={80} height={80} />
         <p className="title fw-semibold text-2xl mb-2 color-palette-1">
           {props.title}
         </p>
@@ -72,5 +66,138 @@ function FeatureStep(props: {
         }
       `}</style>
     </div>
+  );
+}
+
+function ChooseGameIcon(props: SVGProps<SVGSVGElement>) {
+  const maskId = useId();
+
+  return (
+    <svg
+      width="1em"
+      height="1em"
+      fill="none"
+      viewBox="0 0 80 80"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <mask
+        id={maskId}
+        style={{
+          maskType: "alpha",
+        }}
+        maskUnits="userSpaceOnUse"
+        x={0}
+        y={0}
+        width={80}
+        height={80}
+      >
+        <circle cx={40} cy={40} r={40} fill="#D7D7F8" />
+      </mask>
+      <g mask={`url(#${maskId})`}>
+        <circle cx={40} cy={40} r={40} fill="#D7D7F8" />
+        <mask
+          id="b"
+          style={{
+            maskType: "alpha",
+          }}
+          maskUnits="userSpaceOnUse"
+          x={-12}
+          y={23}
+          width={67}
+          height={73}
+        >
+          <path
+            d="M-12 23h45c12.15 0 22 9.85 22 22v51h-67V23Z"
+            fill="#4D17E2"
+          />
+        </mask>
+        <g mask="url(#b)">
+          <path
+            d="M-12 23h45c12.15 0 22 9.85 22 22v51h-67V23Z"
+            fill="#695DE9"
+          />
+          <path
+            d="M37 55H-4"
+            stroke="#fff"
+            strokeWidth={4}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M23 64H-4"
+            stroke="#B7B0F4"
+            strokeWidth={4}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <rect x={23} y={13} width={52} height={34} rx={13} fill="#5C52C7" />
+        </g>
+        <rect x={27} y={16} width={41} height={27} rx={13} fill="#2B2467" />
+        <circle cx={47.5} cy={29.5} r={5.5} stroke="#fff" strokeWidth={4} />
+      </g>
+    </svg>
+  );
+}
+
+function TopUpIcon(props: SVGProps<SVGSVGElement>) {
+  const maskId = useId();
+
+  return (
+    <svg
+      width="1em"
+      height="1em"
+      fill="none"
+      viewBox="0 0 80 80"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <mask
+        id={maskId}
+        style={{
+          maskType: "alpha",
+        }}
+        maskUnits="userSpaceOnUse"
+        x={0}
+        y={0}
+        width={80}
+        height={80}
+      >
+        <circle cx={40} cy={40} r={40} fill="#D7D7F8" />
+      </mask>
+      <g mask={`url(#${maskId})`}>
+        <circle cx={40} cy={40} r={40} fill="#D7D7F8" />
+        <rect x={-14} y={16} width={62} height={82} rx={16} fill="#695DE9" />
+        <path
+          d="M32 36H5"
+          stroke="#fff"
+          strokeWidth={4}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M27 45H9"
+          stroke="#B7B0F4"
+          strokeWidth={4}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <rect x={56} y={37} width={49} height={75} rx={16} fill="#2B2467" />
+        <path
+          d="M97 50H70"
+          stroke="#fff"
+          strokeWidth={4}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M92 59H74"
+          stroke="#6B63AC"
+          strokeWidth={4}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+    </svg>
   );
 }
