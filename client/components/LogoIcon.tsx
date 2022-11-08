@@ -1,4 +1,8 @@
+import { useId } from "react";
+
 export default function LogoIcon() {
+  const maskId = useId();
+
   return (
     <svg
       width={60}
@@ -8,7 +12,7 @@ export default function LogoIcon() {
       xmlns="http://www.w3.org/2000/svg"
     >
       <mask
-        id="a"
+        id={maskId}
         style={{ maskType: "alpha" }}
         maskUnits="userSpaceOnUse"
         x={0}
@@ -18,7 +22,7 @@ export default function LogoIcon() {
       >
         <circle cx={30} cy={30} r={30} fill="#3546AB" />
       </mask>
-      <g mask="url(#a)">
+      <g mask={`url(#${maskId})`}>
         <circle cx={30} cy={30} r={30} fill="#00BAFF" />
         <path
           d="M41.5 35c10.8 3.2 8.167 13 5.5 17.5l24 8L79.5-13c-15.833-.833-50-2-60 0C7-10.5 13.5 4 12 14s16 17 29.5 21Z"
