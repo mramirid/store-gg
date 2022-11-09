@@ -1,7 +1,43 @@
 import { useId } from "react";
 import { formatIDR } from "utils/format";
 
-type CallSignature = {
+export default function TopUpCategories(props: { className: string }) {
+  return (
+    <section className={props.className}>
+      <h2 className="text-lg fw-medium color-palette-1 mb-14">
+        Top Up Categories
+      </h2>
+
+      <div className="main-content">
+        <div className="row">
+          <div className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4">
+            <GameCategory
+              Icon={GameCategory.DesktopIcon}
+              title={["Game", "Desktop"]}
+              totalSpent={18_000_500}
+            />
+          </div>
+          <div className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4">
+            <GameCategory
+              Icon={GameCategory.MobileIcon}
+              title={["Game", "Mobile"]}
+              totalSpent={8_455_000}
+            />
+          </div>
+          <div className="col-lg-4 ps-15 pe-15 pb-lg-0 pb-4">
+            <GameCategory
+              Icon={GameCategory.OthersIcon}
+              title={["Other", "Categories"]}
+              totalSpent={5_000_000}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+type GameCategorySignature = {
   (props: Props): JSX.Element;
   DesktopIcon: React.FC;
   MobileIcon: React.FC;
@@ -14,7 +50,7 @@ type Props = {
   totalSpent: number;
 };
 
-const GameCategory: CallSignature = Object.assign(
+const GameCategory: GameCategorySignature = Object.assign(
   (props: Props) => (
     <div className="categories-card">
       <div className="d-flex align-items-center mb-24">
@@ -47,8 +83,6 @@ const GameCategory: CallSignature = Object.assign(
     OthersIcon: CategoryOthersIcon,
   }
 );
-
-export default GameCategory;
 
 function CategoryDesktopIcon() {
   const maskId = useId();
