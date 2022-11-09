@@ -2,6 +2,8 @@ import Link from "next/link";
 import LogoIcon from "./LogoIcon";
 
 export default function Footer() {
+  const currentYear = new Date().getUTCFullYear();
+
   return (
     <footer className="footer">
       <div className="container-fluid">
@@ -19,7 +21,7 @@ export default function Footer() {
               <br /> untuk menjadi pemenang sejati
             </p>
             <p className="mt-30 text-lg color-palette-1 mb-30">
-              Copyright 2021. All Rights Reserved.
+              Copyright {currentYear}. All Rights Reserved.
             </p>
           </div>
           <div className="col-lg-8 mt-lg-0 mt-20">
