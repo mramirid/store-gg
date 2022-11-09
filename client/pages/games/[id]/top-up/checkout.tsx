@@ -1,7 +1,7 @@
 import LogoIcon from "components/LogoIcon";
 import {
+  CheckoutBillDetails,
   CheckoutConfirmation,
-  CheckoutPaymentDetails,
   CheckoutGameDetails,
 } from "features/top-up";
 import type { NextPage } from "next";
@@ -30,7 +30,7 @@ const Checkout: NextPage = () => (
           </div>
           <CheckoutGameDetails />
           <hr />
-          <CheckoutPaymentDetails />
+          <CheckoutBillDetails />
           <CheckoutConfirmation />
         </main>
       </div>

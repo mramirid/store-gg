@@ -1,4 +1,4 @@
-export default function CheckoutPaymentDetails() {
+export default function CheckoutBillDetails() {
   return (
     <>
       <div className="purchase pt-md-50 pt-30">
@@ -53,16 +53,16 @@ export default function CheckoutPaymentDetails() {
       </div>
 
       <style jsx>{`
-        span.purchase-details,
-        span.payment-details {
+        .purchase-details,
+        .payment-details {
           display: block;
           font-weight: 500;
         }
 
         /* Medium devices (landscape phones, 768px and up) */
         @media (min-width: 768px) {
-          span.purchase-details,
-          span.payment-details {
+          .purchase-details,
+          .payment-details {
             float: right;
           }
         }
