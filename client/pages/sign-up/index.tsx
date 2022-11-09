@@ -7,13 +7,13 @@ import Link from "next/link";
 const SignUp: NextPage = () => (
   <>
     <Head>
-      <title>Sign Up - StoreGG</title>
+      <title>Sign Up &ndash; StoreGG</title>
     </Head>
 
     <div className="mx-auto pt-lg-100 pb-lg-100 pt-30 pb-47">
       <div className="container mx-auto">
         <header className="pb-50">
-          <Link href="/" title="Homepage - StoreGG">
+          <Link href="/" title="Homepage &ndash; StoreGG">
             <LogoIcon />
           </Link>
         </header>

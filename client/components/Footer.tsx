@@ -12,7 +12,7 @@ export default function Footer() {
             <Link
               href="/"
               className="d-block lh-1 mb-30"
-              title="Homepage - StoreGG"
+              title="Homepage &ndash; StoreGG"
             >
               <LogoIcon />
             </Link>

@@ -6,7 +6,7 @@ import Head from "next/head";
 const EditProfile: NextPage = () => (
   <>
     <Head>
-      <title>Edit Profile - StoreGG</title>
+      <title>Edit Profile &ndash; StoreGG</title>
     </Head>
 
     <section className="edit-profile overflow-auto">

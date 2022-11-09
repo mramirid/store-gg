@@ -13,7 +13,7 @@ import Head from "next/head";
 const Home: NextPage = () => (
   <>
     <Head>
-      <title>Home - StoreGG</title>
+      <title>Home &ndash; StoreGG</title>
     </Head>
 
     <header>

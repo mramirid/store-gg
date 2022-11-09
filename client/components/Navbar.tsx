@@ -14,7 +14,7 @@ export default function Navbar() {
       )}
     >
       <div className="container-fluid">
-        <Link className="navbar-brand" href="/" title="Homepage - StoreGG">
+        <Link className="navbar-brand" href="/" title="Homepage &ndash; StoreGG">
           <LogoIcon />
         </Link>
         <ToggleMenu />

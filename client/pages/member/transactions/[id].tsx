@@ -6,7 +6,7 @@ import Image from "next/image";
 const MemberTransactionDetails: NextPage = () => (
   <>
     <Head>
-      <title>Transaction Details - StoreGG</title>
+      <title>Transaction Details &ndash; StoreGG</title>
     </Head>
 
     <section className="transactions-detail overflow-auto">

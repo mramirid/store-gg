@@ -6,7 +6,7 @@ import type { SVGProps } from "react";
 const NotFound: NextPage = () => (
   <>
     <Head>
-      <title>Not Found - StoreGG</title>
+      <title>Not Found &ndash; StoreGG</title>
     </Head>
 
     <main className="mx-auto pt-145 pb-md-212 pb-100">

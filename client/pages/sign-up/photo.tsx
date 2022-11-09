@@ -6,7 +6,7 @@ import Link from "next/link";
 const SignUpPhoto: NextPage = () => (
   <>
     <Head>
-      <title>Sign Up Upload Photo - StoreGG</title>
+      <title>Sign Up Upload Photo &ndash; StoreGG</title>
     </Head>
 
     <main className="mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">

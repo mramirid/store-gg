@@ -9,7 +9,7 @@ import Head from "next/head";
 const MemberOverview: NextPage = () => (
   <>
     <Head>
-      <title>Overview - StoreGG</title>
+      <title>Overview &ndash; StoreGG</title>
     </Head>
 
     <div className="overview overflow-auto">

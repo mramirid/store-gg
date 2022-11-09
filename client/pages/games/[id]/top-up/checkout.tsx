@@ -11,13 +11,13 @@ import Link from "next/link";
 const Checkout: NextPage = () => (
   <>
     <Head>
-      <title>Checkout GAME_NAME - StoreGG</title>
+      <title>Checkout GAME_NAME &ndash; StoreGG</title>
     </Head>
 
     <div className="checkout mx-auto pt-md-100 pb-md-145 pt-30 pb-30">
       <div className="container-fluid">
         <header className="logo text-md-center text-start pb-50">
-          <Link href="/" title="Homepage - StoreGG">
+          <Link href="/" title="Homepage &ndash; StoreGG">
             <LogoIcon />
           </Link>
         </header>

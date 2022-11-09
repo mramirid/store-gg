@@ -6,7 +6,7 @@ import Link from "next/link";
 const SignUpSuccess: NextPage = () => (
   <>
     <Head>
-      <title>Sign Up Success - StoreGG</title>
+      <title>Sign Up Success &ndash; StoreGG</title>
     </Head>
 
     <section className="mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">

@@ -7,7 +7,7 @@ import Head from "next/head";
 const TopUp: NextPage = () => (
   <>
     <Head>
-      <title>Topup GAME_NAME - StoreGG</title>
+      <title>Topup GAME_NAME &ndash; StoreGG</title>
     </Head>
 
     <header>
