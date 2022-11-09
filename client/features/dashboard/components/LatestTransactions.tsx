@@ -1,8 +1,13 @@
-import { capitalize } from "lodash-es";
+import classNames from "classnames";
+import { capitalize, isFunction } from "lodash-es";
 import Image from "next/image";
 import { formatIDR } from "utils/format";
 
-export default function LatestTransactions() {
+type RenderAction = (transactionId: string) => JSX.Element;
+
+export default function LatestTransactions(props: {
+  renderAction?: RenderAction;
+}) {
   return (
     <section>
       <h2 className="text-lg fw-medium color-palette-1 mb-14">
@@ -17,10 +22,12 @@ export default function LatestTransactions() {
               <th scope="col">Item</th>
               <th scope="col">Price</th>
               <th scope="col">Status</th>
+              {isFunction(props.renderAction) && <th scope="col">Action</th>}
             </tr>
           </thead>
           <tbody>
             <TransactionRow
+              id={"crypto.randomUUID()"}
               gameImageUrl={require("../assets/game-1.png")}
               gameName="Mobile Legends: The New Battle 2021"
               gameCategory="Desktop"
@@ -28,8 +35,10 @@ export default function LatestTransactions() {
               itemName="Gold"
               price={290_000}
               status="pending"
+              renderAction={props.renderAction}
             />
             <TransactionRow
+              id={"crypto.randomUUID()"}
               gameImageUrl={require("../assets/game-2.png")}
               gameName="Call of Duty:Modern"
               gameCategory="Desktop"
@@ -37,8 +46,10 @@ export default function LatestTransactions() {
               itemName="Gold"
               price={740_000}
               status="success"
+              renderAction={props.renderAction}
             />
             <TransactionRow
+              id={"crypto.randomUUID()"}
               gameImageUrl={require("../assets/game-3.png")}
               gameName="Clash of Clans"
               gameCategory="Mobile"
@@ -46,8 +57,10 @@ export default function LatestTransactions() {
               itemName="Gold"
               price={120_000}
               status="failed"
+              renderAction={props.renderAction}
             />
             <TransactionRow
+              id={"crypto.randomUUID()"}
               gameImageUrl={require("../assets/game-4.png")}
               gameName="The Royal Game"
               gameCategory="Mobile"
@@ -55,6 +68,7 @@ export default function LatestTransactions() {
               itemName="Gold"
               price={200_000}
               status="pending"
+              renderAction={props.renderAction}
             />
           </tbody>
         </table>
@@ -65,7 +79,6 @@ export default function LatestTransactions() {
           background-color: #ffffff;
           padding: 1.25rem 1.875rem;
           border-radius: 1rem;
-          max-width: 900px;
         }
 
         table thead tr th {
@@ -77,6 +90,7 @@ export default function LatestTransactions() {
 }
 
 function TransactionRow(props: {
+  id: string;
   gameImageUrl: string;
   gameName: string;
   gameCategory: string;
@@ -84,7 +98,10 @@ function TransactionRow(props: {
   itemName: string;
   price: number;
   status: "success" | "pending" | "failed";
+  renderAction: RenderAction | undefined;
 }) {
+  const action = props.renderAction?.(props.id);
+
   return (
     <tr className="align-middle">
       <th scope="row">
@@ -112,12 +129,15 @@ function TransactionRow(props: {
       </td>
       <td>
         <div>
-          <span className={`float-start icon-status ${props.status}`} />
+          <span
+            className={classNames("float-start icon-status", props.status)}
+          />
           <p className="fw-medium text-start color-palette-1 m-0 position-relative">
             {capitalize(props.status)}
           </p>
         </div>
       </td>
+      <td>{action}</td>
 
       <style jsx>{`
         .table > :not(caption) > * > * {
