@@ -43,9 +43,9 @@ function FeatureStep(props: {
     <div className="col-lg-4">
       <div className="card border-0">
         <props.Icon width={80} height={80} />
-        <p className="title fw-semibold text-2xl mb-2 color-palette-1">
+        <h3 className="title fw-semibold text-2xl mb-2 color-palette-1">
           {props.title}
-        </p>
+        </h3>
         <p className="text-lg color-palette-1 mb-0">
           {props.descriptions[0]}
           <br />

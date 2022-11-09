@@ -1,6 +1,6 @@
 export default function Statistics() {
   return (
-    <section className="pt-50 pb-50">
+    <div className="pt-50 pb-50">
       <div className="container-fluid">
         <div className="d-flex flex-lg-row flex-column align-items-center justify-content-center gap-lg-0 gap-4">
           <Statistic value="290M+" unit="Players Top Up" />
@@ -12,20 +12,20 @@ export default function Statistics() {
           <Statistic value="4.7" unit="Rating Worldwide" />
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 
 function Statistic(props: { value: string; unit: string }) {
   return (
-    <div className="me-lg-35">
+    <section className="me-lg-35">
       <p className="text-4xl text-lg-start text-center color-palette-1 fw-bold m-0">
         {props.value}
       </p>
-      <p className="text-lg text-lg-start text-center color-palette-2 m-0">
+      <h2 className="fw-normal text-lg text-lg-start text-center color-palette-2 m-0">
         {props.unit}
-      </p>
-    </div>
+      </h2>
+    </section>
   );
 }
 

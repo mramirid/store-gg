@@ -94,8 +94,10 @@ function NavItem(props: {
   }[];
 }) {
   return (
-    <div>
-      <p className="text-lg fw-semibold color-palette-1 mb-12">{props.title}</p>
+    <section>
+      <h2 className="text-lg fw-semibold color-palette-1 mb-12">
+        {props.title}
+      </h2>
       <ul className="list-unstyled">
         {props.links.map((link, i) => (
           <li className="mb-6" key={i}>
@@ -126,6 +128,6 @@ function NavItem(props: {
           background-color: transparent;
         }
       `}</style>
-    </div>
+    </section>
   );
 }

@@ -89,7 +89,9 @@ function FeaturedGame(props: {
               <ConsoleIcon />
             </div>
             <div>
-              <p className="fw-semibold text-white text-xl m-0">{props.name}</p>
+              <h3 className="fw-semibold text-white text-xl m-0">
+                {props.name}
+              </h3>
               <p className="fw-light text-white m-0">{props.name}</p>
             </div>
           </div>
