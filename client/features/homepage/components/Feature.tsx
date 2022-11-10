@@ -11,11 +11,13 @@ export default function Feature() {
         </h2>
         <div className="row gap-lg-0 gap-4" data-aos="fade-up">
           <FeatureStep
+            className="col-lg-4"
             Icon={ChooseGameIcon}
             title="1. Start"
             descriptions={["Pilih salah satu game", "yang ingin kamu top up"]}
           />
           <FeatureStep
+            className="col-lg-4"
             Icon={TopUpIcon}
             title="2. Fill Up"
             descriptions={[
@@ -24,6 +26,7 @@ export default function Feature() {
             ]}
           />
           <FeatureStep
+            className="col-lg-4"
             Icon={WinnerIcon}
             title="3. Be a Winner"
             descriptions={["Siap digunakan untuk", "improve permainan kamu"]}
@@ -34,13 +37,14 @@ export default function Feature() {
   );
 }
 
-function FeatureStep(props: {
+export function FeatureStep(props: {
   Icon: FC<SVGProps<SVGSVGElement>>;
   title: string;
   descriptions: [string, string];
+  className?: string;
 }) {
   return (
-    <div className="col-lg-4">
+    <article className={props.className}>
       <div className="card border-0">
         <props.Icon width={80} height={80} />
         <h3 className="title fw-semibold text-2xl mb-2 color-palette-1">
@@ -65,11 +69,11 @@ function FeatureStep(props: {
           margin-top: 30px;
         }
       `}</style>
-    </div>
+    </article>
   );
 }
 
-function ChooseGameIcon(props: SVGProps<SVGSVGElement>) {
+export function ChooseGameIcon(props: SVGProps<SVGSVGElement>) {
   const maskId = useId();
 
   return (

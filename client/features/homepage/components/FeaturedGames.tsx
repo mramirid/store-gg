@@ -63,7 +63,7 @@ export default function FeaturedGames() {
   );
 }
 
-function FeaturedGame(props: {
+export function FeaturedGame(props: {
   id: string;
   imageUrl: string;
   name: string;
@@ -72,30 +72,32 @@ function FeaturedGame(props: {
   return (
     <div className="card position-relative">
       <Link href={`/games/${props.id}/top-up`}>
-        <div className="blur-sharp">
-          <div className="img-wrapper">
-            <Image
-              className="img-fluid"
-              src={props.imageUrl}
-              width={205}
-              height={270}
-              alt=""
-            />
-          </div>
-        </div>
-        <div className="cover position-absolute bottom-0 m-32">
-          <div className="d-flex flex-column h-100 justify-content-between text-decoration-none">
-            <div className="game-icon mx-auto">
-              <ConsoleIcon />
-            </div>
-            <div>
-              <h3 className="fw-semibold text-white text-xl m-0">
-                {props.name}
-              </h3>
-              <p className="fw-light text-white m-0">{props.name}</p>
+        <>
+          <div className="blur-sharp">
+            <div className="img-wrapper">
+              <Image
+                className="img-fluid"
+                src={props.imageUrl}
+                width={205}
+                height={270}
+                alt={props.name}
+              />
             </div>
           </div>
-        </div>
+          <div className="cover position-absolute bottom-0 m-32">
+            <div className="d-flex flex-column h-100 justify-content-between text-decoration-none">
+              <div className="game-icon mx-auto">
+                <ConsoleIcon />
+              </div>
+              <div>
+                <h3 className="fw-semibold text-white text-xl m-0">
+                  {props.name}
+                </h3>
+                <p className="fw-light text-white m-0">{props.name}</p>
+              </div>
+            </div>
+          </div>
+        </>
       </Link>
 
       <style jsx>{`
