@@ -52,7 +52,7 @@ const SignIn: NextPage = () => (
             width={502}
             height={391}
             className="img-fluid"
-            alt=""
+            alt="Banner"
           />
           <h2 className="text-4xl fw-bold text-white mt-30 mb-30 mt-30">
             Win the battle.

@@ -91,7 +91,7 @@ function Banner() {
           <Image
             src={heroBanner}
             className="img-fluid"
-            alt=""
+            alt="Hero banner"
             priority
             width={490}
             height={484}
@@ -103,7 +103,7 @@ function Banner() {
                 width={40}
                 height={40}
                 className="rounded-pill"
-                alt=""
+                alt="Harley Hanson"
               />
               <div>
                 <p className="text-sm fw-medium color-palette-1 m-0">
@@ -127,7 +127,7 @@ function Banner() {
               <Image
                 src={avatar2}
                 className="rounded-pill"
-                alt=""
+                alt="Lann Knight"
                 width={80}
                 height={80}
               />

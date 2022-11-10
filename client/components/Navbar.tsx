@@ -115,7 +115,7 @@ function AuthNavItem() {
             className="rounded-circle"
             width={40}
             height={40}
-            alt=""
+            alt="Your avatar"
           />
         </a>
         <ul

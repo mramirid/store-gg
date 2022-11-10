@@ -106,7 +106,12 @@ function TransactionRow(props: {
     <tr className="align-middle">
       <th scope="row">
         <div className="float-start me-3 mb-lg-0 mb-3">
-          <Image src={props.gameImageUrl} width={80} height={60} alt="" />
+          <Image
+            src={props.gameImageUrl}
+            width={80}
+            height={60}
+            alt={props.gameName}
+          />
         </div>
         <div className="game-title-header">
           <p className="game-title fw-medium text-start color-palette-1 m-0">

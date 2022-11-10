@@ -14,7 +14,7 @@ export default function Story() {
               src="/images/story-banner.png"
               width={612}
               height={452}
-              alt=""
+              alt="Story banner"
             />
           </div>
           <div className="col-lg-5 col-12 ps-lg-60">
