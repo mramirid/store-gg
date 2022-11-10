@@ -1,7 +1,7 @@
-import UploadPhotoIcon from "components/UploadPhotoIcon";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import UploadPhotoIcon from "../../components/UploadPhotoIcon";
 
 const SignUpPhoto: NextPage = () => (
   <>

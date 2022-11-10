@@ -8,7 +8,7 @@ export default function TopUpGameDetails(props: { forMobile?: boolean }) {
           <div className="img-wrapper card">
             <Image
               className="img-fluid w-100"
-              src={require("features/homepage/assets/game-3.png")}
+              src={require("../../homepage/assets/game-3.png")}
               width={280}
               height={380}
               priority

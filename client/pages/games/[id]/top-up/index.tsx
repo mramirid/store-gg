@@ -1,8 +1,8 @@
-import Footer from "components/Footer";
-import Navbar from "components/Navbar";
-import { TopUpForm, TopUpGameDetails } from "features/top-up";
 import type { NextPage } from "next";
 import Head from "next/head";
+import Footer from "../../../../components/Footer";
+import Navbar from "../../../../components/Navbar";
+import { TopUpForm, TopUpGameDetails } from "../../../../features/top-up";
 
 const TopUp: NextPage = () => (
   <>

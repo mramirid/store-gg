@@ -1,8 +1,8 @@
 import classNames from "classnames";
-import WinnerIcon from "components/WinnerIcon";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import WinnerIcon from "../../../components/WinnerIcon";
 
 export default function Sidebar() {
   return (
@@ -89,7 +89,7 @@ function Profile() {
   return (
     <header className="user text-center pb-50 pe-30">
       <Image
-        src={require("features/homepage/assets/avatar-1.jpg")}
+        src={require("../../homepage/assets/avatar-1.jpg")}
         width={90}
         height={90}
         alt="Your avatar"

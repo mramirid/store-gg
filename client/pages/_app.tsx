@@ -3,7 +3,7 @@ import "aos/dist/aos.css";
 import type { AppProps } from "next/app";
 import Script from "next/script";
 import { useEffect } from "react";
-import "styles/utilities.css";
+import "../styles/utilities.css";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {

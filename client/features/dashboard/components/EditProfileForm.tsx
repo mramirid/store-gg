@@ -1,6 +1,6 @@
-import TextInput from "components/TextInput";
-import UploadPhotoIcon from "components/UploadPhotoIcon";
 import Image from "next/image";
+import TextInput from "../../../components/TextInput";
+import UploadPhotoIcon from "../../../components/UploadPhotoIcon";
 
 export default function EditProfileForm() {
   return (
@@ -9,7 +9,7 @@ export default function EditProfileForm() {
         <div className="avatar__wrapper me-20">
           <Image
             className="avatar rounded-circle"
-            src={require("features/homepage/assets/avatar-1.jpg")}
+            src={require("../../../features/homepage/assets/avatar-1.jpg")}
             width={90}
             height={90}
             alt="Your current avatar"

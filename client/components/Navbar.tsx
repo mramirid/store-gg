@@ -14,7 +14,11 @@ export default function Navbar() {
       )}
     >
       <div className="container-fluid">
-        <Link className="navbar-brand" href="/" title="Homepage &ndash; StoreGG">
+        <Link
+          className="navbar-brand"
+          href="/"
+          title="Homepage &ndash; StoreGG"
+        >
           <LogoIcon />
         </Link>
         <ToggleMenu />
@@ -107,7 +111,7 @@ function AuthNavItem() {
           aria-expanded="false"
         >
           <Image
-            src={require("features/homepage/assets/avatar-1.jpg")}
+            src={require("../features/homepage/assets/avatar-1.jpg")}
             className="rounded-circle"
             width={40}
             height={40}

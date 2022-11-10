@@ -1,10 +1,10 @@
+import type { NextPage } from "next";
+import Head from "next/head";
 import {
   LatestTransactions,
   Sidebar,
   TopUpCategories,
-} from "features/dashboard";
-import type { NextPage } from "next";
-import Head from "next/head";
+} from "../../features/dashboard";
 
 const MemberOverview: NextPage = () => (
   <>

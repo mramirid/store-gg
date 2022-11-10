@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { capitalize, isFunction } from "lodash-es";
 import Image from "next/image";
-import { formatIDR } from "utils/format";
+import { formatIDR } from "../../../utils/format";
 
 type RenderAction = (transactionId: string) => JSX.Element;
 

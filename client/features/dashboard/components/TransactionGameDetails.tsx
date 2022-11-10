@@ -8,7 +8,7 @@ export default function TransactionGameDetails() {
           <div className="cropped">
             <Image
               className="img-fluid"
-              src={require("features/homepage/assets/game-3.png")}
+              src={require("../../homepage/assets/game-3.png")}
               width={281}
               height={381}
               alt=""

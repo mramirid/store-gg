@@ -1,5 +1,5 @@
-import WinnerIcon from "components/WinnerIcon";
 import { FC, SVGProps, useId } from "react";
+import WinnerIcon from "../../../components/WinnerIcon";
 
 export default function Feature() {
   return (
