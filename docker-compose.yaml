@@ -1,0 +1,12 @@
+services:
+  mongodb:
+    image: "mongo"
+    volumes:
+      - database:/data/db
+    env_file:
+      - ./backend/.env.production
+    ports:
+      - "27017:27017"
+
+volumes:
+  database:

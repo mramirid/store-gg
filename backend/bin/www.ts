@@ -4,7 +4,9 @@
 import debug from "debug";
 import http from "http";
 import _ from "lodash";
+import type mongoose from "mongoose";
 import app from "../app";
+import db from "../lib/db";
 
 //
 // Get port from environment and store in Express.
@@ -39,20 +41,14 @@ const server = http.createServer(app);
 //
 // Listen on provided port, on all network interfaces.
 //
-server.listen(port, () => {
-  // mongoose.connect(mongoUri, (error) => {
-  //   if (_.isError(error)) {
-  //     console.error("Failed to connect to MongoDB:", error);
-  //     return;
-  //   }
-
-  //   console.log(`The server is running on port ${port}`);
-  // });
-
-  console.log(`The server is running on port ${port}`);
+db.on("error", (error: mongoose.Error.MongooseServerSelectionError) => {
+  throw new Error("Failed to connect to MongoDB:", { cause: error });
 });
-server.on("error", onError);
-server.on("listening", onListening);
+db.on("open", () => {
+  server.listen(port);
+  server.on("error", onError);
+  server.on("listening", onListening);
+});
 
 //
 // Event listener for HTTP server "error" event.
@@ -62,7 +58,7 @@ function onError(error: SystemError) {
     throw error;
   }
 
-  const bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+  const bind = _.isString(port) ? "Pipe " + port : "Port " + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -88,5 +84,5 @@ function onListening() {
   const bind = _.isString(address)
     ? `pipe ${address}`
     : `port ${address?.port}`;
-  debug("Listening on " + bind);
+  debug("http")("Listening on " + bind);
 }
