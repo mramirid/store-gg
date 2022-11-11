@@ -1,5 +1,5 @@
 {
-  "name": "store-gg",
+  "name": "@store-gg/client",
   "version": "0.1.0",
   "private": true,
   "scripts": {
