@@ -19,10 +19,11 @@ const app = express();
 
 app.use(cors());
 
-app.set("views", path.join(__dirname, "..", "views"));
+app.set("views", path.join("views"));
 app.set("view engine", "ejs");
 
-app.use(express.static(path.join(__dirname, "..", "public")));
+app.use("/admin-lte", express.static(path.join("node_modules", "admin-lte")));
+app.use(express.static(path.join("public")));
 
 app.use(logger("dev"));
 

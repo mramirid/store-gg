@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@tsconfig/node-lts-strictest": "^18.12.1",
+    "admin-lte": "^3.2.0",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
     "connect-flash": "^0.1.1",
