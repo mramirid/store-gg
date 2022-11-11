@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "ts-node --transpile-only ./bin/www.ts",
-    "dev": "env-cmd -f ./.env.development.local nodemon ./bin/www.ts",
+    "dev": "@powershell -Command $env:DEBUG='*'; env-cmd -f ./.env.development.local nodemon ./bin/www.ts",
     "prettier": "prettier --write \"**/*.{js,ts}\"",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --ext .js,.ts"

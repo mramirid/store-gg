@@ -4,24 +4,25 @@ import cors from "cors";
 import express from "express";
 import session from "express-session";
 import helmet from "helmet";
-import createError from "http-errors";
+import { default as createError } from "http-errors";
+import { StatusCodes } from "http-status-codes";
 import _ from "lodash";
 import methodOverride from "method-override";
 import logger from "morgan";
 import passport from "passport";
 import path from "path";
-import indexRouter from "./routes/index";
-import { env } from "./utils/constant";
-import * as format from "./utils/format";
+import { env } from "../lib/constant";
+import format from "../utils/format";
+import categoriesRouter from "./categories/router";
 
 const app = express();
 
 app.use(cors());
 
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "..", "views"));
 app.set("view engine", "ejs");
 
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "..", "public")));
 
 app.use(logger("dev"));
 
@@ -54,19 +55,20 @@ app.use((__: express.Request, res: express.Response, next) => {
   next();
 });
 
-app.use("/", indexRouter);
+app.use("/", categoriesRouter);
 
 // catch 404 and forward to error handler
 app.use((_, __, next) => next(createError(404)));
 
 // error handler
-const errorHandler: express.ErrorRequestHandler = (err, req, res) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const errorHandler: express.ErrorRequestHandler = (error, req, res, _) => {
   // set locals, only providing error in development
-  res.locals["message"] = err.message;
-  res.locals["error"] = req.app.get("env") === "development" ? err : {};
+  res.locals["message"] = error.message;
+  res.locals["error"] = req.app.get("env") === "development" ? error : {};
 
   // render the error page
-  res.status(err.status ?? 500);
+  res.status(error.status ?? StatusCodes.INTERNAL_SERVER_ERROR);
   res.render("error");
 };
 app.use(errorHandler);
