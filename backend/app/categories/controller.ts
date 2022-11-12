@@ -25,7 +25,7 @@ function viewCreateCategory(req: express.Request, res: express.Response) {
   res.render("admin/categories/create", {
     pageTitle: "Create Category",
     alert: getAlert(req),
-    prevInput: undefined,
+    submitData: undefined,
   });
 }
 
@@ -50,7 +50,7 @@ async function createCategory(
       res.render("admin/categories/create", {
         pageTitle: "Create Category",
         alert: getAlert(req),
-        prevInput: req.body,
+        submitData: req.body,
       });
 
       return;
@@ -60,4 +60,8 @@ async function createCategory(
   }
 }
 
-export default { viewCategories, viewCreateCategory, createCategory };
+export default {
+  viewCategories,
+  viewCreateCategory,
+  createCategory,
+};
