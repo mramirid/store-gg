@@ -14,8 +14,7 @@ import passport from "passport";
 import path from "path";
 import { env } from "../lib/constant";
 import format from "../utils/format";
-import categoriesRouter from "./categories/router";
-import homeRouter from "./home/router";
+import adminRouter from "./admin.router";
 
 const app = express();
 
@@ -75,8 +74,7 @@ app.use((__: express.Request, res: express.Response, next) => {
   next();
 });
 
-app.use("/", homeRouter);
-app.use("/categories", categoriesRouter);
+app.use("/admin", adminRouter);
 
 // catch 404 and forward to error handler
 app.use((_, __, next) => next(createError(404)));
@@ -89,8 +87,7 @@ const errorHandler: express.ErrorRequestHandler = (error, req, res, _) => {
   res.locals["error"] = req.app.get("env") === "development" ? error : {};
 
   // render the error page
-  res.status(error.status ?? StatusCodes.INTERNAL_SERVER_ERROR);
-  res.render("error");
+  res.status(error.status ?? StatusCodes.INTERNAL_SERVER_ERROR).render("error");
 };
 app.use(errorHandler);
 
