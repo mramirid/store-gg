@@ -4,8 +4,12 @@ import express from "express";
 import session from "express-session";
 import { StatusCodes } from "http-status-codes";
 import _ from "lodash";
+import type mongoose from "mongoose";
 import passport from "passport";
 import { env } from "../lib/constant";
+import { ValidationError } from "../lib/error";
+import { AlertStatuses, getAlert, setAlert } from "../utils/alert";
+import { getErrorMessage } from "../utils/error";
 import format from "../utils/format";
 import categoriesRouter from "./categories/router";
 import homeRouter from "./home/router";
@@ -48,7 +52,51 @@ adminRouter.use((_, res) => {
   });
 });
 
-const errorHandler: express.ErrorRequestHandler = (error, req, res, next) => {
+const validationErrorHandler: express.ErrorRequestHandler = (
+  error,
+  req,
+  res,
+  next
+) => {
+  if (error instanceof ValidationError) {
+    setAlert(req, {
+      message: getMongooseValidationErrorMessage(error.mongooseValidationError),
+      status: AlertStatuses.Error,
+    });
+
+    res.render(error.view, {
+      pageTitle: error.pageTitle,
+      alert: getAlert(req),
+      formData: req.body,
+    });
+
+    return;
+  }
+
+  next(error);
+};
+adminRouter.use(validationErrorHandler);
+
+function getMongooseValidationErrorMessage(
+  validationError: mongoose.Error.ValidationError
+) {
+  const errors = Object.values(validationError.errors);
+  const messages = errors.map(getErrorMessage);
+
+  const formatter = new Intl.ListFormat("en-US", {
+    style: "long",
+    type: "conjunction",
+  });
+
+  return formatter.format(messages);
+}
+
+const fallbackErrorHandler: express.ErrorRequestHandler = (
+  error,
+  req,
+  res,
+  next
+) => {
   if (req.app.get("env") === "development") {
     next(error);
     return;
@@ -60,6 +108,6 @@ const errorHandler: express.ErrorRequestHandler = (error, req, res, next) => {
     statusCode,
   });
 };
-adminRouter.use(errorHandler);
+adminRouter.use(fallbackErrorHandler);
 
 export default adminRouter;

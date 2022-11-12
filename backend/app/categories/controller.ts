@@ -1,31 +1,33 @@
 import type express from "express";
 import mongoose from "mongoose";
-import { AlertStatuses, getAlert, setAlert } from "../../utils/alert";
-import { getValidationErrorMessage } from "../../utils/error";
-import Category, { ICategory } from "./model";
+import { ValidationError } from "../../lib/error";
+import { AlertStatuses, setAlert } from "../../utils/alert";
+import Category, { CategoryDoc, ICategory } from "./model";
 
 async function viewCategories(
   _: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) {
-  try {
-    const categories = await Category.find();
+  let categories: CategoryDoc[];
 
-    res.render("admin/categories", {
-      pageTitle: "Categories",
-      categories,
-    });
-  } catch (error) {
-    next(error);
+  try {
+    categories = await Category.find();
+  } catch (maybeError) {
+    next(maybeError);
+    return;
   }
+
+  res.render("admin/categories", {
+    pageTitle: "Categories",
+    categories,
+  });
 }
 
-function viewCreateCategory(req: express.Request, res: express.Response) {
+function viewCreateCategory(_: express.Request, res: express.Response) {
   res.render("admin/categories/create", {
     pageTitle: "Create Category",
-    alert: getAlert(req),
-    submitData: undefined,
+    formData: undefined,
   });
 }
 
@@ -36,28 +38,22 @@ async function createCategory(
 ) {
   try {
     await Category.create(req.body);
-
-    setAlert(req, { message: "Category added", status: AlertStatuses.Success });
-
-    res.redirect("/admin/categories");
   } catch (maybeError) {
     if (maybeError instanceof mongoose.Error.ValidationError) {
-      setAlert(req, {
-        message: getValidationErrorMessage(maybeError),
-        status: AlertStatuses.Error,
-      });
-
-      res.render("admin/categories/create", {
-        pageTitle: "Create Category",
-        alert: getAlert(req),
-        submitData: req.body,
-      });
-
-      return;
+      const validationError = new ValidationError(
+        "admin/categories/create",
+        "Create Category",
+        maybeError
+      );
+      next(validationError);
+    } else {
+      next(maybeError);
     }
-
-    next(maybeError);
+    return;
   }
+
+  setAlert(req, { message: "Category added", status: AlertStatuses.Success });
+  res.redirect("/admin/categories");
 }
 
 export default {
