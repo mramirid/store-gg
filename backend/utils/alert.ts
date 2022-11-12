@@ -1,4 +1,4 @@
-import type { Request } from "express";
+import type express from "express";
 import _ from "lodash";
 
 const enum AlertTypes {
@@ -18,7 +18,7 @@ type Alert = {
 };
 
 export function getAlert(
-  req: Request,
+  req: express.Request<unknown>,
   custom?: { messageType: string; status: AlertStatuses }
 ) {
   const message = req.flash(custom?.messageType ?? AlertTypes.Message).at(0);
@@ -34,7 +34,7 @@ export function getAlert(
   });
 }
 
-export function setAlert(req: Request<unknown>, alert: Alert) {
+export function setAlert(req: express.Request<unknown>, alert: Alert) {
   req.flash(AlertTypes.Message, alert.message);
   req.flash(AlertTypes.Status, alert.status);
 }

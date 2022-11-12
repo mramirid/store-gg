@@ -12,6 +12,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/admin">Home</a></li>
+            <li class="breadcrumb-item"><a href="/admin/categories">Categories</a></li>
             <li class="breadcrumb-item active"><%= pageTitle %></li>
           </ol>
         </div>
@@ -24,17 +25,28 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <div class="card">
+          <div class="card card-primary">
             <div class="card-header">
-              <a href="/admin/categories/create" class="btn btn-primary">
-                <i class="nav-icon far fa-plus-square"></i> Create
-              </a>
+              <h3 class="card-title">Form</h3>
             </div>
             <!-- /.card-header -->
-            <div class="card-body">
-              <%- include("./list.ejs") %>
-            </div>
-            <!-- /.card-body -->
+            <!-- form start -->
+            <form action="/admin/categories" method="POST">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="name">Category Name</label>
+                  <input type="text" class="form-control" id="name" name="name"
+                    placeholder="Enter name for the category" value="<%= prevInput?.name ?? "" %>">
+                </div>
+              </div>
+              <!-- /.card-body -->
+
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
           </div>
           <!-- /.card -->
         </div>

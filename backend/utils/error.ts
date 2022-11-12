@@ -1,4 +1,5 @@
 import _ from "lodash";
+import type mongoose from "mongoose";
 
 export function getErrorMessage(maybeError: unknown) {
   return toError(maybeError).message;
@@ -31,4 +32,18 @@ function isErrorWithMessage(
     "message" in maybeError &&
     typeof (maybeError as Record<string, unknown>)["message"] === "string"
   );
+}
+
+export function getValidationErrorMessage(
+  validationError: mongoose.Error.ValidationError
+) {
+  const errors = Object.values(validationError.errors);
+  const messages = errors.map(getErrorMessage);
+
+  const formatter = new Intl.ListFormat("en-US", {
+    style: "long",
+    type: "conjunction",
+  });
+
+  return formatter.format(messages);
 }
