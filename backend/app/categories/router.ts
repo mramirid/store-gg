@@ -3,7 +3,6 @@ import controller from "./controller";
 
 const categoriesRouter = express.Router();
 
-/* GET home page. */
-categoriesRouter.get("/", controller.viewSignup);
+categoriesRouter.get("/", controller.viewCategories);
 
 export default categoriesRouter;

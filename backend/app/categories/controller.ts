@@ -1,7 +1,7 @@
 import type express from "express";
 
-function viewSignup(_: express.Request, res: express.Response) {
-  res.render("index");
+function viewCategories(_: express.Request, res: express.Response) {
+  res.render("admin/categories", { pageTitle: "Categories" });
 }
 
-export default { viewSignup };
+export default { viewCategories };

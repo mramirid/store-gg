@@ -5,7 +5,7 @@ import crypto from "crypto";
 import express from "express";
 import session from "express-session";
 import helmet from "helmet";
-import { default as createError } from "http-errors";
+import createError from "http-errors";
 import { StatusCodes } from "http-status-codes";
 import _ from "lodash";
 import methodOverride from "method-override";
