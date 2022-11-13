@@ -111,10 +111,30 @@ export async function editCategory(
   res.redirect("/admin/categories");
 }
 
+async function deleteCategory(
+  req: express.Request<{ id: string }>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  try {
+    await Category.findByIdAndDelete(req.params.id).orFail(category404Error);
+  } catch (maybeError) {
+    next(maybeError);
+    return;
+  }
+
+  setAlert(req, {
+    message: "Category deleted",
+    status: AlertStatuses.Success,
+  });
+  res.redirect("/admin/categories");
+}
+
 export default {
   viewCategories,
   viewCreateCategory,
   createCategory,
   viewEditCategory,
   editCategory,
+  deleteCategory,
 };
