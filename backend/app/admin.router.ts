@@ -9,6 +9,7 @@ import type mongoose from "mongoose";
 import passport from "passport";
 import { env, mongoUri } from "../lib/constant";
 import { ValidationError } from "../lib/error";
+import { version } from "../package.json";
 import { AlertStatuses, getAlert, setAlert } from "../utils/alert";
 import { getErrorMessage } from "../utils/error";
 import format from "../utils/format";
@@ -38,6 +39,7 @@ adminRouter.use(flash());
 adminRouter.use((__: express.Request, res: express.Response, next) => {
   res.locals["_"] = _;
   res.locals["format"] = format;
+  res.locals["appVersion"] = version;
 
   next();
 });
