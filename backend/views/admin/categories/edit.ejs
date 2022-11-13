@@ -7,7 +7,7 @@
 
 <%- include('../partials/dashboard/layout-start.ejs', {
   previousBreadcrumbs: [
-    { label: "Home", href: "/admin" },
+    { label: "Dashboard", href: "/admin" },
     { label: "Categories", href: "/admin/categories" },
   ]
 }) %>
@@ -15,6 +15,9 @@
 <!-- Main content -->
 <section class="content">
   <div class="container-fluid">
+
+    <%- include('../partials/alert.ejs') %>
+
     <div class="row">
       <div class="col-12">
         <div class="card card-primary">

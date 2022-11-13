@@ -2,11 +2,11 @@ import type express from "express";
 import createHttpError from "http-errors";
 import mongoose from "mongoose";
 import { ValidationError } from "../../lib/error";
-import { AlertStatuses, setAlert } from "../../utils/alert";
+import { AlertStatuses, getAlert, setAlert } from "../../utils/alert";
 import Category, { CategoryDoc, ICategory } from "./model";
 
 async function viewCategories(
-  _: express.Request,
+  req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) {
@@ -21,6 +21,7 @@ async function viewCategories(
 
   res.render("admin/categories", {
     pageTitle: "Categories",
+    alert: getAlert(req),
     categories,
   });
 }
@@ -28,6 +29,7 @@ async function viewCategories(
 function viewCreateCategory(_: express.Request, res: express.Response) {
   res.render("admin/categories/create", {
     pageTitle: "Create Category",
+    alert: undefined,
     formData: undefined,
   });
 }
@@ -75,6 +77,7 @@ async function viewEditCategory(
 
   res.render("admin/categories/edit", {
     pageTitle: "Edit Category",
+    alert: undefined,
     formData: category,
   });
 }

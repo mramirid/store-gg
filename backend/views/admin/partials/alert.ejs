@@ -1,0 +1,7 @@
+<% if (_.isPlainObject(alert)) { %>
+<div class="alert alert-<%= alert.status %> alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <h5><i class="icon fas <%= alert.icon %>"></i> Alert!</h5>
+  <%= alert.message %>
+</div>
+<% } %>
