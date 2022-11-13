@@ -16,7 +16,9 @@
   <link rel="stylesheet" href="/admin-lte/plugins/summernote/summernote-bs4.min.css">
 </head>
 
-<%- include('./partials/dashboard/layout-start.ejs', { previousBreadcrumbs: [] }) %>
+<%- include('./partials/dashboard/layout-start.ejs', { 
+  previousBreadcrumbs: [{ label: "Dashboard", href: "/admin" }] 
+}) %>
 
 <!-- Main content -->
 <section class="content">
