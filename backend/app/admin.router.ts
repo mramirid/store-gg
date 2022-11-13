@@ -76,6 +76,7 @@ const validationErrorHandler: express.ErrorRequestHandler = (
       pageTitle: error.pageTitle,
       alert: getAlert(req),
       formData: req.body,
+      formErrors: error.mongooseValidationError.errors,
     });
 
     return;

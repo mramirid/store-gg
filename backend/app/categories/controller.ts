@@ -31,6 +31,7 @@ function viewCreateCategory(_: express.Request, res: express.Response) {
     pageTitle: "Create Category",
     alert: undefined,
     formData: undefined,
+    formErrors: undefined,
   });
 }
 
@@ -79,6 +80,7 @@ async function viewEditCategory(
     pageTitle: "Edit Category",
     alert: undefined,
     formData: category,
+    formErrors: undefined,
   });
 }
 
