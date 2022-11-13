@@ -1,43 +1,41 @@
-<%- include('./partials/dashboard/layout-start.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1><%= pageTitle %></h1>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-            <li class="breadcrumb-item active"><%= pageTitle %></li>
-          </ol>
+<head>
+  <%- include('./partials/common-head-content.ejs') %>
+</head>
+
+<body>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper m-0">
+    <%- include('./partials/header.ejs', { 
+      previousBreadcrumbs: [{ label: "Index", href: "/" }] 
+    }) %>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="error-page">
+        <h2 class="headline text-danger"><%= statusCode %></h2>
+
+        <div class="error-content">
+          <h3><i class="fas fa-exclamation-triangle text-danger"></i> Oops! Something went wrong.</h3>
+
+          <p>
+            We will work on fixing that right away.
+            Meanwhile, you may <a href="/">return to index</a>.
+          </p>
         </div>
       </div>
-    </div><!-- /.container-fluid -->
-  </section>
+      <!-- /.error-page -->
 
-  <!-- Main content -->
-  <section class="content">
-    <div class="error-page">
-      <h2 class="headline text-danger"><%= statusCode %></h2>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+</body>
 
-      <div class="error-content">
-        <h3><i class="fas fa-exclamation-triangle text-danger"></i> Oops! Something went wrong.</h3>
+<%- include('./partials/footer.ejs', { className: "m-0" }) %>
 
-        <p>
-          We will work on fixing that right away.
-          Meanwhile, you may <a href="/admin">return to dashboard</a>.
-        </p>
-      </div>
-    </div>
-    <!-- /.error-page -->
+<%- include('./partials/common-scripts.ejs') %>
 
-  </section>
-  <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
-
-<%- include('./partials/dashboard/layout-end.ejs') %>
+</html>
