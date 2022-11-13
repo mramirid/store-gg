@@ -1,4 +1,5 @@
 import flash from "connect-flash";
+import connectMongoDBSession from "connect-mongodb-session";
 import csrf from "csurf";
 import express from "express";
 import session from "express-session";
@@ -6,7 +7,7 @@ import { StatusCodes } from "http-status-codes";
 import _ from "lodash";
 import type mongoose from "mongoose";
 import passport from "passport";
-import { env } from "../lib/constant";
+import { env, mongoUri } from "../lib/constant";
 import { ValidationError } from "../lib/error";
 import { AlertStatuses, getAlert, setAlert } from "../utils/alert";
 import { getErrorMessage } from "../utils/error";
@@ -16,12 +17,17 @@ import homeRouter from "./home/router";
 
 const adminRouter = express.Router();
 
+const MongoDBStore = connectMongoDBSession(session);
+const mongoDBStore = new MongoDBStore({
+  uri: mongoUri,
+  collection: "sessions",
+});
 adminRouter.use(
   session({
     secret: env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: {},
+    store: mongoDBStore,
   })
 );
 
