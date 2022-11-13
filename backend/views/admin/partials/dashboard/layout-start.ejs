@@ -1,11 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<%- include('./head.ejs') %>
-
 <body class="hold-transition sidebar-mini layout-fixed">
 
   <div class="wrapper">
 
     <%- include('./navbar.ejs') %>
+
     <%- include('./sidebar.ejs') %>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1><%= pageTitle %></h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <% for (const breadcrumb of previousBreadcrumbs) { %>
+                <li class="breadcrumb-item">
+                  <a href="<%= breadcrumb.href %>"><%= breadcrumb.label %></a>
+                </li>
+                <% } %>
+                <li class="breadcrumb-item active"><%= pageTitle %></li>
+              </ol>
+            </div>
+          </div>
+        </div> <!-- /.container-fluid -->
+      </section>

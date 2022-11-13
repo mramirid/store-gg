@@ -1,51 +1,102 @@
-<%- include('../partials/dashboard/layout-start.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1><%= pageTitle %></h1>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-            <li class="breadcrumb-item active"><%= pageTitle %></li>
-          </ol>
-        </div>
-      </div>
-    </div> <!-- /.container-fluid -->
-  </section>
+<head>
+  <%- include('../partials/common-head-content.ejs') %>
 
-  <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <a href="/admin/categories/create" class="btn btn-primary">
-                <i class="nav-icon far fa-plus-square"></i> Create
-              </a>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-              <%- include("./list.ejs") %>
-            </div>
-            <!-- /.card-body -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="/admin-lte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+</head>
+
+<%- include('../partials/dashboard/layout-start.ejs', {
+  previousBreadcrumbs: [{ label: "Home", href: "/admin" }]
+}) %>
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <a href="/admin/categories/create" class="btn btn-primary">
+              <i class="nav-icon far fa-plus-square"></i> Create
+            </a>
           </div>
-          <!-- /.card -->
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table id="list" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Name</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% categories.forEach((category, i) => { %>
+                <tr>
+                  <td><%= i + 1  %></td>
+                  <td><%= category.name %></td>
+                  <td>
+                    <a href="/admin/categories/<%= category.id %>/edit" class="btn btn-warning">
+                      <i class="fas fa-pencil-alt"></i> Edit
+                    </a>
+                    <form method="post" action="/admin/categories/<%= category.id %>?_method=DELETE" class="d-inline">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                      <button type="submit" type="button" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Delete
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
         </div>
-        <!-- /.col -->
+        <!-- /.card -->
       </div>
-      <!-- /.row -->
+      <!-- /.col -->
     </div>
-    <!-- /.container-fluid -->
-  </section>
-  <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
 
 <%- include('../partials/dashboard/layout-end.ejs') %>
+
+<%- include('../partials/common-scripts.ejs') %>
+<!-- DataTables  & Plugins -->
+<script src="/admin-lte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="/admin-lte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/admin-lte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="/admin-lte/plugins/jszip/jszip.min.js"></script>
+<script src="/admin-lte/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="/admin-lte/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="/admin-lte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="/admin-lte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="/admin-lte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- Page specific script -->
+<script nonce="<%= cspNonce %>">
+  $(function () {
+    $('#list').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+</html>

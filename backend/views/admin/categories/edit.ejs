@@ -1,63 +1,57 @@
-<%- include('../partials/dashboard/layout-start.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1><%= pageTitle %></h1>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
-            <li class="breadcrumb-item"><a href="/admin/categories">Categories</a></li>
-            <li class="breadcrumb-item active"><%= pageTitle %></li>
-          </ol>
-        </div>
-      </div>
-    </div> <!-- /.container-fluid -->
-  </section>
+<head>
+  <%- include('../partials/common-head-content.ejs') %>
+</head>
 
-  <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title">Form</h3>
-            </div>
-            <!-- /.card-header -->
-            <!-- form start -->
-            <form action="/admin/categories/<%= formData.id %>?_method=PATCH" method="POST">
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="name">Category Name</label>
-                  <input type="text" class="form-control" id="name" name="name"
-                    placeholder="Enter name for the category" value="<%= formData.name %>">
-                </div>
-              </div>
-              <!-- /.card-body -->
+<%- include('../partials/dashboard/layout-start.ejs', {
+  previousBreadcrumbs: [
+    { label: "Home", href: "/admin" },
+    { label: "Categories", href: "/admin/categories" },
+  ]
+}) %>
 
-              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Edit</button>
-              </div>
-            </form>
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Form</h3>
           </div>
-          <!-- /.card -->
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form action="/admin/categories/<%= formData.id %>?_method=PATCH" method="POST">
+            <div class="card-body">
+              <div class="form-group">
+                <label for="name">Category Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name for the category"
+                  value="<%= formData.name %>">
+              </div>
+            </div>
+            <!-- /.card-body -->
+
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Edit</button>
+            </div>
+          </form>
         </div>
-        <!-- /.col -->
+        <!-- /.card -->
       </div>
-      <!-- /.row -->
+      <!-- /.col -->
     </div>
-    <!-- /.container-fluid -->
-  </section>
-  <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
 
 <%- include('../partials/dashboard/layout-end.ejs') %>
+
+<%- include('../partials/common-scripts.ejs') %>
+
+</html>
