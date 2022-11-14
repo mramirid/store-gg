@@ -10,7 +10,7 @@ const categorySchema = new Schema<ICategory>({
   name: {
     type: String,
     trim: true,
-    required: [true, "The category name is required"],
+    required: true,
   },
 });
 
