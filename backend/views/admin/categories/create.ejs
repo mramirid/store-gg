@@ -29,13 +29,13 @@
               <div class="form-group">
                 <label for="name">Category Name</label>
 
-                <% const nameErrorMessage = formErrors?.name?.message; %>
+                <% const nameError = formErrors?.name; %>
 
-                <input type="text" class="form-control <%= _.isString(nameErrorMessage) ? "is-invalid" : "" %>"
-                  id="name" name="name" placeholder="Enter name for the category" value="<%= formData?.name ?? "" %>">
+                <input type="text" class="form-control <%= _.isError(nameError) ? "is-invalid" : "" %>" id="name"
+                  name="name" placeholder="Enter name for the category" value="<%= formData?.name ?? "" %>" required>
 
-                <% if (_.isString(nameErrorMessage)) { %>
-                <span class="invalid-feedback"><%= nameErrorMessage %></span>
+                <% if (_.isError(nameError)) { %>
+                <span class="invalid-feedback"><%= nameError.message %></span>
                 <% } %>
               </div>
             </div>
