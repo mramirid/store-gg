@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/common-head-content.ejs') %>
+
+  <!-- DataTables -->
+  <link rel="stylesheet" href="/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+</head>
+
+<%- include('../partials/dashboard/layout-start.ejs', {
+  previousBreadcrumbs: [{ label: "Dashboard", href: "/admin" }]
+}) %>
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+
+    <%- include('../partials/alert.ejs') %>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <a href="/admin/items/create" class="btn btn-primary">
+              <i class="nav-icon far fa-plus-square"></i> Create
+            </a>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <!-- TODO: display table -->
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<%- include('../partials/dashboard/layout-end.ejs') %>
+
+<%- include('../partials/common-scripts.ejs') %>
+<!-- DataTables  & Plugins -->
+<script src="/admin-lte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<!-- Page specific script -->
+<script nonce="<%= cspNonce %>">
+  $(function () {
+    $('#list').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+</html>

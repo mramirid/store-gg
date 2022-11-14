@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/common-head-content.ejs') %>
+  <!-- Select2 -->
+  <link rel="stylesheet" href="/admin-lte/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+</head>
+
+<%- include('../partials/dashboard/layout-start.ejs', {
+  previousBreadcrumbs: [
+    { label: "Dashboard", href: "/admin" },
+    { label: "Items", href: "/admin/items" },
+  ]
+}) %>
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <%- include('../partials/alert.ejs') %>
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Form</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form action="/admin/items" method="POST">
+            <div class="card-body">
+              <div class="form-group">
+                <label>Name</label>
+
+                <select class="form-control select2bs4 <%= _.isError(formErrors?.name) ? "is-invalid" : "" %>"
+                  style="width: 100%;" name="name" required>
+                  <option value="" <%= _.isUndefined(formData) ? "selected" : "" %>>--- Select Name ---</option>
+                  <option value="gold" <%= formData?.name === "gold" ? "selected" : "" %>>Gold</option>
+                  <option value="diamond" <%= formData?.name === "diamond" ? "selected" : "" %>>Diamond</option>
+                  <option value="jewel" <%= formData?.name === "jewel" ? "selected" : "" %>>Jewel</option>
+                </select>
+
+                <% if (_.isError(formErrors?.name)) { %>
+                <span class="invalid-feedback"><%= formErrors.name.message %></span>
+                <% } %>
+              </div>
+
+              <div class="form-group">
+                <label for="quantity">Quantity</label>
+
+                <input type="number" class="form-control <%= _.isError(formErrors?.quantity) ? "is-invalid" : "" %>"
+                  id="quantity" name="quantity" placeholder="Enter quantity" min="0" required
+                  value="<%= formData?.quantity ?? "0" %>">
+
+                <% if (_.isError(formErrors?.quantity)) { %>
+                <span class="invalid-feedback"><%= formErrors.quantity.message %></span>
+                <% } %>
+              </div>
+
+              <div class="form-group">
+                <label for="price">Price</label>
+
+                <input type="number" class="form-control <%= _.isError(formErrors?.price) ? "is-invalid" : "" %>"
+                  id="price" name="price" placeholder="Enter price" min="0" step="0.01" required
+                  value="<%= formData?.price ?? "0" %>">
+
+                <% if (_.isError(formErrors?.price)) { %>
+                <span class="invalid-feedback"><%= formErrors.price.message %></span>
+                <% } %>
+              </div>
+            </div>
+            <!-- /.card-body -->
+
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<%- include('../partials/dashboard/layout-end.ejs') %>
+
+<%- include('../partials/common-scripts.ejs') %>
+<!-- Select2 -->
+<script src="/admin-lte/plugins/select2/js/select2.full.min.js"></script>
+<!-- Page specific script -->
+<script nonce="<%= cspNonce %>">
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+  });
+</script>
+
+</html>

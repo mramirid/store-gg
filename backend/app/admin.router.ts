@@ -15,6 +15,7 @@ import { getErrorMessage } from "../utils/error";
 import format from "../utils/format";
 import categoriesRouter from "./categories/router";
 import homeRouter from "./home/router";
+import itemsRouter from "./items/router";
 
 const adminRouter = express.Router();
 
@@ -52,6 +53,7 @@ adminRouter.use(csrf(), (req, res, next) => {
 adminRouter.use("/", homeRouter);
 
 adminRouter.use("/categories", categoriesRouter);
+adminRouter.use("/items", itemsRouter);
 
 adminRouter.use((_, res) => {
   res.status(StatusCodes.NOT_FOUND).render("admin/404", {
