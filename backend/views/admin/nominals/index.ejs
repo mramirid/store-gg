@@ -23,13 +23,13 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-            <a href="/admin/items/create" class="btn btn-primary">
+            <a href="/admin/nominals/create" class="btn btn-primary">
               <i class="nav-icon far fa-plus-square"></i> Create
             </a>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <table id="items" class="table table-bordered table-hover">
+            <table id="nominals" class="table table-bordered table-hover">
               <thead>
                 <tr>
                   <th>No.</th>
@@ -40,17 +40,17 @@
                 </tr>
               </thead>
               <tbody>
-                <% items.forEach((item, i) => { %>
+                <% nominals.forEach((nominal, i) => { %>
                 <tr>
                   <td><%= i + 1  %></td>
-                  <td><%= item.name %></td>
-                  <td><%= item.quantity %></td>
-                  <td><%= format.toIDR(item.price) %></td>
+                  <td><%= nominal.name %></td>
+                  <td><%= nominal.quantity %></td>
+                  <td><%= format.toIDR(nominal.price) %></td>
                   <td>
-                    <a href="/admin/items/<%= item.id %>/edit" class="btn btn-warning">
+                    <a href="/admin/nominals/<%= nominal.id %>/edit" class="btn btn-warning">
                       <i class="fas fa-pencil-alt"></i> Edit
                     </a>
-                    <form method="post" action="/admin/items/<%= item.id %>?_method=DELETE" class="d-inline">
+                    <form method="post" action="/admin/nominals/<%= nominal.id %>?_method=DELETE" class="d-inline">
                       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                       <button type="submit" type="button" class="btn btn-danger">
                         <i class="fas fa-trash"></i> Delete
@@ -85,7 +85,7 @@
 <!-- Page specific script -->
 <script nonce="<%= cspNonce %>">
   $(function () {
-    $('#items').DataTable({
+    $('#nominals').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": true,

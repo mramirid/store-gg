@@ -4,7 +4,7 @@
   <select class="form-control select2bs4 <%= _.isError(formErrors?.name) ? "is-invalid" : "" %>" style="width: 100%;"
     name="name" required>
     <option value="" <%= _.isUndefined(formData) ? "selected" : "" %>>--- Select Name ---</option>
-    <% for (const name of itemNames) { %>
+    <% for (const name of nominalNames) { %>
     <option value="<%= name %>" <%= formData?.name === name ? "selected" : "" %>>
       <%= _.capitalize(name) %>
     </option>
@@ -31,7 +31,7 @@
   <label for="price">Price</label>
 
   <input type="number" class="form-control <%= _.isError(formErrors?.price) ? "is-invalid" : "" %>" id="price"
-    name="price" placeholder="Enter price" min="0" step="0.01" required value="<%= formData?.price ?? "0" %>">
+    name="price" placeholder="Enter price" min="0" step="1000" required value="<%= formData?.price ?? "0" %>">
 
   <% if (_.isError(formErrors?.price)) { %>
   <span class="invalid-feedback"><%= formErrors.price.message %></span>
