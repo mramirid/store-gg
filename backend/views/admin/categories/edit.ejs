@@ -29,18 +29,7 @@
             <input type="hidden" name="id" value="<%= formData.id %>">
 
             <div class="card-body">
-              <div class="form-group">
-                <label for="name">Category Name</label>
-
-                <% const nameError = formErrors?.name; %>
-
-                <input type="text" class="form-control <%= _.isError(nameError) ? "is-invalid" : "" %>" id="name"
-                  name="name" placeholder="Enter name for the category" value="<%= formData.name %>">
-
-                <% if (_.isError(nameError)) { %>
-                <span class="invalid-feedback"><%= nameError.message %></span>
-                <% } %>
-              </div>
+              <%- include('./input.ejs') %>
             </div>
             <!-- /.card-body -->
 
