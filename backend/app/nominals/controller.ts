@@ -3,7 +3,7 @@ import createHttpError from "http-errors";
 import mongoose from "mongoose";
 import { FormValidationError } from "../../lib/error";
 import { AlertStatuses, getAlert, setAlert } from "../../utils/alert";
-import Nominal, { INominal, NominalDoc, nominalNames } from "./model";
+import Nominal, { INominal, NominalDoc, NOMINAL_NAMES } from "./model";
 
 export default {
   viewNominals,
@@ -41,7 +41,7 @@ function viewCreateNominal(_: express.Request, res: express.Response) {
     alert: undefined,
     formData: undefined,
     formErrors: undefined,
-    nominalNames: nominalNames,
+    NOMINAL_NAMES,
   });
 }
 
@@ -60,7 +60,7 @@ async function createNominal(
       );
       validationError.addRenderOptions({
         pageTitle: "Create Nominal",
-        nominalNames,
+        NOMINAL_NAMES,
       });
       next(validationError);
     } else {
@@ -92,7 +92,7 @@ async function viewEditNominal(
   res.render("admin/nominals/edit", {
     pageTitle: "Edit Nominal",
     alert: undefined,
-    nominalNames,
+    NOMINAL_NAMES,
     formData: nominal,
     formErrors: undefined,
   });
@@ -120,7 +120,7 @@ export async function editNominal(
       );
       validationError.addRenderOptions({
         pageTitle: "Edit Nominal",
-        nominalNames,
+        NOMINAL_NAMES,
       });
       next(validationError);
     } else {
