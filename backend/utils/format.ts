@@ -9,4 +9,8 @@ function toIDR(amount: number | Types.Decimal128) {
   });
 }
 
-export default { toIDR };
+function toReadableNumber(number: number) {
+  return number.toLocaleString("id-ID");
+}
+
+export default { toIDR, toReadableNumber };

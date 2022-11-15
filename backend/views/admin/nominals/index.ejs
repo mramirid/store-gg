@@ -44,7 +44,7 @@
                 <tr>
                   <td><%= i + 1  %></td>
                   <td><%= nominal.name %></td>
-                  <td><%= nominal.quantity %></td>
+                  <td><%= format.toReadableNumber(nominal.quantity) %></td>
                   <td><%= format.toIDR(nominal.price) %></td>
                   <td>
                     <a href="/admin/nominals/<%= nominal.id %>/edit" class="btn btn-warning">
