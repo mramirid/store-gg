@@ -5,6 +5,15 @@ import { FormValidationError } from "../../lib/error";
 import { AlertStatuses, getAlert, setAlert } from "../../utils/alert";
 import Category, { CategoryDoc, ICategory } from "./model";
 
+export default {
+  viewCategories,
+  viewCreateCategory,
+  createCategory,
+  viewEditCategory,
+  editCategory,
+  deleteCategory,
+};
+
 async function viewCategories(
   req: express.Request,
   res: express.Response,
@@ -134,12 +143,3 @@ async function deleteCategory(
   });
   res.redirect("/admin/categories");
 }
-
-export default {
-  viewCategories,
-  viewCreateCategory,
-  createCategory,
-  viewEditCategory,
-  editCategory,
-  deleteCategory,
-};

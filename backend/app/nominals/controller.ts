@@ -5,6 +5,15 @@ import { FormValidationError } from "../../lib/error";
 import { AlertStatuses, getAlert, setAlert } from "../../utils/alert";
 import Nominal, { INominal, NominalDoc, nominalNames } from "./model";
 
+export default {
+  viewNominals,
+  viewCreateNominal,
+  createNominal,
+  viewEditNominal,
+  editNominal,
+  deleteNominal,
+};
+
 async function viewNominals(
   req: express.Request,
   res: express.Response,
@@ -145,12 +154,3 @@ async function deleteNominal(
   });
   res.redirect("/admin/nominals");
 }
-
-export default {
-  viewNominals,
-  viewCreateNominal,
-  createNominal,
-  viewEditNominal,
-  editNominal,
-  deleteNominal,
-};
