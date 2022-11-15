@@ -119,24 +119,24 @@ export async function editItem(
   res.redirect("/admin/items");
 }
 
-// async function deleteCategory(
-//   req: express.Request<{ id: string }>,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) {
-//   try {
-//     await Category.findByIdAndDelete(req.params.id).orFail(category404Error);
-//   } catch (maybeError) {
-//     next(maybeError);
-//     return;
-//   }
+async function deleteItem(
+  req: express.Request<{ id: string }>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  try {
+    await Item.findByIdAndDelete(req.params.id).orFail(item404Error);
+  } catch (maybeError) {
+    next(maybeError);
+    return;
+  }
 
-//   setAlert(req, {
-//     message: "Category deleted",
-//     status: AlertStatuses.Success,
-//   });
-//   res.redirect("/admin/categories");
-// }
+  setAlert(req, {
+    message: "Item deleted",
+    status: AlertStatuses.Success,
+  });
+  res.redirect("/admin/items");
+}
 
 export default {
   viewItems,
@@ -144,5 +144,5 @@ export default {
   createItem,
   viewEditItem,
   editItem,
-  // deleteCategory,
+  deleteItem,
 };
