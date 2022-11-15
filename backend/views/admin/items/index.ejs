@@ -29,7 +29,38 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <!-- TODO: display table -->
+            <table id="items" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Name</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% items.forEach((item, i) => { %>
+                <tr>
+                  <td><%= i + 1  %></td>
+                  <td><%= item.name %></td>
+                  <td><%= item.quantity %></td>
+                  <td><%= item.price %></td>
+                  <td>
+                    <a href="/admin/items/<%= item.id %>/edit" class="btn btn-warning">
+                      <i class="fas fa-pencil-alt"></i> Edit
+                    </a>
+                    <form method="post" action="/admin/items/<%= item.id %>?_method=DELETE" class="d-inline">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                      <button type="submit" type="button" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Delete
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
           </div>
           <!-- /.card-body -->
         </div>
@@ -54,7 +85,7 @@
 <!-- Page specific script -->
 <script nonce="<%= cspNonce %>">
   $(function () {
-    $('#list').DataTable({
+    $('#items').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": true,
