@@ -28,7 +28,7 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <table id="list" class="table table-bordered table-hover">
+            <table id="categories" class="table table-bordered table-hover">
               <thead>
                 <tr>
                   <th>No.</th>
@@ -80,7 +80,7 @@
 <!-- Page specific script -->
 <script nonce="<%= cspNonce %>">
   $(function () {
-    $('#list').DataTable({
+    $('#categories').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": true,
