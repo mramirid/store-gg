@@ -1,4 +1,5 @@
 import type express from "express";
+import createHttpError from "http-errors";
 import mongoose from "mongoose";
 import { FormValidationError } from "../../lib/error";
 import { AlertStatuses, getAlert, setAlert } from "../../utils/alert";
@@ -36,7 +37,7 @@ function viewCreateItem(_: express.Request, res: express.Response) {
 }
 
 async function createItem(
-  req: express.Request<unknown, unknown, IItem>,
+  req: express.Request<unknown, unknown, Record<keyof IItem, unknown>>,
   res: express.Response,
   next: express.NextFunction
 ) {
@@ -60,61 +61,63 @@ async function createItem(
   res.redirect("/admin/items");
 }
 
-// const category404Error = new createHttpError.NotFound("Category not found");
+const item404Error = new createHttpError.NotFound("Item not found");
 
-// async function viewEditCategory(
-//   req: express.Request<{ id: string }>,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) {
-//   let category: CategoryDoc;
+async function viewEditItem(
+  req: express.Request<{ id: string }>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  let item: ItemDoc;
 
-//   try {
-//     category = await Category.findById(req.params.id).orFail(category404Error);
-//   } catch (maybeError) {
-//     next(maybeError);
-//     return;
-//   }
+  try {
+    item = await Item.findById(req.params.id).orFail(item404Error);
+  } catch (maybeError) {
+    next(maybeError);
+    return;
+  }
 
-//   res.render("admin/categories/edit", {
-//     pageTitle: "Edit Category",
-//     alert: undefined,
-//     formData: category,
-//     formErrors: undefined,
-//   });
-// }
+  res.render("admin/items/edit", {
+    pageTitle: "Edit Item",
+    alert: undefined,
+    itemNames,
+    formData: item,
+    formErrors: undefined,
+  });
+}
 
-// export async function editCategory(
-//   req: express.Request<{ id: string }, unknown, ICategory>,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) {
-//   try {
-//     const category = await Category.findById(req.params.id).orFail(
-//       category404Error
-//     );
-//     category.name = req.body.name;
-//     await category.save();
-//   } catch (maybeError) {
-//     if (maybeError instanceof mongoose.Error.ValidationError) {
-//       const validationError = new ValidationError(
-//         "admin/categories/edit",
-//         "Edit Category",
-//         maybeError
-//       );
-//       next(validationError);
-//     } else {
-//       next(maybeError);
-//     }
-//     return;
-//   }
+export async function editItem(
+  req: express.Request<{ id: string }, unknown, IItem>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  try {
+    const item = await Item.findById(req.params.id).orFail(item404Error);
 
-//   setAlert(req, {
-//     message: "Category edited",
-//     status: AlertStatuses.Success,
-//   });
-//   res.redirect("/admin/categories");
-// }
+    item.name = req.body.name;
+    item.quantity = req.body.quantity;
+    item.price = req.body.price;
+    await item.save();
+  } catch (maybeError) {
+    if (maybeError instanceof mongoose.Error.ValidationError) {
+      const validationError = new FormValidationError(
+        "admin/items/edit",
+        maybeError
+      );
+      validationError.addRenderOptions({ pageTitle: "Edit Item", itemNames });
+      next(validationError);
+    } else {
+      next(maybeError);
+    }
+    return;
+  }
+
+  setAlert(req, {
+    message: "Item edited",
+    status: AlertStatuses.Success,
+  });
+  res.redirect("/admin/items");
+}
 
 // async function deleteCategory(
 //   req: express.Request<{ id: string }>,
@@ -139,7 +142,7 @@ export default {
   viewItems,
   viewCreateItem,
   createItem,
-  // viewEditCategory,
-  // editCategory,
+  viewEditItem,
+  editItem,
   // deleteCategory,
 };

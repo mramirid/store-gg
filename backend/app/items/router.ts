@@ -6,8 +6,8 @@ const itemsRouter = Router();
 itemsRouter.get("/", controller.viewItems);
 itemsRouter.get("/create", controller.viewCreateItem);
 itemsRouter.post("/", controller.createItem);
-// categoriesRouter.get("/:id/edit", controller.viewEditCategory);
-// categoriesRouter.patch("/:id", controller.editCategory);
+itemsRouter.get("/:id/edit", controller.viewEditItem);
+itemsRouter.patch("/:id", controller.editItem);
 // categoriesRouter.delete("/:id", controller.deleteCategory);
 
 export default itemsRouter;

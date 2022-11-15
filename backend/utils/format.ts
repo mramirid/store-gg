@@ -1,14 +1,12 @@
 import _ from "lodash";
 import type { Types } from "mongoose";
 
-function toUSD(amount: number | Types.Decimal128) {
-  const formattedAmount = _.toNumber(amount).toLocaleString("en-US", {
+function toIDR(amount: number | Types.Decimal128) {
+  return _.toNumber(amount).toLocaleString("id-ID", {
     style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
+    currency: "IDR",
+    maximumFractionDigits: 0,
   });
-  return formattedAmount;
 }
 
-export default { toUSD };
+export default { toIDR };
