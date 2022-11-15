@@ -88,6 +88,7 @@ async function viewEditCategory(
   res.render("admin/categories/edit", {
     pageTitle: "Edit Category",
     alert: undefined,
+    category,
     formData: category,
     formErrors: undefined,
   });
@@ -98,19 +99,33 @@ export async function editCategory(
   res: express.Response,
   next: express.NextFunction
 ) {
+  let category: CategoryDoc;
+  let editedCategory: CategoryDoc;
+
   try {
-    const category = await Category.findById(req.params.id).orFail(
-      category404Error
-    );
-    category.name = req.body.name;
-    await category.save();
+    [category, editedCategory] = await Promise.all([
+      Category.findById(req.params.id).orFail(category404Error),
+      Category.findById(req.params.id).orFail(category404Error),
+    ]);
+  } catch (maybeError) {
+    next(maybeError);
+    return;
+  }
+
+  editedCategory.name = req.body.name;
+
+  try {
+    await editedCategory.save();
   } catch (maybeError) {
     if (maybeError instanceof mongoose.Error.ValidationError) {
       const validationError = new FormValidationError(
         "admin/categories/edit",
         maybeError
       );
-      validationError.addRenderOptions({ pageTitle: "Edit Category" });
+      validationError.addRenderOptions({
+        pageTitle: "Edit Category",
+        category,
+      });
       next(validationError);
     } else {
       next(maybeError);

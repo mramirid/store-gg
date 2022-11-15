@@ -1,7 +1,7 @@
 <div class="form-group">
-  <label for="name">Category Name</label>
+  <label for="name">Name</label>
 
-  <input type="text" class="form-control <%= _.isError(formErrors?.name) ? "is-invalid" : "" %>" id="name" name="name"
+  <input type="text" class="form-control <%= _.isError(formErrors?.name) && "is-invalid" %>" id="name" name="name"
     placeholder="Enter name for the category" value="<%= formData?.name %>">
 
   <% if (_.isError(formErrors?.name)) { %>

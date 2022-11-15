@@ -2,7 +2,7 @@ import _ from "lodash";
 import { HydratedDocument, model, Schema, Types } from "mongoose";
 import validator from "validator";
 
-export const NOMINAL_NAMES = ["gold", "diamond", "jewel"] as const;
+export const NOMINAL_NAMES = ["Gold", "Diamond", "Jewel"] as const;
 
 export interface INominal {
   name: typeof NOMINAL_NAMES[number];

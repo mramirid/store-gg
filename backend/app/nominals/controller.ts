@@ -92,6 +92,7 @@ async function viewEditNominal(
   res.render("admin/nominals/edit", {
     pageTitle: "Edit Nominal",
     alert: undefined,
+    nominal,
     NOMINAL_NAMES,
     formData: nominal,
     formErrors: undefined,
@@ -103,15 +104,25 @@ export async function editNominal(
   res: express.Response,
   next: express.NextFunction
 ) {
-  try {
-    const nominal = await Nominal.findById(req.params.id).orFail(
-      nominal404Error
-    );
+  let nominal: NominalDoc;
+  let editedNominal: NominalDoc;
 
-    nominal.name = req.body.name;
-    nominal.quantity = req.body.quantity;
-    nominal.price = req.body.price;
-    await nominal.save();
+  try {
+    [nominal, editedNominal] = await Promise.all([
+      Nominal.findById(req.params.id).orFail(nominal404Error),
+      Nominal.findById(req.params.id).orFail(nominal404Error),
+    ]);
+  } catch (maybeError) {
+    next(maybeError);
+    return;
+  }
+
+  editedNominal.name = req.body.name;
+  editedNominal.quantity = req.body.quantity;
+  editedNominal.price = req.body.price;
+
+  try {
+    await editedNominal.save();
   } catch (maybeError) {
     if (maybeError instanceof mongoose.Error.ValidationError) {
       const validationError = new FormValidationError(
@@ -120,6 +131,7 @@ export async function editNominal(
       );
       validationError.addRenderOptions({
         pageTitle: "Edit Nominal",
+        nominal,
         NOMINAL_NAMES,
       });
       next(validationError);
