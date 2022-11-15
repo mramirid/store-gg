@@ -2,8 +2,10 @@ import _ from "lodash";
 import { HydratedDocument, model, Schema, Types } from "mongoose";
 import validator from "validator";
 
+export const itemNames = ["gold", "diamond", "jewel"] as const;
+
 export interface IItem {
-  name: "gold" | "diamond" | "jewel";
+  name: typeof itemNames[number];
   quantity: number;
   price: Types.Decimal128;
 }
@@ -13,7 +15,7 @@ export type ItemDoc = HydratedDocument<IItem>;
 const itemSchema = new Schema<IItem>({
   name: {
     type: String,
-    enum: ["gold", "diamond", "jewel"],
+    enum: itemNames,
     required: true,
   },
   quantity: {

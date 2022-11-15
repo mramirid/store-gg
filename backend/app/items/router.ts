@@ -4,7 +4,7 @@ import controller from "./controller";
 const itemsRouter = Router();
 
 itemsRouter.get("/", controller.viewItems);
-itemsRouter.get("/create", controller.viewCreateCategory);
+itemsRouter.get("/create", controller.viewCreateItem);
 itemsRouter.post("/", controller.createItem);
 // categoriesRouter.get("/:id/edit", controller.viewEditCategory);
 // categoriesRouter.patch("/:id", controller.editCategory);

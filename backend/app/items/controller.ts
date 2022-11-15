@@ -2,8 +2,7 @@ import type express from "express";
 import mongoose from "mongoose";
 import { FormValidationError } from "../../lib/error";
 import { AlertStatuses, getAlert, setAlert } from "../../utils/alert";
-import type { IItem, ItemDoc } from "./model";
-import Item from "./model";
+import Item, { IItem, ItemDoc, itemNames } from "./model";
 
 async function viewItems(
   req: express.Request,
@@ -26,12 +25,13 @@ async function viewItems(
   });
 }
 
-function viewCreateCategory(_: express.Request, res: express.Response) {
+function viewCreateItem(_: express.Request, res: express.Response) {
   res.render("admin/items/create", {
     pageTitle: "Create Item",
     alert: undefined,
     formData: undefined,
     formErrors: undefined,
+    itemNames,
   });
 }
 
@@ -48,7 +48,7 @@ async function createItem(
         "admin/items/create",
         maybeError
       );
-      validationError.addRenderOptions({ pageTitle: "Create Item" });
+      validationError.addRenderOptions({ pageTitle: "Create Item", itemNames });
       next(validationError);
     } else {
       next(maybeError);
@@ -137,7 +137,7 @@ async function createItem(
 
 export default {
   viewItems,
-  viewCreateCategory,
+  viewCreateItem,
   createItem,
   // viewEditCategory,
   // editCategory,

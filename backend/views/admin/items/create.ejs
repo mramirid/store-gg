@@ -35,9 +35,11 @@
                 <select class="form-control select2bs4 <%= _.isError(formErrors?.name) ? "is-invalid" : "" %>"
                   style="width: 100%;" name="name" required>
                   <option value="" <%= _.isUndefined(formData) ? "selected" : "" %>>--- Select Name ---</option>
-                  <option value="gold" <%= formData?.name === "gold" ? "selected" : "" %>>Gold</option>
-                  <option value="diamond" <%= formData?.name === "diamond" ? "selected" : "" %>>Diamond</option>
-                  <option value="jewel" <%= formData?.name === "jewel" ? "selected" : "" %>>Jewel</option>
+                  <% for (const name of itemNames) { %>
+                  <option value="<%= name %>" <%= formData?.name === name ? "selected" : "" %>>
+                    <%= _.capitalize(name) %>
+                  </option>
+                  <% } %>
                 </select>
 
                 <% if (_.isError(formErrors?.name)) { %>
