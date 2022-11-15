@@ -45,7 +45,7 @@
                   <td><%= i + 1  %></td>
                   <td><%= item.name %></td>
                   <td><%= item.quantity %></td>
-                  <td><%= item.price %></td>
+                  <td><%= format.toIDR(item.price) %></td>
                   <td>
                     <a href="/admin/items/<%= item.id %>/edit" class="btn btn-warning">
                       <i class="fas fa-pencil-alt"></i> Edit
