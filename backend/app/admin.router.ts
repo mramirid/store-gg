@@ -5,13 +5,11 @@ import express from "express";
 import session from "express-session";
 import { StatusCodes } from "http-status-codes";
 import _ from "lodash";
-import type mongoose from "mongoose";
 import passport from "passport";
 import { env, mongoUri } from "../lib/constant";
-import { ValidationError } from "../lib/error";
+import { FormValidationError } from "../lib/error";
 import { version } from "../package.json";
 import { AlertStatuses, getAlert, setAlert } from "../utils/alert";
-import { getErrorMessage } from "../utils/error";
 import format from "../utils/format";
 import categoriesRouter from "./categories/router";
 import homeRouter from "./home/router";
@@ -68,39 +66,21 @@ const validationErrorHandler: express.ErrorRequestHandler = (
   res,
   next
 ) => {
-  if (error instanceof ValidationError) {
-    setAlert(req, {
-      message: getMongooseValidationErrorMessage(error.mongooseValidationError),
-      status: AlertStatuses.Error,
-    });
+  if (error instanceof FormValidationError) {
+    setAlert(req, { message: error.message, status: AlertStatuses.Error });
 
     res.render(error.view, {
-      pageTitle: error.pageTitle,
       alert: getAlert(req),
       formData: req.body,
-      formErrors: error.mongooseValidationError.errors,
+      formErrors: error.errors,
+      ...error.renderOptions,
     });
-
     return;
   }
 
   next(error);
 };
 adminRouter.use(validationErrorHandler);
-
-function getMongooseValidationErrorMessage(
-  validationError: mongoose.Error.ValidationError
-) {
-  const errors = Object.values(validationError.errors);
-  const messages = errors.map(getErrorMessage);
-
-  const formatter = new Intl.ListFormat("en-US", {
-    style: "long",
-    type: "conjunction",
-  });
-
-  return formatter.format(messages);
-}
 
 const fallbackErrorHandler: express.ErrorRequestHandler = (
   error,

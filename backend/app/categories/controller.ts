@@ -1,7 +1,7 @@
 import type express from "express";
 import createHttpError from "http-errors";
 import mongoose from "mongoose";
-import { ValidationError } from "../../lib/error";
+import { FormValidationError } from "../../lib/error";
 import { AlertStatuses, getAlert, setAlert } from "../../utils/alert";
 import Category, { CategoryDoc, ICategory } from "./model";
 
@@ -44,11 +44,11 @@ async function createCategory(
     await Category.create(req.body);
   } catch (maybeError) {
     if (maybeError instanceof mongoose.Error.ValidationError) {
-      const validationError = new ValidationError(
+      const validationError = new FormValidationError(
         "admin/categories/create",
-        "Create Category",
         maybeError
       );
+      validationError.addRenderOptions({ pageTitle: "Create Category" });
       next(validationError);
     } else {
       next(maybeError);
@@ -97,11 +97,11 @@ export async function editCategory(
     await category.save();
   } catch (maybeError) {
     if (maybeError instanceof mongoose.Error.ValidationError) {
-      const validationError = new ValidationError(
+      const validationError = new FormValidationError(
         "admin/categories/edit",
-        "Edit Category",
         maybeError
       );
+      validationError.addRenderOptions({ pageTitle: "Edit Category" });
       next(validationError);
     } else {
       next(maybeError);

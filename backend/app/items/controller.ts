@@ -1,6 +1,6 @@
 import type express from "express";
 import mongoose from "mongoose";
-import { ValidationError } from "../../lib/error";
+import { FormValidationError } from "../../lib/error";
 import { AlertStatuses, getAlert, setAlert } from "../../utils/alert";
 import type { IItem, ItemDoc } from "./model";
 import Item from "./model";
@@ -44,11 +44,11 @@ async function createItem(
     await Item.create(req.body);
   } catch (maybeError) {
     if (maybeError instanceof mongoose.Error.ValidationError) {
-      const validationError = new ValidationError(
+      const validationError = new FormValidationError(
         "admin/items/create",
-        "Create Item",
         maybeError
       );
+      validationError.addRenderOptions({ pageTitle: "Create Item" });
       next(validationError);
     } else {
       next(maybeError);
