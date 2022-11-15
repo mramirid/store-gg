@@ -73,7 +73,7 @@ async function createNominal(
   res.redirect("/admin/nominals");
 }
 
-const nominal404Error = new createHttpError.NotFound("Nominal not found");
+const nominal404Error = new createHttpError.NotFound("Nominal not found.");
 
 async function viewEditNominal(
   req: express.Request<{ id: string }>,

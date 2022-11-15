@@ -69,7 +69,7 @@ async function createCategory(
   res.redirect("/admin/categories");
 }
 
-const category404Error = new createHttpError.NotFound("Category not found");
+const category404Error = new createHttpError.NotFound("Category not found.");
 
 async function viewEditCategory(
   req: express.Request<{ id: string }>,
