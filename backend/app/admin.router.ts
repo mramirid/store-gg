@@ -35,10 +35,11 @@ adminRouter.use(passport.authenticate("session"));
 
 adminRouter.use(flash());
 
-adminRouter.use((__: express.Request, res: express.Response, next) => {
+adminRouter.use((req: express.Request, res: express.Response, next) => {
   res.locals["_"] = _;
   res.locals["format"] = format;
   res.locals["appVersion"] = version;
+  res.locals["req"] = req;
 
   next();
 });
@@ -49,7 +50,6 @@ adminRouter.use(csrf(), (req, res, next) => {
 });
 
 adminRouter.use("/", homeRouter);
-
 adminRouter.use("/categories", categoriesRouter);
 adminRouter.use("/nominals", nominalsRouter);
 

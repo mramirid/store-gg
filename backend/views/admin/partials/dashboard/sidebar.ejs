@@ -12,37 +12,29 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          <a href="/admin" class="nav-link">
+          <a href="/admin" class="nav-link <%= req.originalUrl === "/admin" && "active" %>">
             <i class="nav-icon fas fa-home"></i>
-            <p>
-              Home
-            </p>
+            <p>Home</p>
           </a>
         </li>
 
         <li class="nav-header">Master</li>
         <li class="nav-item">
-          <a href="/admin/categories" class="nav-link">
+          <a href="/admin/categories" class="nav-link <%= req.originalUrl.includes("/admin/categories") && "active" %>">
             <i class="nav-icon far fa-calendar-alt"></i>
-            <p>
-              Categories
-            </p>
+            <p>Categories</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="/admin/nominals" class="nav-link">
+          <a href="/admin/nominals" class="nav-link <%= req.originalUrl.includes("/admin/nominals") && "active" %>">
             <i class="nav-icon fas fa-tasks"></i>
-            <p>
-              Nominals
-            </p>
+            <p>Nominals</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="pages/gallery.html" class="nav-link">
+          <a href="/admin/vouchers" class="nav-link <%= req.originalUrl.includes("/admin/vouchers") && "active" %>">
             <i class="nav-icon far fa-image"></i>
-            <p>
-              Voucher
-            </p>
+            <p>Vouchers</p>
           </a>
         </li>
 
@@ -50,17 +42,13 @@
         <li class="nav-item">
           <a href="pages/gallery.html" class="nav-link">
             <i class="nav-icon fas fa-money-check"></i>
-            <p>
-              Bank
-            </p>
+            <p>Bank</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="pages/gallery.html" class="nav-link">
             <i class="nav-icon fas fa-money-check-alt"></i>
-            <p>
-              Jenis Pembayaran
-            </p>
+            <p>Jenis Pembayaran</p>
           </a>
         </li>
 
@@ -68,9 +56,7 @@
         <li class="nav-item">
           <a href="pages/gallery.html" class="nav-link">
             <i class="nav-icon fas fa-shopping-cart"></i>
-            <p>
-              Transaksi
-            </p>
+            <p>Transaksi</p>
           </a>
         </li>
       </ul>
