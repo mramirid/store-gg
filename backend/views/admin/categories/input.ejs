@@ -2,7 +2,7 @@
   <label for="name">Name</label>
 
   <input type="text" class="form-control <%= _.isError(formErrors?.name) && "is-invalid" %>" id="name" name="name"
-    placeholder="Enter name for the category" value="<%= formData?.name %>">
+    placeholder="Enter name for the category" value="<%= formData?.name %>" required>
 
   <% if (_.isError(formErrors?.name)) { %>
   <span class="invalid-feedback"><%= formErrors.name.message %></span>

@@ -53,7 +53,7 @@ export function getAlert(
 
 export function setAlert(
   req: express.Request<unknown>,
-  alert: Omit<Alert, "icon">
+  alert: Pick<Alert, "message" | "status">
 ) {
   req.flash(AlertTypes.Message, alert.message);
   req.flash(AlertTypes.Status, alert.status);

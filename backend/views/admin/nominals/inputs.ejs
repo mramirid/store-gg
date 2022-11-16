@@ -1,9 +1,11 @@
 <div class="form-group">
   <label for="name">Name</label>
 
-  <select class="form-control select2bs4 <%= _.isError(formErrors?.name) && "is-invalid" %>" style="width: 100%;"
-    name="name" id="name" required>
-    <option value="" <%= _.isUndefined(formData) && "selected" %>>--- Select Name ---</option>
+  <select class="form-control select2bs4 <%= _.isError(formErrors?.name) && "is-invalid" %> w-100" name="name" id="name"
+    data-placeholder="Select name" required>
+    <option value="">
+      <!-- Replaced by data-placeholder -->
+    </option>
     <% for (const name of NOMINAL_NAMES) { %>
     <option value="<%= name %>" <%= formData?.name === name && "selected" %>>
       <%= name %>

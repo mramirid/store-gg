@@ -57,13 +57,10 @@
 <%- include('../partials/common-scripts.ejs') %>
 <!-- Select2 -->
 <script src="/admin-lte/plugins/select2/js/select2.full.min.js"></script>
-<!-- Page specific script -->
 <script nonce="<%= cspNonce %>">
-  $(function () {
+  $(() => {
     //Initialize Select2 Elements
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
+    $('.select2bs4').select2({ theme: 'bootstrap4' })
   });
 </script>
 

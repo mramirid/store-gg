@@ -14,11 +14,14 @@ const app = express();
 
 app.use(cors());
 
-app.set("views", path.join("views"));
+app.set("views", path.resolve("views"));
 app.set("view engine", "ejs");
 
-app.use("/admin-lte", express.static(path.join("node_modules", "admin-lte")));
-app.use(express.static(path.join("public")));
+app.use(
+  "/admin-lte",
+  express.static(path.resolve("node_modules", "admin-lte"))
+);
+app.use(express.static(path.resolve("public")));
 
 app.use(logger("dev"));
 
