@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/common-head-content.ejs') %>
+</head>
+
+<%- include('../partials/dashboard/layout-start.ejs', {
+  previousBreadcrumbs: [
+    { label: "Dashboard", href: "/admin" },
+    { label: "Nominals", href: "/admin/nominals" },
+  ]
+}) %>
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+
+    <%- include('../partials/alert.ejs') %>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Edit <%= voucher.name %></h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form action="/admin/nominals/<%= voucher.id %>?_method=PATCH&_csrf=<%= csrfToken %>" method="POST">
+            <div class="card-body">
+              <%- include("./inputs.ejs") %>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Edit</button>
+            </div>
+          </form>
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<%- include('../partials/dashboard/layout-end.ejs') %>
+
+<%- include('../partials/common-scripts.ejs') %>
+
+</html>

@@ -1,0 +1,98 @@
+<div class="form-group">
+  <label for="name">Name</label>
+
+  <input type="text" class="form-control <%= _.isError(formErrors?.name) && "is-invalid" %>" id="name" name="name"
+    placeholder="Enter name" value="<%= formData?.name %>" required>
+
+  <% if (_.isError(formErrors?.name)) { %>
+  <span class="invalid-feedback"><%= formErrors.name.message %></span>
+  <% } %>
+</div>
+
+<div class="form-group">
+  <label for="categoryId">Category</label>
+
+  <select class="form-control select2bs4 <%= _.isError(formErrors?.category) && "is-invalid" %> w-100" name="categoryId"
+    id="categoryId" data-placeholder="Select a category" required>
+    <option value="">
+      <!-- Replaced by data-placeholder -->
+    </option>
+    <% for (const category of categories) { %>
+    <option value="<%= category.id %>" <%= category.equals(formData?.categoryId)  && "selected" %>>
+      <%= category.name %>
+    </option>
+    <% } %>
+  </select>
+
+  <% if (_.isError(formErrors?.category)) { %>
+  <span class="invalid-feedback"><%= formErrors.category.message %></span>
+  <% } %>
+</div>
+
+<div class="form-group">
+  <label for="nominalIds">Nominals</label>
+
+  <select class="select2bs4 w-100" multiple="multiple" data-placeholder="Select nominals" id="nominals"
+    name="nominalIds" required>
+    <option value="">
+      <!-- Replaced by data-placeholder -->
+    </option>
+
+    <% 
+      const formDataNominalIds = Array.isArray(formData?.nominalIds) 
+        ? formData.nominalIds 
+        : _.isString(formData?.nominalIds) 
+        ? [formData.nominalIds] 
+        : undefined;
+    %>
+
+    <% for (const nominal of nominals) { %>
+    <option value="<%= nominal.id %>"
+      <%= formDataNominalIds?.some((nominalId) => nominal.equals(nominalId)) && "selected" %>>
+      <%= nominal.quantity %> <%= nominal.name %>
+    </option>
+    <% } %>
+  </select>
+
+  <% if (_.isError(formErrors?.nominals)) { %>
+  <span class="invalid-feedback d-inline"><%= formErrors.nominals.message %></span>
+  <% } %>
+</div>
+
+<div class="form-group">
+  <label for="image">Image</label>
+
+  <div class="input-group">
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="image" name="image" required>
+      <label class="custom-file-label" for="image">Choose image</label>
+    </div>
+  </div>
+
+  <% if (_.isError(formErrors?.imageName)) { %>
+  <span class="invalid-feedback d-block"><%= formErrors.imageName.message %></span>
+  <% } %>
+
+  <img id="image-preview" class="d-none img-thumbnail w-25 h-25 mt-3">
+</div>
+
+<script nonce="<%= cspNonce %>">
+  const imageInput = document.getElementById("image");
+  const imagePreview = document.getElementById("image-preview");
+
+  imageInput.addEventListener("change", function () {
+    const selectedImage = this.files[0];
+
+    if (selectedImage === undefined) {
+      imagePreview.classList.add("d-none");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      imagePreview.src = e.target.result
+      imagePreview.classList.remove("d-none");
+    }
+    reader.readAsDataURL(selectedImage);
+  });
+</script>
