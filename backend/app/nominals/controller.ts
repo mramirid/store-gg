@@ -1,8 +1,14 @@
 import type express from "express";
 import createHttpError from "http-errors";
+import _ from "lodash";
 import mongoose from "mongoose";
-import { FormValidationError } from "../../lib/error";
-import { AlertStatuses, getAlert, setAlert } from "../../utils/alert";
+import {
+  AlertStatuses,
+  buildAlert,
+  getAlert,
+  setAlert,
+} from "../../utils/alert";
+import { joinErrorMessages } from "../../utils/error";
 import Nominal, { INominal, NominalDoc, NOMINAL_NAMES } from "./model";
 
 export default {
@@ -36,17 +42,14 @@ async function viewNominals(
 }
 
 function viewCreateNominal(_: express.Request, res: express.Response) {
-  res.render("admin/nominals/create", {
-    pageTitle: "Create Nominal",
-    alert: undefined,
+  renderViewCreateNominal(res, {
     formData: undefined,
     formErrors: undefined,
-    NOMINAL_NAMES,
   });
 }
 
 async function createNominal(
-  req: express.Request<unknown, unknown, Record<keyof INominal, unknown>>,
+  req: express.Request<unknown, unknown, CreateNominalReqBody>,
   res: express.Response,
   next: express.NextFunction
 ) {
@@ -54,15 +57,10 @@ async function createNominal(
     await Nominal.create(req.body);
   } catch (maybeError) {
     if (maybeError instanceof mongoose.Error.ValidationError) {
-      const validationError = new FormValidationError(
-        "admin/nominals/create",
-        maybeError
-      );
-      validationError.addRenderOptions({
-        pageTitle: "Create Nominal",
-        NOMINAL_NAMES,
+      renderViewCreateNominal(res, {
+        formData: req.body,
+        formErrors: maybeError.errors,
       });
-      next(validationError);
     } else {
       next(maybeError);
     }
@@ -71,6 +69,29 @@ async function createNominal(
 
   setAlert(req, { message: "Nominal added", status: AlertStatuses.Success });
   res.redirect("/admin/nominals");
+}
+
+type CreateNominalReqBody = Pick<INominal, "name" | "quantity"> & {
+  price: number;
+};
+
+function renderViewCreateNominal(
+  res: express.Response,
+  options: {
+    formData: CreateNominalReqBody | undefined;
+    formErrors: Record<string, Error> | undefined;
+  }
+) {
+  const alert = _.isObject(options.formErrors)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
+    : undefined;
+
+  res.render("admin/nominals/create", {
+    pageTitle: "Create Nominal",
+    alert,
+    NOMINAL_NAMES,
+    ...options,
+  });
 }
 
 const nominal404Error = new createHttpError.NotFound("Nominal not found.");
@@ -89,18 +110,15 @@ async function viewEditNominal(
     return;
   }
 
-  res.render("admin/nominals/edit", {
-    pageTitle: "Edit Nominal",
-    alert: undefined,
+  renderViewEditNominal(res, {
     nominal,
-    NOMINAL_NAMES,
-    formData: nominal,
+    formData: nominal.toObject(),
     formErrors: undefined,
   });
 }
 
 export async function editNominal(
-  req: express.Request<{ id: string }, unknown, INominal>,
+  req: express.Request<{ id: string }, unknown, CreateNominalReqBody>,
   res: express.Response,
   next: express.NextFunction
 ) {
@@ -119,22 +137,17 @@ export async function editNominal(
 
   editedNominal.name = req.body.name;
   editedNominal.quantity = req.body.quantity;
-  editedNominal.price = req.body.price;
+  editedNominal.price = new mongoose.Types.Decimal128(String(req.body.price));
 
   try {
     await editedNominal.save();
   } catch (maybeError) {
     if (maybeError instanceof mongoose.Error.ValidationError) {
-      const validationError = new FormValidationError(
-        "admin/nominals/edit",
-        maybeError
-      );
-      validationError.addRenderOptions({
-        pageTitle: "Edit Nominal",
+      renderViewEditNominal(res, {
         nominal,
-        NOMINAL_NAMES,
+        formData: req.body,
+        formErrors: maybeError.errors,
       });
-      next(validationError);
     } else {
       next(maybeError);
     }
@@ -148,6 +161,26 @@ export async function editNominal(
   res.redirect("/admin/nominals");
 }
 
+function renderViewEditNominal(
+  res: express.Response,
+  options: {
+    nominal: NominalDoc;
+    formData: CreateNominalReqBody;
+    formErrors: Record<string, Error> | undefined;
+  }
+) {
+  const alert = _.isObject(options.formErrors)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
+    : undefined;
+
+  res.render("admin/nominals/edit", {
+    pageTitle: "Edit Nominal",
+    alert,
+    NOMINAL_NAMES,
+    ...options,
+  });
+}
+
 async function deleteNominal(
   req: express.Request<{ id: string }>,
   res: express.Response,
@@ -156,7 +189,15 @@ async function deleteNominal(
   try {
     await Nominal.findByIdAndDelete(req.params.id).orFail(nominal404Error);
   } catch (maybeError) {
-    next(maybeError);
+    if (createHttpError.isHttpError(maybeError)) {
+      setAlert(req, {
+        message: maybeError.message,
+        status: AlertStatuses.Error,
+      });
+      res.redirect("/admin/nominals");
+    } else {
+      next(maybeError);
+    }
     return;
   }
 

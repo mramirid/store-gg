@@ -7,9 +7,7 @@ import { StatusCodes } from "http-status-codes";
 import _ from "lodash";
 import passport from "passport";
 import { env, mongoUri } from "../lib/constant";
-import { FormValidationError } from "../lib/error";
 import { version } from "../package.json";
-import { AlertStatuses, getAlert, setAlert } from "../utils/alert";
 import format from "../utils/format";
 import categoriesRouter from "./categories/router";
 import homeRouter from "./home/router";
@@ -61,28 +59,6 @@ adminRouter.use((_, res) => {
     statusCode: StatusCodes.NOT_FOUND,
   });
 });
-
-const validationErrorHandler: express.ErrorRequestHandler = (
-  error,
-  req,
-  res,
-  next
-) => {
-  if (error instanceof FormValidationError) {
-    setAlert(req, { message: error.message, status: AlertStatuses.Error });
-
-    res.render(error.view, {
-      alert: getAlert(req),
-      formData: req.body,
-      formErrors: error.errors,
-      ...error.renderOptions,
-    });
-    return;
-  }
-
-  next(error);
-};
-adminRouter.use(validationErrorHandler);
 
 const fallbackErrorHandler: express.ErrorRequestHandler = (
   error,

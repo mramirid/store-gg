@@ -1,6 +1,8 @@
+import createHttpError from "http-errors";
 import _ from "lodash";
-import { HydratedDocument, model, Schema, Types } from "mongoose";
+import { HydratedDocument, model, Query, Schema, Types } from "mongoose";
 import validator from "validator";
+import type { IVoucher } from "../vouchers/model";
 
 export const NOMINAL_NAMES = ["Gold", "Diamond", "Jewel"] as const;
 
@@ -37,6 +39,24 @@ const nominalSchema = new Schema<INominal>({
     transform: (v: Types.Decimal128) => _.toNumber(v),
   },
 });
+
+nominalSchema.pre(
+  "findOneAndDelete",
+  { document: false, query: true },
+  async function (this: Query<unknown, unknown>) {
+    const { _id } = this.getQuery();
+
+    const numVouchers = await model<IVoucher>("Voucher").countDocuments({
+      nominals: _id,
+    });
+
+    if (numVouchers > 0) {
+      throw new createHttpError.Conflict(
+        "The nominal is being used by some vouchers"
+      );
+    }
+  }
+);
 
 const Nominal = model("Nominal", nominalSchema);
 export default Nominal;

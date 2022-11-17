@@ -32,3 +32,15 @@ function isErrorWithMessage(
     typeof (maybeError as Record<string, unknown>)["message"] === "string"
   );
 }
+
+export function joinErrorMessages(validationErrors: Record<string, Error>) {
+  const errors = Object.values(validationErrors);
+  const messages = errors.map(getErrorMessage);
+
+  const formatter = new Intl.ListFormat("en-US", {
+    style: "long",
+    type: "conjunction",
+  });
+
+  return formatter.format(messages);
+}

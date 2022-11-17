@@ -4,8 +4,13 @@ import fs from "fs/promises";
 import _ from "lodash";
 import mongoose from "mongoose";
 import path from "path";
-import { FormValidationError } from "../../lib/error";
-import { AlertStatuses, getAlert, setAlert } from "../../utils/alert";
+import {
+  AlertStatuses,
+  buildAlert,
+  getAlert,
+  setAlert,
+} from "../../utils/alert";
+import { joinErrorMessages } from "../../utils/error";
 import Category, { type CategoryDoc } from "../categories/model";
 import type { NominalDoc } from "../nominals/model";
 import Nominal from "../nominals/model";
@@ -60,13 +65,31 @@ async function viewCreateVoucher(
     return;
   }
 
-  res.render("admin/vouchers/create", {
-    pageTitle: "Create Voucher",
-    alert: undefined,
+  renderViewCreateVoucher(res, {
     categories,
     nominals,
     formData: undefined,
     formErrors: undefined,
+  });
+}
+
+function renderViewCreateVoucher(
+  res: express.Response,
+  options: {
+    categories: CategoryDoc[];
+    nominals: NominalDoc[];
+    formData: CreateVoucherReqBody | undefined;
+    formErrors: Record<string, Error> | undefined;
+  }
+) {
+  const alert = _.isObject(options.formErrors)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
+    : undefined;
+
+  res.render("admin/vouchers/create", {
+    pageTitle: "Create Voucher",
+    alert,
+    ...options,
   });
 }
 
@@ -90,23 +113,21 @@ async function createVoucher(
     });
   } catch (maybeError) {
     if (maybeError instanceof mongoose.Error.ValidationError) {
-      const validationError = new FormValidationError(
-        "admin/vouchers/create",
-        maybeError
-      );
+      try {
+        const [categories, nominals] = await Promise.all([
+          Category.find(),
+          Nominal.find(),
+        ]);
 
-      const [categories, nominals] = await Promise.all([
-        Category.find(),
-        Nominal.find(),
-      ]);
-
-      validationError.addRenderOptions({
-        pageTitle: "Create Voucher",
-        categories,
-        nominals,
-      });
-
-      next(validationError);
+        renderViewCreateVoucher(res, {
+          categories,
+          nominals,
+          formData: req.body,
+          formErrors: maybeError.errors,
+        });
+      } catch (maybeError) {
+        next(maybeError);
+      }
     } else {
       next(maybeError);
     }

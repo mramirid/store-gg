@@ -1,8 +1,14 @@
 import type express from "express";
 import createHttpError from "http-errors";
+import _ from "lodash";
 import mongoose from "mongoose";
-import { FormValidationError } from "../../lib/error";
-import { AlertStatuses, getAlert, setAlert } from "../../utils/alert";
+import {
+  AlertStatuses,
+  buildAlert,
+  getAlert,
+  setAlert,
+} from "../../utils/alert";
+import { joinErrorMessages } from "../../utils/error";
 import Category, { CategoryDoc, ICategory } from "./model";
 
 export default {
@@ -36,9 +42,7 @@ async function viewCategories(
 }
 
 function viewCreateCategory(_: express.Request, res: express.Response) {
-  res.render("admin/categories/create", {
-    pageTitle: "Create Category",
-    alert: undefined,
+  renderViewCreateCategory(res, {
     formData: undefined,
     formErrors: undefined,
   });
@@ -53,12 +57,10 @@ async function createCategory(
     await Category.create(req.body);
   } catch (maybeError) {
     if (maybeError instanceof mongoose.Error.ValidationError) {
-      const validationError = new FormValidationError(
-        "admin/categories/create",
-        maybeError
-      );
-      validationError.addRenderOptions({ pageTitle: "Create Category" });
-      next(validationError);
+      renderViewCreateCategory(res, {
+        formData: req.body,
+        formErrors: maybeError.errors,
+      });
     } else {
       next(maybeError);
     }
@@ -67,6 +69,24 @@ async function createCategory(
 
   setAlert(req, { message: "Category added", status: AlertStatuses.Success });
   res.redirect("/admin/categories");
+}
+
+function renderViewCreateCategory(
+  res: express.Response,
+  options: {
+    formData: ICategory | undefined;
+    formErrors: Record<string, Error> | undefined;
+  }
+) {
+  const alert = _.isObject(options.formErrors)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
+    : undefined;
+
+  res.render("admin/categories/create", {
+    pageTitle: "Create Category",
+    alert,
+    ...options,
+  });
 }
 
 const category404Error = new createHttpError.NotFound("Category not found.");
@@ -85,9 +105,7 @@ async function viewEditCategory(
     return;
   }
 
-  res.render("admin/categories/edit", {
-    pageTitle: "Edit Category",
-    alert: undefined,
+  renderViewEditCategory(res, {
     category,
     formData: category,
     formErrors: undefined,
@@ -118,15 +136,11 @@ export async function editCategory(
     await editedCategory.save();
   } catch (maybeError) {
     if (maybeError instanceof mongoose.Error.ValidationError) {
-      const validationError = new FormValidationError(
-        "admin/categories/edit",
-        maybeError
-      );
-      validationError.addRenderOptions({
-        pageTitle: "Edit Category",
+      renderViewEditCategory(res, {
         category,
+        formData: req.body,
+        formErrors: maybeError.errors,
       });
-      next(validationError);
     } else {
       next(maybeError);
     }
@@ -140,6 +154,25 @@ export async function editCategory(
   res.redirect("/admin/categories");
 }
 
+function renderViewEditCategory(
+  res: express.Response,
+  options: {
+    category: CategoryDoc;
+    formData: ICategory;
+    formErrors: Record<string, Error> | undefined;
+  }
+) {
+  const alert = _.isObject(options.formErrors)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
+    : undefined;
+
+  res.render("admin/categories/edit", {
+    pageTitle: "Edit Category",
+    alert,
+    ...options,
+  });
+}
+
 async function deleteCategory(
   req: express.Request<{ id: string }>,
   res: express.Response,
@@ -148,7 +181,15 @@ async function deleteCategory(
   try {
     await Category.findByIdAndDelete(req.params.id).orFail(category404Error);
   } catch (maybeError) {
-    next(maybeError);
+    if (createHttpError.isHttpError(maybeError)) {
+      setAlert(req, {
+        message: maybeError.message,
+        status: AlertStatuses.Error,
+      });
+      res.redirect("/admin/categories");
+    } else {
+      next(maybeError);
+    }
     return;
   }
 

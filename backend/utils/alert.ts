@@ -15,9 +15,9 @@ export enum AlertStatuses {
 type AlertIcons = "fa-check" | "fa-ban" | "fa-info";
 
 type Alert = {
-  message: string;
   status: AlertStatuses;
   icon: AlertIcons;
+  message: string;
 };
 
 export function getAlert(
@@ -33,7 +33,12 @@ export function getAlert(
     return undefined;
   }
 
+  return buildAlert(message, status);
+}
+
+export function buildAlert(message: string, status: string): Alert {
   let icon: AlertIcons;
+
   switch (status) {
     case AlertStatuses.Success:
       icon = "fa-check";
@@ -48,7 +53,7 @@ export function getAlert(
       throw new TypeError(`Unknown alert with status: ${status}`);
   }
 
-  return Object.freeze<Alert>({ message, status, icon });
+  return { message, status, icon };
 }
 
 export function setAlert(
