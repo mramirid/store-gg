@@ -3,6 +3,7 @@ import type { NextFunction } from "express";
 import fs from "fs/promises";
 import _ from "lodash";
 import mongoose from "mongoose";
+import multer from "multer";
 import path from "path";
 import {
   AlertStatuses,
@@ -12,6 +13,7 @@ import {
 } from "../../utils/alert";
 import { joinErrorMessages } from "../../utils/error";
 import Category, { type CategoryDoc } from "../categories/model";
+import imagesMulter from "../middlewares/images.multer";
 import type { NominalDoc } from "../nominals/model";
 import Nominal from "../nominals/model";
 import type { VoucherDoc } from "./model";
@@ -99,12 +101,47 @@ type CreateVoucherReqBody = {
   nominalIds: string[];
 };
 
+function handleImageUpload(
+  req: express.Request,
+  res: express.Response,
+  fieldName: string
+) {
+  const receiveImage = imagesMulter.setupSingleUpload(fieldName);
+
+  return new Promise((resolve, reject) => {
+    receiveImage(req, res, (maybeError: unknown) => {
+      if (maybeError instanceof multer.MulterError) {
+        const validationError = new mongoose.Error.ValidationError();
+        validationError.addError(
+          fieldName,
+          new mongoose.Error.ValidatorError({ message: maybeError.message })
+        );
+        reject(validationError);
+        return;
+      }
+
+      if (_.isError(maybeError)) {
+        reject(maybeError);
+        return;
+      }
+
+      resolve(undefined);
+    });
+  });
+}
+
 async function createVoucher(
-  req: express.Request<unknown, unknown, CreateVoucherReqBody>,
+  req: express.Request<
+    Record<string, never>,
+    Record<string, never>,
+    CreateVoucherReqBody
+  >,
   res: express.Response,
   next: express.NextFunction
 ) {
   try {
+    await handleImageUpload(req, res, "imageName");
+
     await Voucher.create({
       name: req.body.name,
       category: req.body.categoryId,
@@ -113,33 +150,44 @@ async function createVoucher(
     });
   } catch (maybeError) {
     if (maybeError instanceof mongoose.Error.ValidationError) {
+      let categories: CategoryDoc[];
+      let nominals: NominalDoc[];
+
       try {
-        const [categories, nominals] = await Promise.all([
+        [categories, nominals] = await Promise.all([
           Category.find(),
           Nominal.find(),
         ]);
-
-        renderViewCreateVoucher(res, {
-          categories,
-          nominals,
-          formData: req.body,
-          formErrors: maybeError.errors,
-        });
       } catch (maybeError) {
         next(maybeError);
+        return;
       }
+
+      renderViewCreateVoucher(res, {
+        categories,
+        nominals,
+        formData: req.body,
+        formErrors: maybeError.errors,
+      });
     } else {
       next(maybeError);
     }
     return;
   }
 
-  if (_.isObject(req.file)) {
-    await fs.copyFile(
-      req.file.path,
-      path.resolve("public", "uploads", req.file.filename)
+  if (_.isUndefined(req.file)) {
+    next(
+      new Error("Cannot save the image file", {
+        cause: new TypeError("req.file is undefined"),
+      })
     );
+    return;
   }
+
+  await fs.copyFile(
+    req.file.path,
+    path.resolve("public", "uploads", req.file.filename)
+  );
 
   setAlert(req, { message: "Voucher added", status: AlertStatuses.Success });
   res.redirect("/admin/vouchers");

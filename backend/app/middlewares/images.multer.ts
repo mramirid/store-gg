@@ -1,31 +1,42 @@
 import crypto from "crypto";
 import type express from "express";
+import mongoose from "mongoose";
 import multer from "multer";
 import path from "path";
 
-export default { handleUpload };
+export default { setupSingleUpload };
 
 // Storage engine for single image upload
-const uploadStorage = multer.diskStorage({
+const singleUploadStorage = multer.diskStorage({
   filename: (_, file, cb) => {
     cb(null, crypto.randomUUID() + path.extname(file.originalname));
   },
 });
 
-function handleUpload(fieldName: string): express.RequestHandler {
+function setupSingleUpload(fieldName: string): express.RequestHandler {
   return multer({
-    storage: uploadStorage,
+    storage: singleUploadStorage,
     limits: { fileSize: 1_000_000 }, // 1.000.000 Bytes = 1 MB
     fileFilter: (_, file, cb) => {
-      checkFileType(file, cb);
+      const isValid = isValidFileType(file);
+      if (isValid) {
+        cb(null, true);
+        return;
+      }
+
+      const validationError = new mongoose.Error.ValidationError();
+      validationError.addError(
+        fieldName,
+        new mongoose.Error.ValidatorError({
+          message: "Images only: jpeg, jpg, png, or gif",
+        })
+      );
+      cb(validationError);
     },
   }).single(fieldName);
 }
 
-function checkFileType(
-  file: Express.Multer.File,
-  cb: multer.FileFilterCallback
-) {
+function isValidFileType(file: Express.Multer.File) {
   // Allowed ext
   const fileTypes = /jpeg|jpg|png|gif/;
   // Check ext
@@ -35,9 +46,5 @@ function checkFileType(
   // Check mime
   const isMimeTypeValid = fileTypes.test(file.mimetype);
 
-  if (isMimeTypeValid && isExtValid) {
-    cb(null, true);
-    return;
-  }
-  cb(new TypeError("Images only: jpeg, jpg, png, or gif"));
+  return isMimeTypeValid && isExtValid;
 }
