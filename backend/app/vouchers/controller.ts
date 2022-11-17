@@ -9,7 +9,7 @@ import {
   AlertStatuses,
   buildAlert,
   getAlert,
-  setAlert,
+  setAlert
 } from "../../utils/alert";
 import { joinErrorMessages } from "../../utils/error";
 import Category, { type CategoryDoc } from "../categories/model";
@@ -28,15 +28,20 @@ export default {
   // deleteVoucher,
 };
 
+type PopulatedVoucherDoc = mongoose.MergeType<
+  VoucherDoc,
+  { category: CategoryDoc; nominals: NominalDoc[] }
+>;
+
 async function viewVouchers(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) {
-  let vouchers: VoucherDoc[];
+  let vouchers: PopulatedVoucherDoc[];
 
   try {
-    vouchers = await Voucher.find();
+    vouchers = await Voucher.find().populate("category").populate("nominals");
   } catch (maybeError) {
     next(maybeError);
     return;

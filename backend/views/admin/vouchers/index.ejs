@@ -29,7 +29,42 @@
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <!-- TODO: display vouchers -->
+            <table id="vouchers" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Nominals</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% vouchers.forEach((voucher, i) => { %>
+                <tr>
+                  <td><%= i + 1  %></td>
+                  <td><%= voucher.name %></td>
+                  <td><%= voucher.category.name %></td>
+                  <td>
+                    <% for (const nominal of voucher.nominals) { %>
+                    <span class="badge badge-info"><%= nominal.quantity %> <%= nominal.name %></span>
+                    <% } %>
+                  </td>
+                  <td>
+                    <a href="/admin/vouchers/<%= voucher.id %>/edit" class="btn btn-warning">
+                      <i class="fas fa-pencil-alt"></i> Edit
+                    </a>
+                    <form method="post" action="/admin/vouchers/<%= voucher.id %>?_method=DELETE" class="d-inline">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                      <button type="submit" type="button" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Delete
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
           </div>
           <!-- /.card-body -->
         </div>
