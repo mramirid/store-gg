@@ -12,11 +12,10 @@ export enum AlertStatuses {
   Info = "info",
 }
 
-type AlertIcons = "fa-check" | "fa-ban" | "fa-info";
-
 type Alert = {
   status: AlertStatuses;
-  icon: AlertIcons;
+  icon: "fa-check" | "fa-ban" | "fa-info";
+  title: "Success" | "Failed" | "Information";
   message: string;
 };
 
@@ -36,24 +35,28 @@ export function getAlert(
   return buildAlert(message, status);
 }
 
-export function buildAlert(message: string, status: string): Alert {
-  let icon: AlertIcons;
+export function buildAlert(message: string, status: AlertStatuses): Alert {
+  let icon: Alert["icon"];
+  let title: Alert["title"];
 
   switch (status) {
     case AlertStatuses.Success:
       icon = "fa-check";
+      title = "Success";
       break;
     case AlertStatuses.Error:
       icon = "fa-ban";
+      title = "Failed";
       break;
     case AlertStatuses.Info:
       icon = "fa-info";
+      title = "Information";
       break;
     default:
       throw new TypeError(`Unknown alert with status: ${status}`);
   }
 
-  return { message, status, icon };
+  return { status, icon, title, message };
 }
 
 export function setAlert(
