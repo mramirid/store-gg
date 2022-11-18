@@ -1,6 +1,7 @@
 import type express from "express";
 import type { NextFunction } from "express";
 import fs from "fs/promises";
+import createHttpError from "http-errors";
 import _ from "lodash";
 import mongoose from "mongoose";
 import multer from "multer";
@@ -9,7 +10,7 @@ import {
   AlertStatuses,
   buildAlert,
   getAlert,
-  setAlert
+  setAlert,
 } from "../../utils/alert";
 import { joinErrorMessages } from "../../utils/error";
 import Category, { type CategoryDoc } from "../categories/model";
@@ -23,8 +24,8 @@ export default {
   viewVouchers,
   viewCreateVoucher,
   createVoucher,
-  // viewEditVoucher,
-  // editVoucher,
+  viewEditVoucher,
+  editVoucher,
   // deleteVoucher,
 };
 
@@ -106,35 +107,6 @@ type CreateVoucherReqBody = {
   nominalIds: string[];
 };
 
-function handleImageUpload(
-  req: express.Request,
-  res: express.Response,
-  fieldName: string
-) {
-  const receiveImage = imagesMulter.setupSingleUpload(fieldName);
-
-  return new Promise((resolve, reject) => {
-    receiveImage(req, res, (maybeError: unknown) => {
-      if (maybeError instanceof multer.MulterError) {
-        const validationError = new mongoose.Error.ValidationError();
-        validationError.addError(
-          fieldName,
-          new mongoose.Error.ValidatorError({ message: maybeError.message })
-        );
-        reject(validationError);
-        return;
-      }
-
-      if (_.isError(maybeError)) {
-        reject(maybeError);
-        return;
-      }
-
-      resolve(undefined);
-    });
-  });
-}
-
 async function createVoucher(
   req: express.Request<
     Record<string, never>,
@@ -155,8 +127,7 @@ async function createVoucher(
     });
   } catch (maybeError) {
     if (maybeError instanceof mongoose.Error.ValidationError) {
-      let categories: CategoryDoc[];
-      let nominals: NominalDoc[];
+      let categories: CategoryDoc[], nominals: NominalDoc[];
 
       try {
         [categories, nominals] = await Promise.all([
@@ -198,68 +169,173 @@ async function createVoucher(
   res.redirect("/admin/vouchers");
 }
 
-// const nominal404Error = new createHttpError.NotFound("Nominal not found");
+const voucher404Error = new createHttpError.NotFound("Voucher not found");
 
-// async function viewEditNominal(
-//   req: express.Request<{ id: string }>,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) {
-//   let nominal: NominalDoc;
+async function viewEditVoucher(
+  req: express.Request<{ id: string }>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  let voucher: VoucherDoc, categories: CategoryDoc[], nominals: NominalDoc[];
 
-//   try {
-//     nominal = await Nominal.findById(req.params.id).orFail(nominal404Error);
-//   } catch (maybeError) {
-//     next(maybeError);
-//     return;
-//   }
+  try {
+    [voucher, categories, nominals] = await Promise.all([
+      Voucher.findById(req.params.id).orFail(voucher404Error),
+      Category.find(),
+      Nominal.find(),
+    ]);
+  } catch (maybeError) {
+    next(maybeError);
+    return;
+  }
 
-//   res.render("admin/nominals/edit", {
-//     pageTitle: "Edit Nominal",
-//     alert: undefined,
-//     nominalNames,
-//     formData: nominal,
-//     formErrors: undefined,
-//   });
-// }
+  renderViewEditVoucher(res, {
+    categories,
+    nominals,
+    voucher,
+    formData: {
+      name: voucher.name,
+      categoryId: voucher.category.toString(),
+      nominalIds: voucher.nominals.map(String),
+      imageName: voucher.imageName,
+    },
+    formErrors: undefined,
+  });
+}
 
-// export async function editNominal(
-//   req: express.Request<{ id: string }, unknown, INominal>,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) {
-//   try {
-//     const nominal = await Nominal.findById(req.params.id).orFail(
-//       nominal404Error
-//     );
+type EditVoucherReqBody = CreateVoucherReqBody & { imageName: string };
 
-//     nominal.name = req.body.name;
-//     nominal.quantity = req.body.quantity;
-//     nominal.price = req.body.price;
-//     await nominal.save();
-//   } catch (maybeError) {
-//     if (maybeError instanceof mongoose.Error.ValidationError) {
-//       const validationError = new FormValidationError(
-//         "admin/nominals/edit",
-//         maybeError
-//       );
-//       validationError.addRenderOptions({
-//         pageTitle: "Edit Nominal",
-//         nominalNames,
-//       });
-//       next(validationError);
-//     } else {
-//       next(maybeError);
-//     }
-//     return;
-//   }
+function renderViewEditVoucher(
+  res: express.Response,
+  options: {
+    categories: CategoryDoc[];
+    nominals: NominalDoc[];
+    voucher: VoucherDoc;
+    formData: EditVoucherReqBody;
+    formErrors: Record<string, Error> | undefined;
+  }
+) {
+  const alert = _.isObject(options.formErrors)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
+    : undefined;
 
-//   setAlert(req, {
-//     message: "Nominal edited",
-//     status: AlertStatuses.Success,
-//   });
-//   res.redirect("/admin/nominals");
-// }
+  res.render("admin/vouchers/edit", {
+    pageTitle: "Edit Voucher",
+    alert,
+    ...options,
+  });
+}
+
+export async function editVoucher(
+  req: express.Request<{ id: string }, unknown, CreateVoucherReqBody>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  let voucher: VoucherDoc, editedVoucher: VoucherDoc;
+
+  try {
+    [voucher, editedVoucher] = await Promise.all([
+      Voucher.findById(req.params.id).orFail(voucher404Error),
+      Voucher.findById(req.params.id).orFail(voucher404Error),
+    ]);
+  } catch (maybeError) {
+    next(maybeError);
+    return;
+  }
+
+  try {
+    await handleImageUpload(req, res, "imageName");
+
+    const nominalIds = _.isString(req.body.nominalIds)
+      ? [req.body.nominalIds]
+      : _.isArray(req.body.nominalIds)
+      ? req.body.nominalIds
+      : [];
+
+    editedVoucher.name = req.body.name;
+    editedVoucher.category = new mongoose.Types.ObjectId(req.body.categoryId);
+    editedVoucher.nominals = new mongoose.Types.DocumentArray(nominalIds);
+
+    if (_.isObject(req.file)) {
+      editedVoucher.imageName = req.file.filename;
+    }
+
+    await editedVoucher.save();
+  } catch (maybeError) {
+    if (maybeError instanceof mongoose.Error.ValidationError) {
+      let categories: CategoryDoc[], nominals: NominalDoc[];
+
+      try {
+        [categories, nominals] = await Promise.all([
+          Category.find(),
+          Nominal.find(),
+        ]);
+      } catch (maybeError) {
+        next(maybeError);
+        return;
+      }
+
+      renderViewEditVoucher(res, {
+        voucher,
+        categories,
+        nominals,
+        formData: {
+          ...req.body,
+          imageName: voucher.imageName,
+        },
+        formErrors: maybeError.errors,
+      });
+    } else {
+      next(maybeError);
+    }
+    return;
+  }
+
+  if (_.isObject(req.file)) {
+    await Promise.all([
+      fs.unlink(path.resolve("public", "uploads", voucher.imageName)),
+      fs.copyFile(
+        req.file.path,
+        path.resolve("public", "uploads", req.file.filename)
+      ),
+    ]);
+  }
+
+  setAlert(req, {
+    message: "Voucher edited",
+    status: AlertStatuses.Success,
+  });
+  res.redirect("/admin/vouchers");
+}
+
+function handleImageUpload(
+  req: express.Request,
+  res: express.Response,
+  fieldName: string
+) {
+  const receiveImage = imagesMulter.setupSingleUpload(fieldName);
+
+  return new Promise((resolve, reject) => {
+    receiveImage(req, res, (maybeError: unknown) => {
+      if (maybeError instanceof multer.MulterError) {
+        const validationError = new mongoose.Error.ValidationError();
+        validationError.addError(
+          fieldName,
+          new mongoose.Error.ValidatorError({ message: maybeError.message })
+        );
+        reject(validationError);
+        return;
+      }
+
+      if (_.isError(maybeError)) {
+        reject(maybeError);
+        return;
+      }
+
+      resolve(undefined);
+    });
+  });
+}
 
 // async function deleteNominal(
 //   req: express.Request<{ id: string }>,
@@ -267,7 +343,7 @@ async function createVoucher(
 //   next: express.NextFunction
 // ) {
 //   try {
-//     await Nominal.findByIdAndDelete(req.params.id).orFail(nominal404Error);
+//     await Nominal.findByIdAndDelete(req.params.id).orFail(voucher404Error);
 //   } catch (maybeError) {
 //     next(maybeError);
 //     return;

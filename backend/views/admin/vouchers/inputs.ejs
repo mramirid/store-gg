@@ -64,7 +64,8 @@
 
   <div class="input-group">
     <div class="custom-file">
-      <input type="file" class="custom-file-input" id="image" name="imageName" required>
+      <input type="file" class="custom-file-input" id="image" name="imageName"
+        <%= _.isUndefined(formData?.imageName) && "required" %>>
       <label class="custom-file-label" for="image">Choose image</label>
     </div>
   </div>
@@ -73,7 +74,8 @@
   <span class="invalid-feedback d-block"><%= formErrors.imageName.message %></span>
   <% } %>
 
-  <img id="image-preview" class="d-none img-thumbnail w-25 h-25 mt-3">
+  <img id="image-preview" class="<%= _.isUndefined(formData?.imageName) && "d-none" %> img-thumbnail w-25 h-25 mt-3"
+    src="<%= _.isString(formData?.imageName) ? `/uploads/${formData.imageName}` : "" %>">
 </div>
 
 <script nonce="<%= cspNonce %>">

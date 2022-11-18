@@ -3,12 +3,16 @@
 
 <head>
   <%- include('../partials/common-head-content.ejs') %>
+
+  <!-- Select2 -->
+  <link rel="stylesheet" href="/admin-lte/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 </head>
 
 <%- include('../partials/dashboard/layout-start.ejs', {
   previousBreadcrumbs: [
     { label: "Dashboard", href: "/admin" },
-    { label: "Nominals", href: "/admin/nominals" },
+    { label: "Vouchers", href: "/admin/vouchers" },
   ]
 }) %>
 
@@ -26,7 +30,7 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form action="/admin/nominals/<%= voucher.id %>?_method=PATCH&_csrf=<%= csrfToken %>" method="POST">
+          <form action="/admin/vouchers/<%= voucher.id %>?_method=PATCH&_csrf=<%= csrfToken %>" method="POST">
             <div class="card-body">
               <%- include("./inputs.ejs") %>
             </div>
@@ -50,5 +54,22 @@
 <%- include('../partials/dashboard/layout-end.ejs') %>
 
 <%- include('../partials/common-scripts.ejs') %>
+
+<!-- Select2 -->
+<script src="/admin-lte/plugins/select2/js/select2.full.min.js"></script>
+<script nonce="<%= cspNonce %>">
+  $(() => {
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({ theme: 'bootstrap4' })
+  });
+</script>
+
+<!-- bs-custom-file-input -->
+<script src="/admin-lte/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script nonce="<%= cspNonce %>">
+  $(() => {
+    bsCustomFileInput.init();
+  });
+</script>
 
 </html>
