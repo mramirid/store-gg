@@ -29,8 +29,8 @@ async function viewNominals(
 
   try {
     nominals = await Nominal.find();
-  } catch (maybeError) {
-    next(maybeError);
+  } catch (error) {
+    next(error);
     return;
   }
 
@@ -55,14 +55,14 @@ async function createNominal(
 ) {
   try {
     await Nominal.create(req.body);
-  } catch (maybeError) {
-    if (maybeError instanceof mongoose.Error.ValidationError) {
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
       renderViewCreateNominal(res, {
         formData: req.body,
-        formErrors: maybeError.errors,
+        formErrors: error.errors,
       });
     } else {
-      next(maybeError);
+      next(error);
     }
     return;
   }
@@ -105,8 +105,8 @@ async function viewEditNominal(
 
   try {
     nominal = await Nominal.findById(req.params.id).orFail(nominal404Error);
-  } catch (maybeError) {
-    next(maybeError);
+  } catch (error) {
+    next(error);
     return;
   }
 
@@ -130,8 +130,8 @@ export async function editNominal(
       Nominal.findById(req.params.id).orFail(nominal404Error),
       Nominal.findById(req.params.id).orFail(nominal404Error),
     ]);
-  } catch (maybeError) {
-    next(maybeError);
+  } catch (error) {
+    next(error);
     return;
   }
 
@@ -141,15 +141,15 @@ export async function editNominal(
 
   try {
     await editedNominal.save();
-  } catch (maybeError) {
-    if (maybeError instanceof mongoose.Error.ValidationError) {
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
       renderViewEditNominal(res, {
         nominal,
         formData: req.body,
-        formErrors: maybeError.errors,
+        formErrors: error.errors,
       });
     } else {
-      next(maybeError);
+      next(error);
     }
     return;
   }
@@ -188,15 +188,15 @@ async function deleteNominal(
 ) {
   try {
     await Nominal.findByIdAndDelete(req.params.id).orFail(nominal404Error);
-  } catch (maybeError) {
-    if (createHttpError.isHttpError(maybeError)) {
+  } catch (error) {
+    if (createHttpError.isHttpError(error)) {
       setAlert(req, {
-        message: maybeError.message,
+        message: error.message,
         status: AlertStatuses.Error,
       });
       res.redirect("/admin/nominals");
     } else {
-      next(maybeError);
+      next(error);
     }
     return;
   }

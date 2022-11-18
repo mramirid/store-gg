@@ -34,8 +34,8 @@ async function viewVouchers(
 
   try {
     vouchers = await Voucher.find().populate("category").populate("nominals");
-  } catch (maybeError) {
-    next(maybeError);
+  } catch (error) {
+    next(error);
     return;
   }
 
@@ -59,8 +59,8 @@ async function viewCreateVoucher(
       Category.find(),
       Nominal.find(),
     ]);
-  } catch (maybeError) {
-    next(maybeError);
+  } catch (error) {
+    next(error);
     return;
   }
 
@@ -190,8 +190,8 @@ async function viewEditVoucher(
       Category.find(),
       Nominal.find(),
     ]);
-  } catch (maybeError) {
-    next(maybeError);
+  } catch (error) {
+    next(error);
     return;
   }
 
@@ -221,8 +221,8 @@ export async function editVoucher(
       Voucher.findById(req.params.id).orFail(voucher404Error),
       handleImageUpload(req, res, "imageName"),
     ]);
-  } catch (maybeError) {
-    next(maybeError);
+  } catch (error) {
+    next(error);
     return;
   }
 
@@ -329,19 +329,19 @@ function handleImageUpload(
   const receiveImage = imagesMulter.setupSingleUpload(fieldName);
 
   return new Promise((resolve, reject) => {
-    receiveImage(req, res, (maybeError: unknown) => {
-      if (maybeError instanceof multer.MulterError) {
+    receiveImage(req, res, (error: unknown) => {
+      if (error instanceof multer.MulterError) {
         const validationError = new mongoose.Error.ValidationError();
         validationError.addError(
           fieldName,
-          new mongoose.Error.ValidatorError({ message: maybeError.message })
+          new mongoose.Error.ValidatorError({ message: error.message })
         );
         reject(validationError);
         return;
       }
 
-      if (_.isError(maybeError)) {
-        reject(maybeError);
+      if (_.isError(error)) {
+        reject(error);
         return;
       }
 
@@ -360,15 +360,15 @@ async function deleteVoucher(
       voucher404Error
     );
     await fs.unlink(path.resolve("public", "uploads", voucher.imageName));
-  } catch (maybeError) {
-    if (createHttpError.isHttpError(maybeError) && maybeError.expose) {
+  } catch (error) {
+    if (createHttpError.isHttpError(error) && error.expose) {
       setAlert(req, {
-        message: maybeError.message,
+        message: error.message,
         status: AlertStatuses.Error,
       });
       res.redirect("/admin/vouchers");
     } else {
-      next(maybeError);
+      next(error);
     }
     return;
   }

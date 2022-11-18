@@ -29,8 +29,8 @@ async function viewCategories(
 
   try {
     categories = await Category.find();
-  } catch (maybeError) {
-    next(maybeError);
+  } catch (error) {
+    next(error);
     return;
   }
 
@@ -55,14 +55,14 @@ async function createCategory(
 ) {
   try {
     await Category.create(req.body);
-  } catch (maybeError) {
-    if (maybeError instanceof mongoose.Error.ValidationError) {
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
       renderViewCreateCategory(res, {
         formData: req.body,
-        formErrors: maybeError.errors,
+        formErrors: error.errors,
       });
     } else {
-      next(maybeError);
+      next(error);
     }
     return;
   }
@@ -100,8 +100,8 @@ async function viewEditCategory(
 
   try {
     category = await Category.findById(req.params.id).orFail(category404Error);
-  } catch (maybeError) {
-    next(maybeError);
+  } catch (error) {
+    next(error);
     return;
   }
 
@@ -125,8 +125,8 @@ export async function editCategory(
       Category.findById(req.params.id).orFail(category404Error),
       Category.findById(req.params.id).orFail(category404Error),
     ]);
-  } catch (maybeError) {
-    next(maybeError);
+  } catch (error) {
+    next(error);
     return;
   }
 
@@ -134,15 +134,15 @@ export async function editCategory(
 
   try {
     await editedCategory.save();
-  } catch (maybeError) {
-    if (maybeError instanceof mongoose.Error.ValidationError) {
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
       renderViewEditCategory(res, {
         category,
         formData: req.body,
-        formErrors: maybeError.errors,
+        formErrors: error.errors,
       });
     } else {
-      next(maybeError);
+      next(error);
     }
     return;
   }
@@ -180,15 +180,15 @@ async function deleteCategory(
 ) {
   try {
     await Category.findByIdAndDelete(req.params.id).orFail(category404Error);
-  } catch (maybeError) {
-    if (createHttpError.isHttpError(maybeError)) {
+  } catch (error) {
+    if (createHttpError.isHttpError(error)) {
       setAlert(req, {
-        message: maybeError.message,
+        message: error.message,
         status: AlertStatuses.Error,
       });
       res.redirect("/admin/categories");
     } else {
-      next(maybeError);
+      next(error);
     }
     return;
   }
