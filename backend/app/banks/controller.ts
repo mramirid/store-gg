@@ -18,7 +18,7 @@ export default {
   createBank,
   viewEditBank,
   editBank,
-  // deleteBank,
+  deleteBank,
 };
 
 async function viewBanks(
@@ -178,29 +178,29 @@ function renderViewEditBank(
   });
 }
 
-// async function deleteBank(
-//   req: express.Request<{ id: string }>,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) {
-//   try {
-//     await Nominal.findByIdAndDelete(req.params.id).orFail(nominal404Error);
-//   } catch (error) {
-//     if (createHttpError.isHttpError(error)) {
-//       setAlert(req, {
-//         message: error.message,
-//         status: AlertStatuses.Error,
-//       });
-//       res.redirect("/admin/nominals");
-//     } else {
-//       next(error);
-//     }
-//     return;
-//   }
+async function deleteBank(
+  req: express.Request<{ id: string }>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  try {
+    await Bank.findByIdAndDelete(req.params.id).orFail(bank404Error);
+  } catch (error) {
+    if (createHttpError.isHttpError(error) && error.expose) {
+      setAlert(req, {
+        message: error.message,
+        status: AlertStatuses.Error,
+      });
+      res.redirect("/admin/banks");
+    } else {
+      next(error);
+    }
+    return;
+  }
 
-//   setAlert(req, {
-//     message: "Nominal deleted",
-//     status: AlertStatuses.Success,
-//   });
-//   res.redirect("/admin/nominals");
-// }
+  setAlert(req, {
+    message: "Bank deleted",
+    status: AlertStatuses.Success,
+  });
+  res.redirect("/admin/banks");
+}
