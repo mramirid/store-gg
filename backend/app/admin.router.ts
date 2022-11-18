@@ -9,6 +9,7 @@ import passport from "passport";
 import { env, mongoUri } from "../lib/constant";
 import { version } from "../package.json";
 import format from "../utils/format";
+import banksRouter from "./banks/router";
 import categoriesRouter from "./categories/router";
 import homeRouter from "./home/router";
 import nominalsRouter from "./nominals/router";
@@ -52,6 +53,7 @@ adminRouter.use("/", homeRouter);
 adminRouter.use("/categories", categoriesRouter);
 adminRouter.use("/nominals", nominalsRouter);
 adminRouter.use("/vouchers", vouchersRouter);
+adminRouter.use("/banks", banksRouter);
 
 adminRouter.use((_, res) => {
   res.status(StatusCodes.NOT_FOUND).render("admin/404", {
@@ -60,7 +62,7 @@ adminRouter.use((_, res) => {
   });
 });
 
-const fallbackErrorHandler: express.ErrorRequestHandler = (
+const errorHandler: express.ErrorRequestHandler = (
   error,
   req,
   res,
@@ -77,6 +79,6 @@ const fallbackErrorHandler: express.ErrorRequestHandler = (
     statusCode,
   });
 };
-adminRouter.use(fallbackErrorHandler);
+adminRouter.use(errorHandler);
 
 export default adminRouter;
