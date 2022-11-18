@@ -9,7 +9,7 @@ import {
   setAlert,
 } from "../../utils/alert";
 import { joinErrorMessages } from "../../utils/error";
-import type { BankDoc, IBank } from "./model";
+import { BankDoc, BANK_NAMES, IBank } from "./model";
 import Bank from "./model";
 
 export default {
@@ -86,6 +86,7 @@ function renderViewCreateBank(
   res.render("admin/banks/create", {
     pageTitle: "Create Bank",
     alert,
+    BANK_NAMES,
     ...options,
   });
 }
@@ -172,6 +173,7 @@ function renderViewEditBank(
   res.render("admin/banks/edit", {
     pageTitle: "Edit Bank",
     alert,
+    BANK_NAMES,
     ...options,
   });
 }

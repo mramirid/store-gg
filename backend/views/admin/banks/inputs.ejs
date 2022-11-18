@@ -1,8 +1,17 @@
 <div class="form-group">
   <label for="name">Name</label>
 
-  <input type="text" class="form-control <%= _.isError(formErrors?.name) && "is-invalid" %>" id="name" name="name"
-    placeholder="Enter bank name" value="<%= formData?.name %>" required>
+  <select class="form-control select2bs4 <%= _.isError(formErrors?.name) && "is-invalid" %> w-100" name="name" id="name"
+    data-placeholder="Select name" required>
+    <option value="">
+      <!-- Replaced by data-placeholder -->
+    </option>
+    <% for (const name of BANK_NAMES) { %>
+    <option value="<%= name %>" <%= formData?.name === name && "selected" %>>
+      <%= name %>
+    </option>
+    <% } %>
+  </select>
 
   <% if (_.isError(formErrors?.name)) { %>
   <span class="invalid-feedback"><%= formErrors.name.message %></span>

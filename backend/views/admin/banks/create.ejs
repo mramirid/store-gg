@@ -3,6 +3,10 @@
 
 <head>
   <%- include('../partials/common-head-content.ejs') %>
+
+  <!-- Select2 -->
+  <link rel="stylesheet" href="/admin-lte/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 </head>
 
 <%- include('../partials/dashboard/layout-start.ejs', {
@@ -52,5 +56,14 @@
 <%- include('../partials/dashboard/layout-end.ejs') %>
 
 <%- include('../partials/common-scripts.ejs') %>
+
+<!-- Select2 -->
+<script src="/admin-lte/plugins/select2/js/select2.full.min.js"></script>
+<script nonce="<%= cspNonce %>">
+  $(() => {
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({ theme: 'bootstrap4' })
+  });
+</script>
 
 </html>
