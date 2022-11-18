@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/common-head-content.ejs') %>
+  <!-- Select2 -->
+  <link rel="stylesheet" href="/admin-lte/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+</head>
+
+<%- include('../partials/dashboard/layout-start.ejs', {
+  previousBreadcrumbs: [
+    { label: "Dashboard", href: "/admin" },
+    { label: "Banks", href: "/admin/banks" },
+  ]
+}) %>
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+
+    <%- include('../partials/alert.ejs') %>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Edit <%= bank.name %></h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form action="/admin/banks/<%= bank.id %>?_method=PATCH" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+            <div class="card-body">
+              <%- include("./inputs.ejs") %>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Edit</button>
+            </div>
+          </form>
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<%- include('../partials/dashboard/layout-end.ejs') %>
+
+<%- include('../partials/common-scripts.ejs') %>
+<!-- Select2 -->
+<script src="/admin-lte/plugins/select2/js/select2.full.min.js"></script>
+<script nonce="<%= cspNonce %>">
+  $(() => {
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({ theme: 'bootstrap4' })
+  });
+</script>
+
+</html>

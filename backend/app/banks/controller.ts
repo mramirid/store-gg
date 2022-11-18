@@ -1,4 +1,5 @@
 import type express from "express";
+import createHttpError from "http-errors";
 import _ from "lodash";
 import mongoose from "mongoose";
 import {
@@ -15,8 +16,8 @@ export default {
   viewBanks,
   viewCreateBank,
   createBank,
-  // viewEditBank,
-  // editBank,
+  viewEditBank,
+  editBank,
   // deleteBank,
 };
 
@@ -71,10 +72,6 @@ async function createBank(
   res.redirect("/admin/banks");
 }
 
-// type CreateNominalReqBody = Pick<INominal, "name" | "quantity"> & {
-//   price: number;
-// };
-
 function renderViewCreateBank(
   res: express.Response,
   options: {
@@ -93,92 +90,91 @@ function renderViewCreateBank(
   });
 }
 
-// const nominal404Error = new createHttpError.NotFound("Nominal not found.");
+const bank404Error = new createHttpError.NotFound("Bank not found.");
 
-// async function viewEditBank(
-//   req: express.Request<{ id: string }>,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) {
-//   let nominal: NominalDoc;
+async function viewEditBank(
+  req: express.Request<{ id: string }>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  let bank: BankDoc;
 
-//   try {
-//     nominal = await Nominal.findById(req.params.id).orFail(nominal404Error);
-//   } catch (error) {
-//     next(error);
-//     return;
-//   }
+  try {
+    bank = await Bank.findById(req.params.id).orFail(bank404Error);
+  } catch (error) {
+    next(error);
+    return;
+  }
 
-//   renderViewEditNominal(res, {
-//     nominal,
-//     formData: nominal.toObject(),
-//     formErrors: undefined,
-//   });
-// }
+  renderViewEditBank(res, {
+    bank,
+    formData: bank.toObject(),
+    formErrors: undefined,
+  });
+}
 
-// export async function editBank(
-//   req: express.Request<{ id: string }, unknown, CreateNominalReqBody>,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) {
-//   let nominal: NominalDoc;
-//   let editedNominal: NominalDoc;
+export async function editBank(
+  req: express.Request<{ id: string }, unknown, IBank>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  let bank: BankDoc;
+  let editedBank: BankDoc;
 
-//   try {
-//     [nominal, editedNominal] = await Promise.all([
-//       Nominal.findById(req.params.id).orFail(nominal404Error),
-//       Nominal.findById(req.params.id).orFail(nominal404Error),
-//     ]);
-//   } catch (error) {
-//     next(error);
-//     return;
-//   }
+  try {
+    [bank, editedBank] = await Promise.all([
+      Bank.findById(req.params.id).orFail(bank404Error),
+      Bank.findById(req.params.id).orFail(bank404Error),
+    ]);
+  } catch (error) {
+    next(error);
+    return;
+  }
 
-//   editedNominal.name = req.body.name;
-//   editedNominal.quantity = req.body.quantity;
-//   editedNominal.price = new mongoose.Types.Decimal128(String(req.body.price));
+  editedBank.name = req.body.name;
+  editedBank.holderName = req.body.holderName;
+  editedBank.holderNumbers = req.body.holderNumbers;
 
-//   try {
-//     await editedNominal.save();
-//   } catch (error) {
-//     if (error instanceof mongoose.Error.ValidationError) {
-//       renderViewEditNominal(res, {
-//         nominal,
-//         formData: req.body,
-//         formErrors: error.errors,
-//       });
-//     } else {
-//       next(error);
-//     }
-//     return;
-//   }
+  try {
+    await editedBank.save();
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      renderViewEditBank(res, {
+        bank,
+        formData: req.body,
+        formErrors: error.errors,
+      });
+    } else {
+      next(error);
+    }
+    return;
+  }
 
-//   setAlert(req, {
-//     message: "Nominal edited",
-//     status: AlertStatuses.Success,
-//   });
-//   res.redirect("/admin/nominals");
-// }
+  setAlert(req, {
+    message: "Bank edited",
+    status: AlertStatuses.Success,
+  });
+  res.redirect("/admin/banks");
+}
 
-// function renderViewEditNominal(
-//   res: express.Response,
-//   options: {
-//     nominal: NominalDoc;
-//     formData: CreateNominalReqBody;
-//     formErrors: Record<string, Error> | undefined;
-//   }
-// ) {
-//   const alert = _.isObject(options.formErrors)
-//     ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
-//     : undefined;
+function renderViewEditBank(
+  res: express.Response,
+  options: {
+    bank: BankDoc;
+    formData: IBank;
+    formErrors: Record<string, Error> | undefined;
+  }
+) {
+  const alert = _.isObject(options.formErrors)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
+    : undefined;
 
-//   res.render("admin/nominals/edit", {
-//     pageTitle: "Edit Nominal",
-//     alert,
-//     NOMINAL_NAMES,
-//     ...options,
-//   });
-// }
+  res.render("admin/banks/edit", {
+    pageTitle: "Edit Bank",
+    alert,
+    ...options,
+  });
+}
 
 // async function deleteBank(
 //   req: express.Request<{ id: string }>,
