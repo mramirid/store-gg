@@ -350,24 +350,35 @@ function handleImageUpload(
   });
 }
 
-// async function deleteNominal(
-//   req: express.Request<{ id: string }>,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) {
-//   try {
-//     await Nominal.findByIdAndDelete(req.params.id).orFail(voucher404Error);
-//   } catch (maybeError) {
-//     next(maybeError);
-//     return;
-//   }
+async function deleteVoucher(
+  req: express.Request<{ id: string }>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  try {
+    const voucher = await Voucher.findByIdAndDelete(req.params.id).orFail(
+      voucher404Error
+    );
+    await fs.unlink(path.resolve("public", "uploads", voucher.imageName));
+  } catch (maybeError) {
+    if (createHttpError.isHttpError(maybeError) && maybeError.expose) {
+      setAlert(req, {
+        message: maybeError.message,
+        status: AlertStatuses.Error,
+      });
+      res.redirect("/admin/vouchers");
+    } else {
+      next(maybeError);
+    }
+    return;
+  }
 
-//   setAlert(req, {
-//     message: "Nominal deleted",
-//     status: AlertStatuses.Success,
-//   });
-//   res.redirect("/admin/nominals");
-// }
+  setAlert(req, {
+    message: "Voucher deleted",
+    status: AlertStatuses.Success,
+  });
+  res.redirect("/admin/vouchers");
+}
 
 export default {
   viewVouchers,
@@ -377,5 +388,5 @@ export default {
   viewEditVoucher,
   editVoucherErrorHandler,
   editVoucher,
-  // deleteVoucher,
+  deleteVoucher,
 };

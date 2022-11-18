@@ -16,6 +16,6 @@ vouchersRouter.patch(
   controller.editVoucher,
   controller.editVoucherErrorHandler
 );
-// vouchersRouter.delete("/:id", controller.deleteVoucher);
+vouchersRouter.delete("/:id", controller.deleteVoucher);
 
 export default vouchersRouter;
