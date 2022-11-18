@@ -34,6 +34,8 @@
                 <tr>
                   <th>No.</th>
                   <th>Name</th>
+                  <th>Holder Name</th>
+                  <th>Holder Numbers</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -41,7 +43,9 @@
                 <% banks.forEach((bank, i) => { %>
                 <tr>
                   <td><%= i + 1  %></td>
+                  <td><%= bank.holderName %></td>
                   <td><%= bank.name %></td>
+                  <td><%= bank.holderNumbers %></td>
                   <td>
                     <a href="/admin/banks/<%= bank.id %>/edit" class="btn btn-warning">
                       <i class="fas fa-pencil-alt"></i> Edit
