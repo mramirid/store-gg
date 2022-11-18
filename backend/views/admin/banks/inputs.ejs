@@ -1,0 +1,33 @@
+<div class="form-group">
+  <label for="name">Name</label>
+
+  <input type="text" class="form-control <%= _.isError(formErrors?.name) && "is-invalid" %>" id="name" name="name"
+    placeholder="Enter bank name" value="<%= formData?.name %>" required>
+
+  <% if (_.isError(formErrors?.name)) { %>
+  <span class="invalid-feedback"><%= formErrors.name.message %></span>
+  <% } %>
+</div>
+
+<div class="form-group">
+  <label for="holder-name">Holder Name</label>
+
+  <input type="text" class="form-control <%= _.isError(formErrors?.holderName) && "is-invalid" %>" id="holder-name"
+    name="holderName" placeholder="Enter holder name" value="<%= formData?.holderName %>" required>
+
+  <% if (_.isError(formErrors?.holderName)) { %>
+  <span class="invalid-feedback"><%= formErrors.holderName.message %></span>
+  <% } %>
+</div>
+
+<div class="form-group">
+  <label for="holder-numbers">Holder Numbers</label>
+
+  <input type="text" class="form-control <%= _.isError(formErrors?.holderNumbers) && "is-invalid" %>"
+    id="holder-numbers" name="holderNumbers" placeholder="Enter holder numbers" value="<%= formData?.holderNumbers %>"
+    required>
+
+  <% if (_.isError(formErrors?.holderNumbers)) { %>
+  <span class="invalid-feedback"><%= formErrors.holderNumbers.message %></span>
+  <% } %>
+</div>

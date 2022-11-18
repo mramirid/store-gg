@@ -1,12 +1,20 @@
 import type express from "express";
-import { getAlert } from "../../utils/alert";
-import type { BankDoc } from "./model";
+import _ from "lodash";
+import mongoose from "mongoose";
+import {
+  AlertStatuses,
+  buildAlert,
+  getAlert,
+  setAlert,
+} from "../../utils/alert";
+import { joinErrorMessages } from "../../utils/error";
+import type { BankDoc, IBank } from "./model";
 import Bank from "./model";
 
 export default {
   viewBanks,
-  // viewCreateBank,
-  // createBank,
+  viewCreateBank,
+  createBank,
   // viewEditBank,
   // editBank,
   // deleteBank,
@@ -33,58 +41,57 @@ async function viewBanks(
   });
 }
 
-// function viewCreateBank(_: express.Request, res: express.Response) {
-//   renderViewCreateNominal(res, {
-//     formData: undefined,
-//     formErrors: undefined,
-//   });
-// }
+function viewCreateBank(_: express.Request, res: express.Response) {
+  renderViewCreateBank(res, {
+    formData: undefined,
+    formErrors: undefined,
+  });
+}
 
-// async function createBank(
-//   req: express.Request<unknown, unknown, CreateNominalReqBody>,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) {
-//   try {
-//     await Nominal.create(req.body);
-//   } catch (error) {
-//     if (error instanceof mongoose.Error.ValidationError) {
-//       renderViewCreateNominal(res, {
-//         formData: req.body,
-//         formErrors: error.errors,
-//       });
-//     } else {
-//       next(error);
-//     }
-//     return;
-//   }
+async function createBank(
+  req: express.Request<unknown, unknown, IBank>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  try {
+    await Bank.create(req.body);
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      renderViewCreateBank(res, {
+        formData: req.body,
+        formErrors: error.errors,
+      });
+    } else {
+      next(error);
+    }
+    return;
+  }
 
-//   setAlert(req, { message: "Nominal added", status: AlertStatuses.Success });
-//   res.redirect("/admin/nominals");
-// }
+  setAlert(req, { message: "Bank added", status: AlertStatuses.Success });
+  res.redirect("/admin/banks");
+}
 
 // type CreateNominalReqBody = Pick<INominal, "name" | "quantity"> & {
 //   price: number;
 // };
 
-// function renderViewCreateNominal(
-//   res: express.Response,
-//   options: {
-//     formData: CreateNominalReqBody | undefined;
-//     formErrors: Record<string, Error> | undefined;
-//   }
-// ) {
-//   const alert = _.isObject(options.formErrors)
-//     ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
-//     : undefined;
+function renderViewCreateBank(
+  res: express.Response,
+  options: {
+    formData: IBank | undefined;
+    formErrors: Record<string, Error> | undefined;
+  }
+) {
+  const alert = _.isObject(options.formErrors)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
+    : undefined;
 
-//   res.render("admin/nominals/create", {
-//     pageTitle: "Create Nominal",
-//     alert,
-//     NOMINAL_NAMES,
-//     ...options,
-//   });
-// }
+  res.render("admin/banks/create", {
+    pageTitle: "Create Bank",
+    alert,
+    ...options,
+  });
+}
 
 // const nominal404Error = new createHttpError.NotFound("Nominal not found.");
 
