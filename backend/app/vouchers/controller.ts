@@ -20,15 +20,6 @@ import Nominal from "../nominals/model";
 import type { VoucherDoc } from "./model";
 import Voucher from "./model";
 
-export default {
-  viewVouchers,
-  viewCreateVoucher,
-  createVoucher,
-  viewEditVoucher,
-  editVoucher,
-  // deleteVoucher,
-};
-
 type PopulatedVoucherDoc = mongoose.MergeType<
   VoucherDoc,
   { category: CategoryDoc; nominals: NominalDoc[] }
@@ -81,26 +72,6 @@ async function viewCreateVoucher(
   });
 }
 
-function renderViewCreateVoucher(
-  res: express.Response,
-  options: {
-    categories: CategoryDoc[];
-    nominals: NominalDoc[];
-    formData: CreateVoucherReqBody | undefined;
-    formErrors: Record<string, Error> | undefined;
-  }
-) {
-  const alert = _.isObject(options.formErrors)
-    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
-    : undefined;
-
-  res.render("admin/vouchers/create", {
-    pageTitle: "Create Voucher",
-    alert,
-    ...options,
-  });
-}
-
 type CreateVoucherReqBody = {
   name: string;
   categoryId: string;
@@ -118,36 +89,20 @@ async function createVoucher(
 ) {
   try {
     await handleImageUpload(req, res, "imageName");
+  } catch (error) {
+    next(error);
+    return;
+  }
 
+  try {
     await Voucher.create({
       name: req.body.name,
       category: req.body.categoryId,
       nominals: req.body.nominalIds,
       imageName: req.file?.filename,
     });
-  } catch (maybeError) {
-    if (maybeError instanceof mongoose.Error.ValidationError) {
-      let categories: CategoryDoc[], nominals: NominalDoc[];
-
-      try {
-        [categories, nominals] = await Promise.all([
-          Category.find(),
-          Nominal.find(),
-        ]);
-      } catch (maybeError) {
-        next(maybeError);
-        return;
-      }
-
-      renderViewCreateVoucher(res, {
-        categories,
-        nominals,
-        formData: req.body,
-        formErrors: maybeError.errors,
-      });
-    } else {
-      next(maybeError);
-    }
+  } catch (error) {
+    next(error);
     return;
   }
 
@@ -167,6 +122,57 @@ async function createVoucher(
 
   setAlert(req, { message: "Voucher added", status: AlertStatuses.Success });
   res.redirect("/admin/vouchers");
+}
+
+const createVoucherErrorHandler: express.ErrorRequestHandler = async (
+  error,
+  req,
+  res,
+  next
+) => {
+  if (error instanceof mongoose.Error.ValidationError) {
+    let categories: CategoryDoc[], nominals: NominalDoc[];
+
+    try {
+      [categories, nominals] = await Promise.all([
+        Category.find(),
+        Nominal.find(),
+      ]);
+    } catch (error) {
+      next(error);
+      return;
+    }
+
+    renderViewCreateVoucher(res, {
+      categories,
+      nominals,
+      formData: req.body,
+      formErrors: error.errors,
+    });
+    return;
+  }
+
+  next(error);
+};
+
+function renderViewCreateVoucher(
+  res: express.Response,
+  options: {
+    categories: CategoryDoc[];
+    nominals: NominalDoc[];
+    formData: CreateVoucherReqBody | undefined;
+    formErrors: Record<string, Error> | undefined;
+  }
+) {
+  const alert = _.isObject(options.formErrors)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
+    : undefined;
+
+  res.render("admin/vouchers/create", {
+    pageTitle: "Create Voucher",
+    alert,
+    ...options,
+  });
 }
 
 const voucher404Error = new createHttpError.NotFound("Voucher not found");
@@ -203,6 +209,95 @@ async function viewEditVoucher(
   });
 }
 
+export async function editVoucher(
+  req: express.Request<{ id: string }, unknown, CreateVoucherReqBody>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  let voucher: VoucherDoc;
+
+  try {
+    [voucher] = await Promise.all([
+      Voucher.findById(req.params.id).orFail(voucher404Error),
+      handleImageUpload(req, res, "imageName"),
+    ]);
+  } catch (maybeError) {
+    next(maybeError);
+    return;
+  }
+
+  voucher.name = req.body.name;
+  voucher.category = new mongoose.Types.ObjectId(req.body.categoryId);
+
+  const nominalIds = _.isString(req.body.nominalIds)
+    ? [req.body.nominalIds]
+    : _.isArray(req.body.nominalIds)
+    ? req.body.nominalIds
+    : [];
+  voucher.nominals = new mongoose.Types.DocumentArray(nominalIds);
+
+  const oldImageName = voucher.imageName;
+  if (_.isObject(req.file)) {
+    voucher.imageName = req.file.filename;
+  }
+
+  try {
+    await voucher.save();
+  } catch (error) {
+    next(error);
+    return;
+  }
+
+  if (_.isObject(req.file)) {
+    await Promise.all([
+      fs.unlink(path.resolve("public", "uploads", oldImageName)),
+      fs.copyFile(
+        req.file.path,
+        path.resolve("public", "uploads", req.file.filename)
+      ),
+    ]);
+  }
+
+  setAlert(req, {
+    message: "Voucher edited",
+    status: AlertStatuses.Success,
+  });
+  res.redirect("/admin/vouchers");
+}
+
+const editVoucherErrorHandler: express.ErrorRequestHandler<{
+  id: string;
+}> = async (error, req, res, next) => {
+  if (error instanceof mongoose.Error.ValidationError) {
+    let voucher: VoucherDoc, categories: CategoryDoc[], nominals: NominalDoc[];
+
+    try {
+      [voucher, categories, nominals] = await Promise.all([
+        Voucher.findById(req.params.id).orFail(voucher404Error),
+        Category.find(),
+        Nominal.find(),
+      ]);
+    } catch (error) {
+      next(error);
+      return;
+    }
+
+    renderViewEditVoucher(res, {
+      voucher,
+      categories,
+      nominals,
+      formData: {
+        ...req.body,
+        imageName: voucher.imageName,
+      },
+      formErrors: error.errors,
+    });
+    return;
+  }
+
+  next(error);
+};
+
 type EditVoucherReqBody = CreateVoucherReqBody & { imageName: string };
 
 function renderViewEditVoucher(
@@ -224,88 +319,6 @@ function renderViewEditVoucher(
     alert,
     ...options,
   });
-}
-
-export async function editVoucher(
-  req: express.Request<{ id: string }, unknown, CreateVoucherReqBody>,
-  res: express.Response,
-  next: express.NextFunction
-) {
-  let voucher: VoucherDoc, editedVoucher: VoucherDoc;
-
-  try {
-    [voucher, editedVoucher] = await Promise.all([
-      Voucher.findById(req.params.id).orFail(voucher404Error),
-      Voucher.findById(req.params.id).orFail(voucher404Error),
-    ]);
-  } catch (maybeError) {
-    next(maybeError);
-    return;
-  }
-
-  try {
-    await handleImageUpload(req, res, "imageName");
-
-    const nominalIds = _.isString(req.body.nominalIds)
-      ? [req.body.nominalIds]
-      : _.isArray(req.body.nominalIds)
-      ? req.body.nominalIds
-      : [];
-
-    editedVoucher.name = req.body.name;
-    editedVoucher.category = new mongoose.Types.ObjectId(req.body.categoryId);
-    editedVoucher.nominals = new mongoose.Types.DocumentArray(nominalIds);
-
-    if (_.isObject(req.file)) {
-      editedVoucher.imageName = req.file.filename;
-    }
-
-    await editedVoucher.save();
-  } catch (maybeError) {
-    if (maybeError instanceof mongoose.Error.ValidationError) {
-      let categories: CategoryDoc[], nominals: NominalDoc[];
-
-      try {
-        [categories, nominals] = await Promise.all([
-          Category.find(),
-          Nominal.find(),
-        ]);
-      } catch (maybeError) {
-        next(maybeError);
-        return;
-      }
-
-      renderViewEditVoucher(res, {
-        voucher,
-        categories,
-        nominals,
-        formData: {
-          ...req.body,
-          imageName: voucher.imageName,
-        },
-        formErrors: maybeError.errors,
-      });
-    } else {
-      next(maybeError);
-    }
-    return;
-  }
-
-  if (_.isObject(req.file)) {
-    await Promise.all([
-      fs.unlink(path.resolve("public", "uploads", voucher.imageName)),
-      fs.copyFile(
-        req.file.path,
-        path.resolve("public", "uploads", req.file.filename)
-      ),
-    ]);
-  }
-
-  setAlert(req, {
-    message: "Voucher edited",
-    status: AlertStatuses.Success,
-  });
-  res.redirect("/admin/vouchers");
 }
 
 function handleImageUpload(
@@ -355,3 +368,14 @@ function handleImageUpload(
 //   });
 //   res.redirect("/admin/nominals");
 // }
+
+export default {
+  viewVouchers,
+  viewCreateVoucher,
+  createVoucher,
+  createVoucherErrorHandler,
+  viewEditVoucher,
+  editVoucherErrorHandler,
+  editVoucher,
+  // deleteVoucher,
+};

@@ -30,7 +30,8 @@
           </div>
           <!-- /.card-header -->
           <!-- form start -->
-          <form action="/admin/vouchers/<%= voucher.id %>?_method=PATCH&_csrf=<%= csrfToken %>" method="POST">
+          <form action="/admin/vouchers/<%= voucher.id %>?_method=PATCH&_csrf=<%= csrfToken %>" method="POST"
+            enctype="multipart/form-data">
             <div class="card-body">
               <%- include("./inputs.ejs") %>
             </div>
