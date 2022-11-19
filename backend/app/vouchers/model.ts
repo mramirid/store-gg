@@ -14,7 +14,7 @@ export interface IVoucher {
   name: string;
   imageName: string;
   category: Types.ObjectId;
-  nominals: Types.DocumentArray<Types.ObjectId>;
+  nominals: Types.ObjectId[];
 }
 
 export type VoucherDoc = HydratedDocument<IVoucher>;

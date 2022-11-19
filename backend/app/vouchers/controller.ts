@@ -234,7 +234,9 @@ export async function editVoucher(
     : _.isArray(req.body.nominalIds)
     ? req.body.nominalIds
     : [];
-  voucher.nominals = new mongoose.Types.DocumentArray(nominalIds);
+  voucher.nominals = nominalIds.map(
+    (nominalId) => new mongoose.Types.ObjectId(nominalId)
+  );
 
   const oldImageName = voucher.imageName;
   if (_.isObject(req.file)) {
