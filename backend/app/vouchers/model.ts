@@ -69,6 +69,7 @@ const voucherSchema = new Schema<IVoucher>({
         ],
       },
     ],
+    required: [true, "Nominals are reqired"],
     validate: {
       validator: (v: unknown) => !_.isEmpty(v),
       message: "Nominals cannot be empty",
