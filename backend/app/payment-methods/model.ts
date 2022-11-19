@@ -27,7 +27,7 @@ const paymentMethodSchema = new Schema<IPaymentMethod>({
       {
         type: Schema.Types.ObjectId,
         ref: Bank,
-        required: [true, "Banks is required"],
+        required: [true, "Bank is required"],
         index: true,
         validate: [
           {
@@ -43,6 +43,7 @@ const paymentMethodSchema = new Schema<IPaymentMethod>({
         ],
       },
     ],
+    required: [true, "Banks are required"],
     validate: {
       validator: (v: unknown) => !_.isEmpty(v),
       message: "Banks cannot be empty",

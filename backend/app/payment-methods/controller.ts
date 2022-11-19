@@ -1,4 +1,5 @@
 import type express from "express";
+import createHttpError from "http-errors";
 import _ from "lodash";
 import mongoose from "mongoose";
 import {
@@ -17,8 +18,8 @@ export default {
   viewPaymentMethods,
   viewCreatePaymentMethod,
   createPaymentMethod,
-  // viewEditPaymentMethod,
-  // editPaymentMethod,
+  viewEditPaymentMethod,
+  editPaymentMethod,
   // deletePaymentMethod,
 };
 
@@ -102,7 +103,7 @@ async function createPaymentMethod(
   }
 
   setAlert(req, {
-    message: "Payment Method added",
+    message: "Payment method added",
     status: AlertStatuses.Success,
   });
   res.redirect("/admin/payment-methods");
@@ -132,107 +133,128 @@ function renderViewCreatePaymentMethod(
   });
 }
 
-// const nominal404Error = new createHttpError.NotFound("Nominal not found.");
+const paymentMethod404Error = new createHttpError.NotFound(
+  "Payment method not found."
+);
 
-// async function viewEditNominal(
+async function viewEditPaymentMethod(
+  req: express.Request<{ id: string }>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  let paymentMethod: PaymentMethodDoc, banks: BankDoc[];
+
+  try {
+    [paymentMethod, banks] = await Promise.all([
+      PaymentMethod.findById(req.params.id).orFail(paymentMethod404Error),
+      Bank.find(),
+    ]);
+  } catch (error) {
+    next(error);
+    return;
+  }
+
+  renderViewEditPaymentMethod(res, {
+    banks,
+    paymentMethod,
+    formData: {
+      name: paymentMethod.name,
+      bankIds: paymentMethod.banks.map(String),
+    },
+    formErrors: undefined,
+  });
+}
+
+export async function editPaymentMethod(
+  req: express.Request<{ id: string }, unknown, CreatePaymentMethodReqBody>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  let paymentMethod: PaymentMethodDoc;
+  let editedPaymentMethod: PaymentMethodDoc;
+
+  try {
+    [paymentMethod, editedPaymentMethod] = await Promise.all([
+      PaymentMethod.findById(req.params.id).orFail(paymentMethod404Error),
+      PaymentMethod.findById(req.params.id).orFail(paymentMethod404Error),
+    ]);
+  } catch (error) {
+    next(error);
+    return;
+  }
+
+  editedPaymentMethod.name = req.body.name;
+  editedPaymentMethod.banks = req.body
+    .bankIds as unknown as mongoose.Types.ObjectId[];
+
+  try {
+    await editedPaymentMethod.save();
+  } catch (error) {
+    if (error instanceof mongoose.Error.ValidationError) {
+      let banks: BankDoc[];
+
+      try {
+        banks = await Bank.find();
+      } catch (error) {
+        next(error);
+        return;
+      }
+
+      renderViewEditPaymentMethod(res, {
+        banks,
+        paymentMethod,
+        formData: req.body,
+        formErrors: error.errors,
+      });
+    } else {
+      next(error);
+    }
+    return;
+  }
+
+  setAlert(req, {
+    message: "Payment method edited",
+    status: AlertStatuses.Success,
+  });
+  res.redirect("/admin/payment-methods");
+}
+
+function renderViewEditPaymentMethod(
+  res: express.Response,
+  options: {
+    banks: BankDoc[];
+    paymentMethod: PaymentMethodDoc;
+    formData: CreatePaymentMethodReqBody;
+    formErrors: Record<string, Error> | undefined;
+  }
+) {
+  const alert = _.isObject(options.formErrors)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
+    : undefined;
+
+  res.render("admin/payment-methods/edit", {
+    pageTitle: "Edit Payment Method",
+    alert,
+    ...options,
+  });
+}
+
+// async function deletePaymentMethod(
 //   req: express.Request<{ id: string }>,
 //   res: express.Response,
 //   next: express.NextFunction
 // ) {
-//   let nominal: NominalDoc;
-
 //   try {
-//     nominal = await Nominal.findById(req.params.id).orFail(nominal404Error);
-//   } catch (error) {
-//     next(error);
-//     return;
-//   }
-
-//   renderViewEditNominal(res, {
-//     nominal,
-//     formData: nominal.toObject(),
-//     formErrors: undefined,
-//   });
-// }
-
-// export async function editNominal(
-//   req: express.Request<{ id: string }, unknown, CreateNominalReqBody>,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) {
-//   let nominal: NominalDoc;
-//   let editedNominal: NominalDoc;
-
-//   try {
-//     [nominal, editedNominal] = await Promise.all([
-//       Nominal.findById(req.params.id).orFail(nominal404Error),
-//       Nominal.findById(req.params.id).orFail(nominal404Error),
-//     ]);
-//   } catch (error) {
-//     next(error);
-//     return;
-//   }
-
-//   editedNominal.name = req.body.name;
-//   editedNominal.quantity = req.body.quantity;
-//   editedNominal.price = new mongoose.Types.Decimal128(String(req.body.price));
-
-//   try {
-//     await editedNominal.save();
-//   } catch (error) {
-//     if (error instanceof mongoose.Error.ValidationError) {
-//       renderViewEditNominal(res, {
-//         nominal,
-//         formData: req.body,
-//         formErrors: error.errors,
-//       });
-//     } else {
-//       next(error);
-//     }
-//     return;
-//   }
-
-//   setAlert(req, {
-//     message: "Nominal edited",
-//     status: AlertStatuses.Success,
-//   });
-//   res.redirect("/admin/nominals");
-// }
-
-// function renderViewEditNominal(
-//   res: express.Response,
-//   options: {
-//     nominal: NominalDoc;
-//     formData: CreateNominalReqBody;
-//     formErrors: Record<string, Error> | undefined;
-//   }
-// ) {
-//   const alert = _.isObject(options.formErrors)
-//     ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
-//     : undefined;
-
-//   res.render("admin/nominals/edit", {
-//     pageTitle: "Edit Nominal",
-//     alert,
-//     NOMINAL_NAMES,
-//     ...options,
-//   });
-// }
-
-// async function deleteNominal(
-//   req: express.Request<{ id: string }>,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) {
-//   try {
-//     await Nominal.findByIdAndDelete(req.params.id).orFail(nominal404Error);
+//     await PaymentMethod.findByIdAndDelete(req.params.id).orFail(
+//       paymentMethod404Error
+//     );
 //   } catch (error) {
 //     if (createHttpError.isHttpError(error)) {
 //       setAlert(req, {
 //         message: error.message,
 //         status: AlertStatuses.Error,
 //       });
-//       res.redirect("/admin/nominals");
+//       res.redirect("/admin/payment-methods");
 //     } else {
 //       next(error);
 //     }
@@ -240,8 +262,8 @@ function renderViewCreatePaymentMethod(
 //   }
 
 //   setAlert(req, {
-//     message: "Nominal deleted",
+//     message: "Payment method deleted",
 //     status: AlertStatuses.Success,
 //   });
-//   res.redirect("/admin/nominals");
+//   res.redirect("/admin/payment-methods");
 // }
