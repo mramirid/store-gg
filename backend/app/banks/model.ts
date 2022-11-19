@@ -1,5 +1,7 @@
-import { HydratedDocument, model, Schema } from "mongoose";
+import createHttpError from "http-errors";
+import { HydratedDocument, model, Query, Schema } from "mongoose";
 import validator from "validator";
+import type { IPaymentMethod } from "../payment-methods/model";
 
 export const BANK_NAMES = [
   "Bank Syariah Indonesia",
@@ -50,6 +52,24 @@ const bankSchema = new Schema<IBank>({
     },
   },
 });
+
+bankSchema.pre(
+  "findOneAndDelete",
+  { document: false, query: true },
+  async function (this: Query<unknown, unknown>) {
+    const { _id } = this.getQuery();
+
+    const numPaymentMethods = await model<IPaymentMethod>(
+      "PaymentMethod"
+    ).countDocuments({ banks: _id });
+
+    if (numPaymentMethods > 0) {
+      throw new createHttpError.Conflict(
+        "The bank is being used by some payment methods"
+      );
+    }
+  }
+);
 
 const Bank = model("Bank", bankSchema);
 export default Bank;

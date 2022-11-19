@@ -1,0 +1,39 @@
+<div class="form-group">
+  <label for="name">Name</label>
+
+  <input type="text" class="form-control <%= _.isError(formErrors?.name) && "is-invalid" %>" id="name" name="name"
+    placeholder="Enter name" value="<%= formData?.name %>" required>
+
+  <% if (_.isError(formErrors?.name)) { %>
+  <span class="invalid-feedback"><%= formErrors.name.message %></span>
+  <% } %>
+</div>
+
+<div class="form-group">
+  <label for="banks">Banks</label>
+
+  <select class="select2bs4 w-100" multiple="multiple" data-placeholder="Select banks" id="banks" name="bankIds"
+    required>
+    <option value="">
+      <!-- Replaced by data-placeholder -->
+    </option>
+
+    <% 
+      const formDatabankIds = Array.isArray(formData?.bankIds) 
+        ? formData.bankIds 
+        : _.isString(formData?.bankIds) 
+        ? [formData.bankIds] 
+        : undefined;
+    %>
+
+    <% for (const bank of banks) { %>
+    <option value="<%= bank.id %>" <%= formDatabankIds?.some((bankId) => bank.equals(bankId)) && "selected" %>>
+      <%= bank.name %>-<%= bank.holderName %>-<%= bank.holderNumbers %>
+    </option>
+    <% } %>
+  </select>
+
+  <% if (_.isError(formErrors?.banks)) { %>
+  <span class="invalid-feedback d-inline"><%= formErrors.banks.message %></span>
+  <% } %>
+</div>

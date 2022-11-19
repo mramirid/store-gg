@@ -13,6 +13,7 @@ import banksRouter from "./banks/router";
 import categoriesRouter from "./categories/router";
 import homeRouter from "./home/router";
 import nominalsRouter from "./nominals/router";
+import paymentMethodsRouter from "./payment-methods/router";
 import vouchersRouter from "./vouchers/router";
 
 const adminRouter = express.Router();
@@ -54,6 +55,7 @@ adminRouter.use("/categories", categoriesRouter);
 adminRouter.use("/nominals", nominalsRouter);
 adminRouter.use("/vouchers", vouchersRouter);
 adminRouter.use("/banks", banksRouter);
+adminRouter.use("/payment-methods", paymentMethodsRouter);
 
 adminRouter.use((_, res) => {
   res.status(StatusCodes.NOT_FOUND).render("admin/404", {
@@ -62,12 +64,7 @@ adminRouter.use((_, res) => {
   });
 });
 
-const errorHandler: express.ErrorRequestHandler = (
-  error,
-  req,
-  res,
-  next
-) => {
+const errorHandler: express.ErrorRequestHandler = (error, req, res, next) => {
   if (req.app.get("env") === "development") {
     next(error);
     return;
