@@ -22,15 +22,20 @@ export default {
   // deletePaymentMethod,
 };
 
+type PopulatedPaymentMethodDoc = mongoose.MergeType<
+  PaymentMethodDoc,
+  { banks: BankDoc[] }
+>;
+
 async function viewPaymentMethods(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) {
-  let paymentMethods: PaymentMethodDoc[];
+  let paymentMethods: PopulatedPaymentMethodDoc[];
 
   try {
-    paymentMethods = await PaymentMethod.find();
+    paymentMethods = await PaymentMethod.find().populate("banks");
   } catch (error) {
     next(error);
     return;

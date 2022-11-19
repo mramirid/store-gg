@@ -34,6 +34,7 @@
                 <tr>
                   <th>No.</th>
                   <th>Method</th>
+                  <th>Banks</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -42,6 +43,13 @@
                 <tr>
                   <td><%= i + 1  %></td>
                   <td><%= paymentMethod.name %></td>
+                  <td>
+                    <% for (const bank of paymentMethod.banks) { %>
+                    <span class="badge badge-info">
+                      <%= bank.name %>-<%= bank.holderName %>-<%= bank.holderNumbers %>
+                    </span>
+                    <% } %>
+                  </td>
                   <td>
                     <a href="/admin/payment-methods/<%= paymentMethod.id %>/edit" class="btn btn-warning">
                       <i class="fas fa-pencil-alt"></i> Edit
