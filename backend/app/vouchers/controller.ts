@@ -227,16 +227,14 @@ export async function editVoucher(
   }
 
   voucher.name = req.body.name;
-  voucher.category = new mongoose.Types.ObjectId(req.body.categoryId);
+  voucher.category = req.body.categoryId as unknown as mongoose.Types.ObjectId;
 
   const nominalIds = _.isString(req.body.nominalIds)
     ? [req.body.nominalIds]
     : _.isArray(req.body.nominalIds)
     ? req.body.nominalIds
     : [];
-  voucher.nominals = nominalIds.map(
-    (nominalId) => new mongoose.Types.ObjectId(nominalId)
-  );
+  voucher.nominals = nominalIds as unknown as mongoose.Types.ObjectId[];
 
   const oldImageName = voucher.imageName;
   if (_.isObject(req.file)) {
