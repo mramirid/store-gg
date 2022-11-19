@@ -249,7 +249,7 @@ async function deletePaymentMethod(
       paymentMethod404Error
     );
   } catch (error) {
-    if (createHttpError.isHttpError(error)) {
+    if (createHttpError.isHttpError(error) && error.expose) {
       setAlert(req, {
         message: error.message,
         status: AlertStatuses.Error,

@@ -181,7 +181,7 @@ async function deleteCategory(
   try {
     await Category.findByIdAndDelete(req.params.id).orFail(category404Error);
   } catch (error) {
-    if (createHttpError.isHttpError(error)) {
+    if (createHttpError.isHttpError(error) && error.expose) {
       setAlert(req, {
         message: error.message,
         status: AlertStatuses.Error,
