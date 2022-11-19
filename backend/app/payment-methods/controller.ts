@@ -20,7 +20,7 @@ export default {
   createPaymentMethod,
   viewEditPaymentMethod,
   editPaymentMethod,
-  // deletePaymentMethod,
+  deletePaymentMethod,
 };
 
 type PopulatedPaymentMethodDoc = mongoose.MergeType<
@@ -239,31 +239,31 @@ function renderViewEditPaymentMethod(
   });
 }
 
-// async function deletePaymentMethod(
-//   req: express.Request<{ id: string }>,
-//   res: express.Response,
-//   next: express.NextFunction
-// ) {
-//   try {
-//     await PaymentMethod.findByIdAndDelete(req.params.id).orFail(
-//       paymentMethod404Error
-//     );
-//   } catch (error) {
-//     if (createHttpError.isHttpError(error)) {
-//       setAlert(req, {
-//         message: error.message,
-//         status: AlertStatuses.Error,
-//       });
-//       res.redirect("/admin/payment-methods");
-//     } else {
-//       next(error);
-//     }
-//     return;
-//   }
+async function deletePaymentMethod(
+  req: express.Request<{ id: string }>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  try {
+    await PaymentMethod.findByIdAndDelete(req.params.id).orFail(
+      paymentMethod404Error
+    );
+  } catch (error) {
+    if (createHttpError.isHttpError(error)) {
+      setAlert(req, {
+        message: error.message,
+        status: AlertStatuses.Error,
+      });
+      res.redirect("/admin/payment-methods");
+    } else {
+      next(error);
+    }
+    return;
+  }
 
-//   setAlert(req, {
-//     message: "Payment method deleted",
-//     status: AlertStatuses.Success,
-//   });
-//   res.redirect("/admin/payment-methods");
-// }
+  setAlert(req, {
+    message: "Payment method deleted",
+    status: AlertStatuses.Success,
+  });
+  res.redirect("/admin/payment-methods");
+}
