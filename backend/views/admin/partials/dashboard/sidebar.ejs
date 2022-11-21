@@ -40,13 +40,14 @@
 
         <li class="nav-header">Payment Methods</li>
         <li class="nav-item">
-          <a href="/admin/banks" class="nav-link">
+          <a href="/admin/banks" class="nav-link <%= req.originalUrl.includes("/admin/banks") && "active" %>">
             <i class="nav-icon fas fa-money-check"></i>
             <p>Banks</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="/admin/payment-methods" class="nav-link">
+          <a href="/admin/payment-methods"
+            class="nav-link <%= req.originalUrl.includes("/admin/payment-methods") && "active" %>">
             <i class="nav-icon fas fa-money-check-alt"></i>
             <p>Payment Methods</p>
           </a>
