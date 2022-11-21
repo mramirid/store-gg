@@ -1,10 +1,13 @@
 import flash from "connect-flash";
 import connectMongoDBSession from "connect-mongodb-session";
+import crypto from "crypto";
 import csrf from "csurf";
 import express from "express";
 import session from "express-session";
+import helmet from "helmet";
 import { StatusCodes } from "http-status-codes";
 import _ from "lodash";
+import methodOverride from "method-override";
 import passport from "passport";
 import { env, mongoUri } from "../lib/constant";
 import { version } from "../package.json";
@@ -17,6 +20,27 @@ import paymentMethodsRouter from "./payment-methods/router";
 import vouchersRouter from "./vouchers/router";
 
 const adminRouter = express.Router();
+
+// Using a nonce with CSP (https://content-security-policy.com/nonce)
+// Sets the `script-src` directive to "'self' 'nonce-e33ccde670f149c1789b1e1e113b0916'" (or similar)
+adminRouter.use(
+  (_, res, next) => {
+    res.locals["cspNonce"] = crypto.randomUUID();
+    next();
+  },
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        scriptSrc: [
+          "'self'",
+          (_, res) => `'nonce-${(res as express.Response).locals["cspNonce"]}'`,
+        ],
+      },
+    },
+  })
+);
+
+adminRouter.use(methodOverride("_method"));
 
 const MongoDBStore = connectMongoDBSession(session);
 const mongoDBStore = new MongoDBStore({
@@ -50,7 +74,7 @@ adminRouter.use(csrf(), (req, res, next) => {
   next();
 });
 
-adminRouter.use("/", homeRouter);
+adminRouter.use(homeRouter);
 adminRouter.use("/categories", categoriesRouter);
 adminRouter.use("/nominals", nominalsRouter);
 adminRouter.use("/vouchers", vouchersRouter);
