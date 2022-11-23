@@ -8,7 +8,7 @@ import {
   getAlert,
   setAlert,
 } from "../../utils/alert";
-import { joinErrorMessages } from "../../utils/error";
+import { joinFormErrorMessages } from "../../utils/error";
 import Nominal, { INominal, NominalDoc, NOMINAL_NAMES } from "./model";
 
 export default {
@@ -83,7 +83,7 @@ function renderViewCreateNominal(
   }
 ) {
   const alert = _.isObject(options.formErrors)
-    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
+    ? buildAlert(joinFormErrorMessages(options.formErrors), AlertStatuses.Error)
     : undefined;
 
   res.render("admin/nominals/create", {
@@ -170,7 +170,7 @@ function renderViewEditNominal(
   }
 ) {
   const alert = _.isObject(options.formErrors)
-    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
+    ? buildAlert(joinFormErrorMessages(options.formErrors), AlertStatuses.Error)
     : undefined;
 
   res.render("admin/nominals/edit", {

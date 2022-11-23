@@ -8,10 +8,12 @@ import helmet from "helmet";
 import { StatusCodes } from "http-status-codes";
 import _ from "lodash";
 import methodOverride from "method-override";
-import passport from "passport";
 import { env, mongoUri } from "../lib/constant";
 import { version } from "../package.json";
 import format from "../utils/format";
+import adminsMiddleware from "./admins/middleware";
+import adminsPassport from "./admins/passport";
+import adminsRouter from "./admins/router";
 import banksRouter from "./banks/router";
 import categoriesRouter from "./categories/router";
 import homeRouter from "./home/router";
@@ -56,7 +58,8 @@ adminRouter.use(
   })
 );
 
-adminRouter.use(passport.authenticate("session"));
+adminRouter.use(adminsPassport.initialize());
+adminRouter.use(adminsPassport.session());
 
 adminRouter.use(flash());
 
@@ -74,7 +77,9 @@ adminRouter.use(csrf(), (req, res, next) => {
   next();
 });
 
-adminRouter.use(homeRouter);
+adminRouter.use(adminsRouter);
+adminRouter.use(adminsMiddleware.ensureAuthenticated);
+adminRouter.use("/", homeRouter);
 adminRouter.use("/categories", categoriesRouter);
 adminRouter.use("/nominals", nominalsRouter);
 adminRouter.use("/vouchers", vouchersRouter);

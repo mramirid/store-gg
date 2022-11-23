@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('./partials/common-head-content.ejs') %>
+</head>
+
+<body class="hold-transition login-page">
+  <div class="login-box">
+
+    <%- include('./partials/alert.ejs') %>
+
+    <div class="card card-outline card-primary">
+      <div class="card-header text-center">
+        <a href="#" class="h1"><b>Store</b>GG</a>
+      </div>
+      <div class="card-body">
+        <p class="login-box-msg">Sign up as admin</p>
+
+        <form action="/admin/sign-up" method="POST">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control <%= _.isError(formErrors?.fullName) && "is-invalid" %>"
+              placeholder="Full name" name="fullName" value="<%= formData?.fullName %>" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          <% if (_.isError(formErrors?.fullName)) { %>
+          <span class="invalid-feedback"><%= formErrors.fullName.message %></span>
+          <% } %>
+
+          <div class="input-group mb-3">
+            <input type="email" class="form-control <%= _.isError(formErrors?.email) && "is-invalid" %>"
+              placeholder="Email" name="email" value="<%= formData?.email %>" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <% if (_.isError(formErrors?.email)) { %>
+          <span class="invalid-feedback"><%= formErrors.email.message %></span>
+          <% } %>
+
+          <div class="input-group mb-3">
+            <input type="password" class="form-control <%= _.isError(formErrors?.password) && "is-invalid" %>"
+              placeholder="Password" name="password" value="<%= formData?.password %>" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <% if (_.isError(formErrors?.password)) { %>
+          <span class="invalid-feedback"><%= formErrors.password.message %></span>
+          <% } %>
+
+          <div class="input-group mb-3">
+            <input type="password" class="form-control <%= _.isError(formErrors?.retypePassword) && "is-invalid" %>"
+              placeholder="Retype password" name="retypePassword" value="<%= formData?.retypePassword %>" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <% if (_.isError(formErrors?.retypePassword)) { %>
+          <span class="invalid-feedback"><%= formErrors.retypePassword.message %></span>
+          <% } %>
+
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+          <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+          <!-- /.col -->
+        </form>
+
+        <hr>
+
+        <a href="/admin/sign-in" class="btn btn-dark btn-block">Sign In</a>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <!-- /.login-box -->
+
+  <%- include('./partials/common-scripts.ejs') %>
+</body>
+
+</html>

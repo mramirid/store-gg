@@ -12,16 +12,15 @@
     <!-- Notifications Dropdown Menu -->
     <li class="nav-item dropdown">
       <a class="nav-link" data-toggle="dropdown" href="#">
-        Username
+        <%= req.user.fullName %>
       </a>
       <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-        <a href="#" class="dropdown-item">
-          Profile
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item">
-          Logout
-        </a>
+        <form action="/admin/sign-out" method="POST">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="dropdown-item">
+            Logout
+          </button>
+        </form>
       </div>
     </li>
   </ul>

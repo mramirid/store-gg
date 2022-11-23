@@ -33,8 +33,8 @@ function isErrorWithMessage(
   );
 }
 
-export function joinErrorMessages(validationErrors: Record<string, Error>) {
-  const errors = Object.values(validationErrors);
+export function joinFormErrorMessages(formErrors: Record<string, Error>) {
+  const errors = Object.values(formErrors);
   const messages = errors.map(getErrorMessage);
 
   const formatter = new Intl.ListFormat("en-US", {

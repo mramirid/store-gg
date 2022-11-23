@@ -8,7 +8,7 @@ import {
   getAlert,
   setAlert,
 } from "../../utils/alert";
-import { joinErrorMessages } from "../../utils/error";
+import { joinFormErrorMessages } from "../../utils/error";
 import { BankDoc, BANK_NAMES, IBank } from "./model";
 import Bank from "./model";
 
@@ -80,7 +80,7 @@ function renderViewCreateBank(
   }
 ) {
   const alert = _.isObject(options.formErrors)
-    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
+    ? buildAlert(joinFormErrorMessages(options.formErrors), AlertStatuses.Error)
     : undefined;
 
   res.render("admin/banks/create", {
@@ -167,7 +167,7 @@ function renderViewEditBank(
   }
 ) {
   const alert = _.isObject(options.formErrors)
-    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
+    ? buildAlert(joinFormErrorMessages(options.formErrors), AlertStatuses.Error)
     : undefined;
 
   res.render("admin/banks/edit", {
