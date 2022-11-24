@@ -46,11 +46,11 @@ nominalSchema.pre(
   async function (this: Query<unknown, unknown>) {
     const { _id } = this.getQuery();
 
-    const numVouchers = await model<IVoucher>("Voucher").countDocuments({
+    const nominalUsed = await model<IVoucher>("Voucher").exists({
       nominals: _id,
     });
 
-    if (numVouchers > 0) {
+    if (_.isObject(nominalUsed)) {
       throw new createHttpError.Conflict(
         "The nominal is being used by some vouchers"
       );

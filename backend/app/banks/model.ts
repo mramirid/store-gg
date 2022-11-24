@@ -1,4 +1,5 @@
 import createHttpError from "http-errors";
+import _ from "lodash";
 import { HydratedDocument, model, Query, Schema } from "mongoose";
 import validator from "validator";
 import type { IPaymentMethod } from "../payment-methods/model";
@@ -59,11 +60,11 @@ bankSchema.pre(
   async function (this: Query<unknown, unknown>) {
     const { _id } = this.getQuery();
 
-    const numPaymentMethods = await model<IPaymentMethod>(
-      "PaymentMethod"
-    ).countDocuments({ banks: _id });
+    const bankUsed = await model<IPaymentMethod>("PaymentMethod").exists({
+      banks: _id,
+    });
 
-    if (numPaymentMethods > 0) {
+    if (_.isObject(bankUsed)) {
       throw new createHttpError.Conflict(
         "The bank is being used by some payment methods"
       );

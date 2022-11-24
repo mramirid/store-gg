@@ -1,4 +1,5 @@
 import createHttpError from "http-errors";
+import _ from "lodash";
 import { HydratedDocument, model, Query, Schema } from "mongoose";
 import type { IVoucher } from "../vouchers/model";
 
@@ -22,11 +23,11 @@ categorySchema.pre(
   async function (this: Query<unknown, unknown>) {
     const { _id } = this.getQuery();
 
-    const numProperties = await model<IVoucher>("Voucher").countDocuments({
+    const categoryUsed = await model<IVoucher>("Voucher").exists({
       category: _id,
     });
 
-    if (numProperties > 0) {
+    if (_.isObject(categoryUsed)) {
       throw new createHttpError.Conflict(
         "The category is being used by some vouchers"
       );
