@@ -8,7 +8,7 @@
 <body>
   <div class="content-wrapper m-0">
     <%- include('./partials/header.ejs', { 
-      previousBreadcrumbs: [{ label: "Index", href: "/" }] 
+      previousBreadcrumbs: [{ label: "Admin", href: "/admin" }] 
     }) %>
 
     <!-- Main content -->
@@ -19,10 +19,9 @@
         <div class="error-content">
           <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! Page not found.</h3>
 
-          <!-- TODO: Remove "return to index"? -->
           <p>
             We could not find the page you were looking for.
-            Meanwhile, you may <a href="/">return to index</a>.
+            Meanwhile, you may <a href="/admin">return to index</a>.
           </p>
         </div>
         <!-- /.error-content -->
