@@ -35,7 +35,7 @@ const bankSchema = new Schema<IBank>({
   name: {
     type: String,
     enum: BANK_NAMES,
-    required: [true, "Bank name is required"],
+    required: [true, "Name is required"],
   },
   holderName: {
     type: String,

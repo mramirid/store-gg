@@ -18,15 +18,14 @@ const nominalSchema = new Schema<INominal>({
   name: {
     type: String,
     enum: NOMINAL_NAMES,
-    required: [true, "Nominal name is required"],
+    required: [true, "Name is required"],
   },
   quantity: {
     type: Number,
-    min: [0, "Quantity must be a positive integer"],
     default: 0,
     validate: {
-      validator: (v: unknown) => validator.isInt(String(v)),
-      message: "Quantity must be an integer",
+      validator: (v: unknown) => validator.isInt(String(v), { min: 0 }),
+      message: "Quantity must be a positive integer",
     },
   },
   price: {
