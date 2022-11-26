@@ -20,21 +20,12 @@ async function signUp(
   next: express.NextFunction
 ) {
   try {
-    const validationError = new FormValidationError();
-
     if (req.body.password !== req.body.retypePassword) {
+      const validationError = new FormValidationError();
       validationError.addFieldError(
         "retypePassword",
         "The retype password does not match with the password you entered"
       );
-    }
-
-    const emailExists = await Admin.exists({ email: req.body.email });
-    if (_.isObject(emailExists)) {
-      validationError.addFieldError("email", "The email is already in use");
-    }
-
-    if (validationError.hasFieldError) {
       throw validationError;
     }
   } catch (error) {

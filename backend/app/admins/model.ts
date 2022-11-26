@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import _ from "lodash";
 import { HydratedDocument, model, Schema } from "mongoose";
 import validator from "validator";
 
@@ -22,10 +23,21 @@ const adminSchema = new Schema<IAdmin>(
       unique: true,
       required: [true, "Email is required"],
       trim: true,
-      validate: {
-        validator: (v: unknown) => validator.isEmail(String(v)),
-        message: "Email is not valid",
-      },
+      validate: [
+        {
+          validator: (v: unknown) => validator.isEmail(String(v)),
+          message: "Email is not valid",
+        },
+        {
+          validator: async function (v: unknown) {
+            const emailExists = await model<Schema<IAdmin>>("Admin").exists({
+              email: v,
+            });
+            return _.isNull(emailExists);
+          },
+          message: "Email is already in use",
+        },
+      ],
     },
     password: {
       type: String,
