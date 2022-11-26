@@ -1,5 +1,6 @@
 import type express from "express";
 import Category from "../categories/model";
+import Member from "../members/model";
 import Transaction from "../transactions/model";
 import Voucher from "../vouchers/model";
 
@@ -20,7 +21,7 @@ async function viewHome(
       await Promise.all([
         Category.countDocuments(),
         Voucher.countDocuments(),
-        Promise.resolve(NaN),
+        Member.countDocuments(),
         Transaction.countDocuments(),
       ]);
   } catch (error) {

@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
 import Admin from "../app/admins/model";
 import Bank from "../app/banks/model";
 import Category from "../app/categories/model";
+import Member from "../app/members/model";
 import Nominal from "../app/nominals/model";
 import PaymentMethod from "../app/payment-methods/model";
 import Transaction from "../app/transactions/model";
@@ -92,7 +92,7 @@ export default async function seed() {
     quantity: 500,
     price: 500_000,
   });
-  const nominalInsertion = Nominal.insertMany([
+  const nominalsInsertion = Nominal.insertMany([
     gold50,
     gold100,
     gold125,
@@ -125,9 +125,9 @@ export default async function seed() {
     holderName: "Jotaro Kujo",
     holderNumbers: "99888443",
   });
-  const bankInsertion = Bank.insertMany([bsi, bsm, bnis]);
+  const banksInsertion = Bank.insertMany([bsi, bsm, bnis]);
 
-  await Promise.all([categoriesInsertion, nominalInsertion, bankInsertion]);
+  await Promise.all([categoriesInsertion, nominalsInsertion, banksInsertion]);
 
   const superMechs = new Voucher({
     name: "Super Mechs",
@@ -165,7 +165,7 @@ export default async function seed() {
     category: desktop.id,
     nominals: [gold50.id, gold100.id, gold125.id, gold500.id, gold225.id],
   });
-  const voucherInsertion = Voucher.insertMany([
+  const vouchersInsertion = Voucher.insertMany([
     superMechs,
     codMW,
     mobileLegends,
@@ -181,9 +181,35 @@ export default async function seed() {
     name: "VISA",
     banks: [bnis.id],
   });
-  const paymentMethodInsertion = PaymentMethod.insertMany([transfer, visa]);
+  const paymentMethodsInsertion = PaymentMethod.insertMany([transfer, visa]);
 
-  await Promise.all([voucherInsertion, paymentMethodInsertion]);
+  const septian = new Member({
+    fullName: "Septian Saputra",
+    email: "septian@example.net",
+    password: "jajaja",
+    phoneNumber: "0878334455541",
+  });
+  const handi = new Member({
+    fullName: "Handi Fajar Setiawan",
+    email: "handi@example.com",
+    password: "jajaja",
+    avatarName: "avatar-handi.jpg",
+    phoneNumber: "082344441239",
+  });
+  const andre = new Member({
+    fullName: "Andre Saputra",
+    email: "andre@example.org",
+    password: "jajaja",
+    avatarName: "avatar-andre.jpg",
+    phoneNumber: "08133994455",
+  });
+  const membersInsertion = Member.insertMany([septian, handi, andre]);
+
+  await Promise.all([
+    vouchersInsertion,
+    paymentMethodsInsertion,
+    membersInsertion,
+  ]);
 
   const septianTransaction = new Transaction({
     voucher: {
@@ -200,16 +226,15 @@ export default async function seed() {
       price: gold50.price,
     },
     paymentMethod: transfer.name,
-    bank: {
+    targetBank: {
       name: bsi.name,
       holderName: bsi.holderName,
       holderNumbers: bsi.holderNumbers,
     },
     taxRate: 10 / 100,
     member: {
-      // TODO: Replace with data from Player collection
-      current: new mongoose.Types.ObjectId(),
-      fullName: "Septian Saputra",
+      current: septian.id,
+      bankAccountName: septian.fullName,
       gameId: "septian_gaming",
     },
     status: "Accepted",
@@ -229,16 +254,15 @@ export default async function seed() {
       price: gold225.price,
     },
     paymentMethod: transfer.name,
-    bank: {
+    targetBank: {
       name: bsm.name,
       holderName: bsm.holderName,
       holderNumbers: bsm.holderNumbers,
     },
     taxRate: 5 / 100,
     member: {
-      // TODO: Replace with data from Player collection
-      current: new mongoose.Types.ObjectId(),
-      fullName: "Handi Fajar Setiawan",
+      current: handi.id,
+      bankAccountName: handi.fullName,
       gameId: "mhansgaming",
     },
   });
@@ -257,16 +281,15 @@ export default async function seed() {
       price: gold500.price,
     },
     paymentMethod: visa.name,
-    bank: {
+    targetBank: {
       name: bnis.name,
       holderName: bnis.holderName,
       holderNumbers: bnis.holderNumbers,
     },
     taxRate: 12 / 100,
     member: {
-      // TODO: Replace with data from Player collection
-      current: new mongoose.Types.ObjectId(),
-      fullName: "Andre Saputra",
+      current: andre.id,
+      bankAccountName: andre.fullName,
       gameId: "ndreee",
     },
     status: "Rejected",
@@ -308,8 +331,8 @@ export default async function seed() {
     vouchers: { superMechs, codMW, mobileLegends, coc, valorant },
     banks: { bsi, bsm, bnis },
     paymentMethods: { transfer, visa },
-    transactions: {},
+    transactions: { septianTransaction, handiTransaction, andreTransaction },
     admins: { amir },
-    members: {},
+    members: { septian, handi, andre },
   };
 }

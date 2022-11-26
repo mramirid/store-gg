@@ -11,6 +11,7 @@ import {
 import validator from "validator";
 import type { IBank } from "../banks/model";
 import Category, { ICategory } from "../categories/model";
+import Member from "../members/model";
 import type { INominal } from "../nominals/model";
 import type { IPaymentMethod } from "../payment-methods/model";
 import type { IVoucher } from "../vouchers/model";
@@ -20,11 +21,11 @@ export interface ITransaction {
   category: Pick<ICategory, "name"> & { current: Types.ObjectId };
   nominal: Pick<INominal, "quantity" | "price"> & { name: string };
   paymentMethod: IPaymentMethod["name"];
-  bank: Pick<IBank, "holderName" | "holderNumbers"> & { name: string };
+  targetBank: Pick<IBank, "holderName" | "holderNumbers"> & { name: string };
   taxRate: number;
   member: {
     current: Types.ObjectId;
-    fullName: string;
+    bankAccountName: string;
     gameId: string;
   };
   status: "Accepted" | "Rejected" | "Pending";
@@ -121,7 +122,7 @@ const transactionSchema = new Schema<
       trim: true,
       required: [true, "Payment method is required"],
     },
-    bank: {
+    targetBank: {
       name: {
         type: String,
         trim: true,
@@ -154,33 +155,30 @@ const transactionSchema = new Schema<
     member: {
       current: {
         type: Schema.Types.ObjectId,
-        // TODO: Referensikan ke player model
-        // ref: Player,
-        ref: "Player",
-        required: [true, "Player id is required"],
+        ref: Member,
+        required: [true, "Member id is required"],
         index: true,
         validate: [
           {
             validator: (v: unknown) => isValidObjectId(v),
-            message: "Invalid player id",
+            message: "Invalid member id",
           },
-          // TODO: Find by id di player model
-          // {
-          //   validator: (v: unknown) =>
-          //     Category.findById(v).orFail(
-          //       new createHttpError.NotFound("Category not found")
-          //     ),
-          // },
+          {
+            validator: (v: unknown) =>
+              Member.findById(v).orFail(
+                new createHttpError.NotFound("Member not found")
+              ),
+          },
         ],
       },
-      fullName: {
+      bankAccountName: {
         type: String,
-        required: [true, "Player full name is required"],
+        required: [true, "Member full name is required"],
         trim: true,
       },
       gameId: {
         type: String,
-        required: [true, "Player game id is required"],
+        required: [true, "Member game id is required"],
         trim: true,
       },
     },
