@@ -1,6 +1,6 @@
 import createHttpError from "http-errors";
 import _ from "lodash";
-import { HydratedDocument, model, Query, Schema } from "mongoose";
+import { HydratedDocument, model, Schema } from "mongoose";
 import type { IVoucher } from "../vouchers/model";
 
 export interface ICategory {
@@ -23,10 +23,10 @@ const categorySchema = new Schema<ICategory>(
 categorySchema.pre(
   "findOneAndDelete",
   { document: false, query: true },
-  async function (this: Query<unknown, unknown>) {
+  async function () {
     const { _id } = this.getQuery();
 
-    const categoryUsed = await model<IVoucher>("Voucher").exists({
+    const categoryUsed = await model<Schema<IVoucher>>("Voucher").exists({
       category: _id,
     });
 

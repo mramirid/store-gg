@@ -29,7 +29,7 @@ const adminSchema = new Schema<IAdmin>(
           message: "Email is not valid",
         },
         {
-          validator: async function (v: unknown) {
+          validator: async (v: unknown) => {
             const emailExists = await model<Schema<IAdmin>>("Admin").exists({
               email: v,
             });

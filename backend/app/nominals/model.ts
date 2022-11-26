@@ -1,6 +1,6 @@
 import createHttpError from "http-errors";
 import _ from "lodash";
-import { HydratedDocument, model, Query, Schema, Types } from "mongoose";
+import { HydratedDocument, model, Schema, Types } from "mongoose";
 import validator from "validator";
 import type { IVoucher } from "../vouchers/model";
 
@@ -45,10 +45,10 @@ const nominalSchema = new Schema<INominal>(
 nominalSchema.pre(
   "findOneAndDelete",
   { document: false, query: true },
-  async function (this: Query<unknown, unknown>) {
+  async function () {
     const { _id } = this.getQuery();
 
-    const nominalUsed = await model<IVoucher>("Voucher").exists({
+    const nominalUsed = await model<Schema<IVoucher>>("Voucher").exists({
       nominals: _id,
     });
 

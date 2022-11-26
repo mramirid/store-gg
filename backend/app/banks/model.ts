@@ -1,6 +1,6 @@
 import createHttpError from "http-errors";
 import _ from "lodash";
-import { HydratedDocument, model, Query, Schema } from "mongoose";
+import { HydratedDocument, model, Schema } from "mongoose";
 import validator from "validator";
 import type { IPaymentMethod } from "../payment-methods/model";
 
@@ -62,12 +62,12 @@ const bankSchema = new Schema<IBank>(
 bankSchema.pre(
   "findOneAndDelete",
   { document: false, query: true },
-  async function (this: Query<unknown, unknown>) {
+  async function () {
     const { _id } = this.getQuery();
 
-    const bankUsed = await model<IPaymentMethod>("PaymentMethod").exists({
-      banks: _id,
-    });
+    const bankUsed = await model<Schema<IPaymentMethod>>(
+      "PaymentMethod"
+    ).exists({ banks: _id });
 
     if (_.isObject(bankUsed)) {
       throw new createHttpError.Conflict(
