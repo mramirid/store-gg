@@ -78,14 +78,16 @@
                     <form method="post" action="/admin/transactions/<%= transaction.id %>/reject?_method=PATCH"
                       class="d-inline">
                       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                      <button type="submit" type="button" class="btn btn-danger">
+                      <button type="submit" type="button" class="btn btn-danger"
+                        <%= transaction.status === "Rejected" && "disabled" %>>
                         <i class="fas fa-times"></i> Reject
                       </button>
                     </form>
                     <form method="post" action="/admin/transactions/<%= transaction.id %>/accept?_method=PATCH"
                       class="d-inline">
                       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                      <button type="submit" type="button" class="btn btn-success">
+                      <button type="submit" type="button" class="btn btn-success"
+                        <%= transaction.status === "Accepted" && "disabled" %>>
                         <i class="fas fa-check"></i> Accept
                       </button>
                     </form>
