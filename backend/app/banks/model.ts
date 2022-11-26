@@ -6,6 +6,7 @@ import type { IPaymentMethod } from "../payment-methods/model";
 
 export const BANK_NAMES = [
   "Bank Syariah Indonesia",
+  "Bank Syariah Mandiri",
   "Bank BCA Syariah",
   "Bank Muamalat Indonesia",
   "Bank Maybank Syariah Indonesia",
@@ -15,6 +16,7 @@ export const BANK_NAMES = [
   "Bank Victoria Syariah",
   "Bank BTPN Syariah",
   "Bank BJB Syariah",
+  "Bank BNI Syariah",
   "Bank BTN Syariah",
   "Bank Sinarmas Syariah",
   "Bank Aceh Syariah",
