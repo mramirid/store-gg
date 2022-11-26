@@ -31,28 +31,31 @@ export interface IBank {
 
 export type BankDoc = HydratedDocument<IBank>;
 
-const bankSchema = new Schema<IBank>({
-  name: {
-    type: String,
-    enum: BANK_NAMES,
-    required: [true, "Name is required"],
-  },
-  holderName: {
-    type: String,
-    required: [true, "Holder name is required"],
-    trim: true,
-  },
-  holderNumbers: {
-    type: String,
-    required: [true, "Holder numbers is required"],
-    trim: true,
-    validate: {
-      validator: (v: unknown) =>
-        validator.isInt(String(v), { allow_leading_zeroes: true, min: 0 }),
-      message: "Holder numbers must be integers only",
+const bankSchema = new Schema<IBank>(
+  {
+    name: {
+      type: String,
+      enum: BANK_NAMES,
+      required: [true, "Name is required"],
+    },
+    holderName: {
+      type: String,
+      required: [true, "Holder name is required"],
+      trim: true,
+    },
+    holderNumbers: {
+      type: String,
+      required: [true, "Holder numbers is required"],
+      trim: true,
+      validate: {
+        validator: (v: unknown) =>
+          validator.isInt(String(v), { allow_leading_zeroes: true, min: 0 }),
+        message: "Holder numbers must be integers only",
+      },
     },
   },
-});
+  { timestamps: true }
+);
 
 bankSchema.pre(
   "findOneAndDelete",

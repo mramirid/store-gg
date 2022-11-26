@@ -9,13 +9,16 @@ export interface ICategory {
 
 export type CategoryDoc = HydratedDocument<ICategory>;
 
-const categorySchema = new Schema<ICategory>({
-  name: {
-    type: String,
-    trim: true,
-    required: [true, "Category name is required"],
+const categorySchema = new Schema<ICategory>(
+  {
+    name: {
+      type: String,
+      trim: true,
+      required: [true, "Category name is required"],
+    },
   },
-});
+  { timestamps: true }
+);
 
 categorySchema.pre(
   "findOneAndDelete",

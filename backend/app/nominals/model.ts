@@ -14,30 +14,33 @@ export interface INominal {
 
 export type NominalDoc = HydratedDocument<INominal>;
 
-const nominalSchema = new Schema<INominal>({
-  name: {
-    type: String,
-    enum: NOMINAL_NAMES,
-    required: [true, "Name is required"],
-  },
-  quantity: {
-    type: Number,
-    default: 0,
-    validate: {
-      validator: (v: unknown) => validator.isInt(String(v), { min: 0 }),
-      message: "Quantity must be a positive integer",
+const nominalSchema = new Schema<INominal>(
+  {
+    name: {
+      type: String,
+      enum: NOMINAL_NAMES,
+      required: [true, "Name is required"],
+    },
+    quantity: {
+      type: Number,
+      default: 0,
+      validate: {
+        validator: (v: unknown) => validator.isInt(String(v), { min: 0 }),
+        message: "Quantity must be a positive integer",
+      },
+    },
+    price: {
+      type: Schema.Types.Decimal128,
+      default: 0,
+      validate: {
+        validator: (v: unknown) => validator.isFloat(String(v), { min: 0 }),
+        message: "Price must be a positive float",
+      },
+      transform: (v: Types.Decimal128) => _.toNumber(v),
     },
   },
-  price: {
-    type: Schema.Types.Decimal128,
-    default: 0,
-    validate: {
-      validator: (v: unknown) => validator.isFloat(String(v), { min: 0 }),
-      message: "Price must be a positive float",
-    },
-    transform: (v: Types.Decimal128) => _.toNumber(v),
-  },
-});
+  { timestamps: true }
+);
 
 nominalSchema.pre(
   "findOneAndDelete",
