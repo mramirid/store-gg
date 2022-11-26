@@ -1,9 +1,9 @@
 import bcrypt from "bcryptjs";
 import createHttpError from "http-errors";
 import _ from "lodash";
-import mongoose from "mongoose";
 import passport from "passport";
 import passportLocal from "passport-local";
+import { FormValidationError } from "../../lib/error";
 import { toError } from "../../utils/error";
 import Admin, { type AdminDoc } from "./model";
 
@@ -21,25 +21,17 @@ const localStrategy = new passportLocal.Strategy(
       return;
     }
 
-    const validationError = new mongoose.Error.ValidationError();
+    const validationError = new FormValidationError();
 
     if (_.isNull(admin)) {
-      validationError.addError(
-        "email",
-        new mongoose.Error.ValidatorError({ message: "Email not found." })
-      );
+      validationError.addFieldError("email", "Email not found.");
       done(validationError);
       return;
     }
 
     const doesPasswordMatch = await bcrypt.compare(password, admin.password);
     if (!doesPasswordMatch) {
-      validationError.addError(
-        "password",
-        new mongoose.Error.ValidatorError({
-          message: "Password does not match!",
-        })
-      );
+      validationError.addFieldError("password", "Password does not match!");
       done(validationError);
       return;
     }

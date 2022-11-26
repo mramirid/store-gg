@@ -1,8 +1,8 @@
 import crypto from "crypto";
 import type express from "express";
-import mongoose from "mongoose";
 import multer from "multer";
 import path from "path";
+import { FormValidationError } from "../../lib/error";
 
 export default { setupSingleUpload };
 
@@ -24,12 +24,10 @@ function setupSingleUpload(fieldName: string): express.RequestHandler {
         return;
       }
 
-      const validationError = new mongoose.Error.ValidationError();
-      validationError.addError(
+      const validationError = new FormValidationError();
+      validationError.addFieldError(
         fieldName,
-        new mongoose.Error.ValidatorError({
-          message: "Images only: jpeg, jpg, png, or gif",
-        })
+        "Images only: jpeg, jpg, png, or gif"
       );
       cb(validationError);
     },

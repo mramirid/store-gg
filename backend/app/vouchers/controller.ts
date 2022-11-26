@@ -6,6 +6,7 @@ import _ from "lodash";
 import mongoose from "mongoose";
 import multer from "multer";
 import path from "path";
+import { FormValidationError } from "../../lib/error";
 import {
   AlertStatuses,
   buildAlert,
@@ -331,11 +332,8 @@ function handleImageUpload(
   return new Promise((resolve, reject) => {
     receiveImage(req, res, (error: unknown) => {
       if (error instanceof multer.MulterError) {
-        const validationError = new mongoose.Error.ValidationError();
-        validationError.addError(
-          fieldName,
-          new mongoose.Error.ValidatorError({ message: error.message })
-        );
+        const validationError = new FormValidationError();
+        validationError.addFieldError(fieldName, error.message);
         reject(validationError);
         return;
       }

@@ -1,6 +1,7 @@
 import type express from "express";
 import _ from "lodash";
 import mongoose from "mongoose";
+import { FormValidationError } from "../../lib/error";
 import { AlertStatuses, buildAlert, setAlert } from "../../utils/alert";
 import { joinFormErrorMessages } from "../../utils/error";
 import type { AdminDoc, IAdmin } from "./model";
@@ -19,29 +20,21 @@ async function signUp(
   next: express.NextFunction
 ) {
   try {
-    const validationError = new mongoose.Error.ValidationError();
+    const validationError = new FormValidationError();
 
     if (req.body.password !== req.body.retypePassword) {
-      validationError.addError(
+      validationError.addFieldError(
         "retypePassword",
-        new mongoose.Error.ValidatorError({
-          message:
-            "The retype password does not match with the password you entered",
-        })
+        "The retype password does not match with the password you entered"
       );
     }
 
     const emailExists = await Admin.exists({ email: req.body.email });
     if (_.isObject(emailExists)) {
-      validationError.addError(
-        "email",
-        new mongoose.Error.ValidatorError({
-          message: "The email is already in use",
-        })
-      );
+      validationError.addFieldError("email", "The email is already in use");
     }
 
-    if (!_.isEmpty(validationError.errors)) {
+    if (validationError.hasFieldError) {
       throw validationError;
     }
   } catch (error) {
@@ -157,9 +150,7 @@ function renderViewSignIn(
 ) {
   const alertMessage = _.isObject(renderOptions.formErrors)
     ? joinFormErrorMessages(renderOptions.formErrors)
-    : _.isString(passportErrorMessage)
-    ? passportErrorMessage
-    : undefined;
+    : passportErrorMessage;
 
   const alert = _.isString(alertMessage)
     ? buildAlert(alertMessage, AlertStatuses.Error)
