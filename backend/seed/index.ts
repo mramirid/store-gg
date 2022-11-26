@@ -195,7 +195,7 @@ export default async function seed() {
       name: mobile.name,
     },
     nominal: {
-      name: gold50.id,
+      name: gold50.name,
       quantity: gold50.quantity,
       price: gold50.price,
     },
@@ -224,7 +224,7 @@ export default async function seed() {
       name: desktop.name,
     },
     nominal: {
-      name: gold225.id,
+      name: gold225.name,
       quantity: gold225.quantity,
       price: gold225.price,
     },
@@ -252,7 +252,7 @@ export default async function seed() {
       name: console.name,
     },
     nominal: {
-      name: gold500.id,
+      name: gold500.name,
       quantity: gold500.quantity,
       price: gold500.price,
     },

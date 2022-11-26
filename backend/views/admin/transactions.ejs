@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('./partials/common-head-content.ejs') %>
+
+  <!-- DataTables -->
+  <link rel="stylesheet" href="/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+</head>
+
+<%- include('./partials/dashboard/layout-start.ejs', {
+  previousBreadcrumbs: [{ label: "Admin", href: "/admin" }]
+}) %>
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+
+    <%- include('./partials/alert.ejs') %>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <!-- /.card-header -->
+          <div class="card-body">
+            <table id="transactions" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Voucher</th>
+                  <th>Nominal</th>
+                  <th>Total Price</th>
+                  <th>Status</th>
+                  <th>Member</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% transactions.forEach((transaction, i) => { %>
+                <tr>
+                  <td><%= i + 1  %></td>
+                  <td>
+                    <ul class="list-inline">
+                      <li class="list-inline-item">
+                        <img width="50" height="50" src="/uploads/<%= transaction.voucher.imageName %>"
+                          alt="Game thumbnail" class="img-thumbnail">
+                      </li>
+                    </ul>
+                    <%= transaction.voucher.name %>
+                    <br>
+                    (<%= transaction.category.name %>)
+                  </td>
+                  <td><%= transaction.nominal.quantity %> <%= transaction.nominal.name %></td>
+                  <td>Total Price</td>
+                  <td>
+                    <%
+                    let badgeColor; 
+                    switch (transaction.status) {
+                      case "Accepted":
+                        badgeColor = "badge-success";
+                        break;
+                      case "Pending":
+                        badgeColor = "badge-warning";
+                        break;
+                      case "Rejected":
+                        badgeColor = "badge-danger";
+                        break;
+                      default:
+                        badgeColor = "badge-info";
+                    }
+                    %>
+
+                    <span class="badge <%= badgeColor %>"><%= transaction.status %></span>
+                  </td>
+                  <td><%= transaction.member.fullName %></td>
+                  <td>
+                    <form method="post" action="/admin/transactions/<%= transaction.id %>/reject?_method=PATCH"
+                      class="d-inline">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                      <button type="submit" type="button" class="btn btn-danger">
+                        <i class="fas fa-times"></i> Reject
+                      </button>
+                    </form>
+                    <form method="post" action="/admin/transactions/<%= transaction.id %>/accept?_method=PATCH"
+                      class="d-inline">
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                      <button type="submit" type="button" class="btn btn-success">
+                        <i class="fas fa-check"></i> Accept
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<%- include('./partials/dashboard/layout-end.ejs') %>
+
+<%- include('./partials/common-scripts.ejs') %>
+<!-- DataTables  & Plugins -->
+<script src="/admin-lte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script nonce="<%= cspNonce %>">
+  $(() => {
+    $('#transactions').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+</html>

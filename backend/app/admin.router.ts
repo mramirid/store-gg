@@ -19,6 +19,7 @@ import categoriesRouter from "./categories/router";
 import homeRouter from "./home/router";
 import nominalsRouter from "./nominals/router";
 import paymentMethodsRouter from "./payment-methods/router";
+import transactionsRouter from "./transactions/router";
 import vouchersRouter from "./vouchers/router";
 
 const adminRouter = express.Router();
@@ -85,6 +86,7 @@ adminRouter.use("/nominals", nominalsRouter);
 adminRouter.use("/vouchers", vouchersRouter);
 adminRouter.use("/banks", banksRouter);
 adminRouter.use("/payment-methods", paymentMethodsRouter);
+adminRouter.use("/transactions", transactionsRouter);
 
 adminRouter.use((_, res) => {
   res.status(StatusCodes.NOT_FOUND).render("admin/404", {

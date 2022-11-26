@@ -55,7 +55,8 @@
 
         <li class="nav-header">Transactions</li>
         <li class="nav-item">
-          <a href="/admin/transactions" class="nav-link">
+          <a href="/admin/transactions"
+            class="nav-link <%= req.originalUrl.includes("/admin/transactions") && "active" %>">
             <i class="nav-icon fas fa-shopping-cart"></i>
             <p>Transactions</p>
           </a>
