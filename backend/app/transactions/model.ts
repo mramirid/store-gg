@@ -1,13 +1,6 @@
 import createHttpError from "http-errors";
 import _ from "lodash";
-import {
-  HydratedDocument,
-  isValidObjectId,
-  Model,
-  model,
-  Schema,
-  Types,
-} from "mongoose";
+import { isValidObjectId, Model, model, Schema, Types } from "mongoose";
 import validator from "validator";
 import type { IBank } from "../banks/model";
 import Category, { ICategory } from "../categories/model";
@@ -35,24 +28,16 @@ interface ITransactionVirtuals {
   totalPrice: number;
 }
 
-export type TransactionDoc = HydratedDocument<
-  ITransaction,
-  Record<string, never>,
-  ITransactionVirtuals
->;
-
-type TransactionModel = Model<
-  ITransaction,
-  Record<string, never>,
-  Record<string, never>,
-  ITransactionVirtuals
->;
+// eslint-disable-next-line @typescript-eslint/ban-types
+type TransactionModel = Model<ITransaction, {}, {}, ITransactionVirtuals>;
 
 const transactionSchema = new Schema<
   ITransaction,
   TransactionModel,
-  Record<string, never>,
-  Record<string, never>,
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  {},
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  {},
   ITransactionVirtuals
 >(
   {

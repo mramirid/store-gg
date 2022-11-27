@@ -73,7 +73,7 @@
 
                     <span class="badge <%= badgeColor %>"><%= transaction.status %></span>
                   </td>
-                  <td><%= transaction.member.fullName %></td>
+                  <td><%= transaction.member.current.fullName %></td>
                   <td>
                     <form method="post" action="/admin/transactions/<%= transaction.id %>/reject?_method=PATCH"
                       class="d-inline">

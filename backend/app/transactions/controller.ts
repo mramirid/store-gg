@@ -1,7 +1,9 @@
 import type express from "express";
 import createHttpError from "http-errors";
+import type mongoose from "mongoose";
 import { AlertStatuses, getAlert, setAlert } from "../../utils/alert";
-import type { TransactionDoc } from "./model";
+import type { IMember } from "../members/model";
+import type { ITransaction } from "./model";
 import Transaction from "./model";
 
 export default {
@@ -10,15 +12,28 @@ export default {
   rejectTransaction,
 };
 
+type TransactionPopulationPaths = Record<
+  "member",
+  mongoose.MergeType<ITransaction["member"], Record<"current", IMember>>
+>;
+
+type PopulatedTransaction = mongoose.MergeType<
+  ITransaction,
+  TransactionPopulationPaths
+>;
+
 async function viewTransactions(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) {
-  let transactions: TransactionDoc[];
+  let transactions: PopulatedTransaction[];
 
   try {
-    transactions = await Transaction.find();
+    transactions =
+      await Transaction.find().populate<TransactionPopulationPaths>(
+        "member.current"
+      );
   } catch (error) {
     next(error);
     return;
