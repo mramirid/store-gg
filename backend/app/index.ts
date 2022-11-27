@@ -5,6 +5,7 @@ import { StatusCodes } from "http-status-codes";
 import logger from "morgan";
 import path from "path";
 import adminRouter from "./admin.router";
+import memberRouter from "./member.router";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(logger("dev"));
 app.use(compression());
 
 app.use("/admin", adminRouter);
+app.use("/member", memberRouter);
 
 // catch 404 and forward to error handler
 app.use((_, __, next) => next(createError(404)));
