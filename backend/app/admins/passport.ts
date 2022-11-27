@@ -1,5 +1,4 @@
 import bcrypt from "bcryptjs";
-import createHttpError from "http-errors";
 import _ from "lodash";
 import passport from "passport";
 import passportLocal from "passport-local";
@@ -58,9 +57,7 @@ adminPassport.serializeUser<string>((admin: AdminDoc, done) => {
 adminPassport.deserializeUser((adminId: string, done) => {
   process.nextTick(async () => {
     try {
-      const admin = await Admin.findById(adminId).orFail(
-        new createHttpError.NotFound("Admin not found!")
-      );
+      const admin = await Admin.findById(adminId);
       done(undefined, admin);
     } catch (error) {
       done(toError(error));
