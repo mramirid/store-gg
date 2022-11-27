@@ -1,5 +1,4 @@
 import compression from "compression";
-import cors from "cors";
 import express from "express";
 import createError from "http-errors";
 import { StatusCodes } from "http-status-codes";
@@ -9,23 +8,14 @@ import adminRouter from "./admin.router";
 
 const app = express();
 
-app.use(cors());
-
 app.set("views", path.resolve("views"));
 app.set("view engine", "ejs");
 
-app.use(
-  "/admin-lte",
-  express.static(path.resolve("node_modules", "admin-lte"))
-);
 app.use(express.static(path.resolve("public")));
 
 app.use(logger("dev"));
 
 app.use(compression());
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 app.use("/admin", adminRouter);
 

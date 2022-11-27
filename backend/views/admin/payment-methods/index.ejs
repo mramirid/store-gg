@@ -5,8 +5,8 @@
   <%- include('../partials/common-head-content.ejs') %>
 
   <!-- DataTables -->
-  <link rel="stylesheet" href="/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="/admin/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="/admin/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 </head>
 
 <%- include('../partials/dashboard/layout-start.ejs', {
@@ -83,10 +83,10 @@
 
 <%- include('../partials/common-scripts.ejs') %>
 <!-- DataTables  & Plugins -->
-<script src="/admin-lte/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="/admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="/admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="/admin/admin-lte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/admin/admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/admin/admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/admin/admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 <script nonce="<%= cspNonce %>">
   $(() => {
     $('#payment-methods').DataTable({

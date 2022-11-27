@@ -8,6 +8,7 @@ import helmet from "helmet";
 import { StatusCodes } from "http-status-codes";
 import _ from "lodash";
 import methodOverride from "method-override";
+import path from "path";
 import { env, mongoUri } from "../lib/constant";
 import { version } from "../package.json";
 import format from "../utils/format";
@@ -23,6 +24,13 @@ import transactionsRouter from "./transactions/router";
 import vouchersRouter from "./vouchers/router";
 
 const adminRouter = express.Router();
+
+adminRouter.use(
+  "/admin-lte",
+  express.static(path.resolve("node_modules", "admin-lte"))
+);
+
+adminRouter.use(express.urlencoded({ extended: false }));
 
 // Using a nonce with CSP (https://content-security-policy.com/nonce)
 // Sets the `script-src` directive to "'self' 'nonce-e33ccde670f149c1789b1e1e113b0916'" (or similar)
