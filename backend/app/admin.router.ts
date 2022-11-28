@@ -21,7 +21,7 @@ import adminHomeController from "./homes/admin.controller";
 import nominalsRouter from "./nominals/router";
 import paymentMethodsRouter from "./payment-methods/router";
 import transactionsRouter from "./transactions/router";
-import vouchersRouter from "./vouchers/router";
+import adminVouchersRouter from "./vouchers/admin.router";
 
 const adminRouter = express.Router();
 
@@ -91,7 +91,7 @@ adminRouter.use(adminsMiddleware.ensureAuthenticated);
 adminRouter.use("/", adminHomeController.viewHome);
 adminRouter.use("/categories", categoriesRouter);
 adminRouter.use("/nominals", nominalsRouter);
-adminRouter.use("/vouchers", vouchersRouter);
+adminRouter.use("/vouchers", adminVouchersRouter);
 adminRouter.use("/banks", banksRouter);
 adminRouter.use("/payment-methods", paymentMethodsRouter);
 adminRouter.use("/transactions", transactionsRouter);
