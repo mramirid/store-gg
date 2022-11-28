@@ -4,17 +4,17 @@ import createHttpError from "http-errors";
 import { getReasonPhrase, StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
 import { getErrorMessage, joinFormErrorMessages } from "../utils/error";
-import memberHomeController from "./homes/member.controller";
+import clientHomeController from "./homes/client.controller";
 
-const memberRouter = express.Router();
+const clientRouter = express.Router();
 
-memberRouter.use(cors());
+clientRouter.use(cors());
 
-memberRouter.use(express.json());
+clientRouter.use(express.json());
 
-memberRouter.use("/homepage", memberHomeController.getHomepageData);
+clientRouter.use("/homepage", clientHomeController.getHomepageData);
 
-memberRouter.use((_, __, next) =>
+clientRouter.use((_, __, next) =>
   next(new createHttpError.NotFound("Page not found!"))
 );
 
@@ -40,14 +40,10 @@ const errorHandler: express.ErrorRequestHandler = (error, req, res, __) => {
     return;
   }
 
-  res
-    .status(StatusCodes.INTERNAL_SERVER_ERROR)
-    .json({
-      message: isDevMode
-        ? getErrorMessage(error)
-        : getReasonPhrase(error.status),
-    });
+  res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    message: isDevMode ? getErrorMessage(error) : getReasonPhrase(error.status),
+  });
 };
-memberRouter.use(errorHandler);
+clientRouter.use(errorHandler);
 
-export default memberRouter;
+export default clientRouter;
