@@ -1,4 +1,3 @@
-import bcrypt from "bcryptjs";
 import _ from "lodash";
 import passport from "passport";
 import passportLocal from "passport-local";
@@ -28,7 +27,7 @@ const localStrategy = new passportLocal.Strategy(
       return;
     }
 
-    const doesPasswordMatch = await bcrypt.compare(password, admin.password);
+    const doesPasswordMatch = await admin.verifyPassword(password);
     if (!doesPasswordMatch) {
       validationError.addFieldError("password", "Password does not match!");
       done(validationError);
@@ -40,17 +39,9 @@ const localStrategy = new passportLocal.Strategy(
 );
 adminPassport.use(localStrategy);
 
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace Express {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface User extends AdminDoc {}
-  }
-}
-
-adminPassport.serializeUser<string>((admin: AdminDoc, done) => {
+adminPassport.serializeUser<string>((admin, done) => {
   process.nextTick(() => {
-    done(undefined, admin.id);
+    done(undefined, (admin as AdminDoc).id);
   });
 });
 

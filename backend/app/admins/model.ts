@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import _ from "lodash";
-import { HydratedDocument, model, Schema } from "mongoose";
+import { HydratedDocument, Model, model, Schema } from "mongoose";
 import validator from "validator";
 
 export interface IAdmin {
@@ -9,9 +9,13 @@ export interface IAdmin {
   password: string;
 }
 
-export type AdminDoc = HydratedDocument<IAdmin>;
+interface IAdminMethods {
+  verifyPassword: (password: string) => Promise<boolean>;
+}
 
-const adminSchema = new Schema<IAdmin>(
+export type AdminDoc = HydratedDocument<IAdmin, IAdminMethods>;
+
+const adminSchema = new Schema<IAdmin, Model<IAdmin>, IAdminMethods>(
   {
     fullName: {
       type: String,
@@ -54,6 +58,10 @@ adminSchema.pre("save", async function (next) {
   }
   next();
 });
+
+adminSchema.methods.verifyPassword = function (this: AdminDoc, password) {
+  return bcrypt.compare(password, this.password);
+};
 
 const Admin = model("Admin", adminSchema);
 export default Admin;
