@@ -7,7 +7,7 @@ import Voucher from "../vouchers/model";
 
 type PopulatedVoucherDoc = mongoose.MergeType<
   VoucherDoc,
-  Record<"category", CategoryDoc>
+  Record<"category", Pick<CategoryDoc, "_id" | "name">>
 >;
 
 async function getHomepageData(
