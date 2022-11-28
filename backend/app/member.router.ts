@@ -4,7 +4,7 @@ import createHttpError from "http-errors";
 import { StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
 import { getErrorMessage, joinFormErrorMessages } from "../utils/error";
-import membersRouter from "./members/router";
+import memberHomeController from "./homes/member.controller";
 
 const memberRouter = express.Router();
 
@@ -12,7 +12,7 @@ memberRouter.use(cors());
 
 memberRouter.use(express.json());
 
-memberRouter.use(membersRouter);
+memberRouter.use("/homepage", memberHomeController.getHomepageData);
 
 memberRouter.use((_, __, next) => next(createHttpError(404)));
 

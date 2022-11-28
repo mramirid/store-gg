@@ -17,7 +17,7 @@ import adminsPassport from "./admins/passport";
 import adminsRouter from "./admins/router";
 import banksRouter from "./banks/router";
 import categoriesRouter from "./categories/router";
-import homeRouter from "./home/router";
+import adminHomeController from "./homes/admin.controller";
 import nominalsRouter from "./nominals/router";
 import paymentMethodsRouter from "./payment-methods/router";
 import transactionsRouter from "./transactions/router";
@@ -88,7 +88,7 @@ adminRouter.use(csrf(), (req, res, next) => {
 
 adminRouter.use(adminsRouter);
 adminRouter.use(adminsMiddleware.ensureAuthenticated);
-adminRouter.use("/", homeRouter);
+adminRouter.use("/", adminHomeController.viewHome);
 adminRouter.use("/categories", categoriesRouter);
 adminRouter.use("/nominals", nominalsRouter);
 adminRouter.use("/vouchers", vouchersRouter);

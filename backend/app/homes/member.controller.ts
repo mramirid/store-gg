@@ -5,8 +5,6 @@ import type { CategoryDoc } from "../categories/model";
 import type { VoucherDoc } from "../vouchers/model";
 import Voucher from "../vouchers/model";
 
-export default { getHomepageData };
-
 type PopulatedVoucherDoc = mongoose.MergeType<
   VoucherDoc,
   Record<"category", CategoryDoc>
@@ -31,3 +29,6 @@ async function getHomepageData(
 
   res.status(StatusCodes.OK).json({ vouchers });
 }
+
+const memberHomeController = Object.freeze({ getHomepageData });
+export default memberHomeController;
