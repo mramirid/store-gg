@@ -4,6 +4,7 @@ import createHttpError from "http-errors";
 import { getReasonPhrase, StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
 import { getErrorMessage, joinFormErrorMessages } from "../utils/error";
+import clientCategoriesRouter from "./categories/client.router";
 import clientHomeController from "./homes/client.controller";
 import memberPassport from "./members/passport";
 import membersRouter from "./members/router";
@@ -20,6 +21,7 @@ clientRouter.use(memberPassport.initialize());
 clientRouter.use("/homepage", clientHomeController.getHomepageData);
 clientRouter.use("/vouchers", clientVouchersRouter);
 clientRouter.use("/members", membersRouter);
+clientRouter.use("/categories", clientCategoriesRouter);
 
 clientRouter.use((_, __, next) => next(createHttpError(StatusCodes.NOT_FOUND)));
 
