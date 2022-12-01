@@ -1,19 +1,37 @@
 import bcrypt from "bcryptjs";
+import createHttpError from "http-errors";
 import _ from "lodash";
-import { HydratedDocument, model, Schema } from "mongoose";
+import {
+  HydratedDocument,
+  isValidObjectId,
+  Model,
+  model,
+  Schema,
+  Types,
+} from "mongoose";
 import validator from "validator";
+import Category from "../categories/model";
 
 export interface IMember {
   fullName: string;
   email: string;
   password: string;
+  favoriteCategory: Types.ObjectId;
   avatarName?: string;
-  phoneNumber: string;
+  phoneNumber?: string;
 }
 
-export type MemberDoc = HydratedDocument<IMember>;
+interface IMemberMethods {
+  verifyPassword: (password: string) => Promise<boolean>;
+}
 
-const memberSchema = new Schema<IMember>(
+export type MemberDoc = HydratedDocument<IMember, IMemberMethods>;
+
+const memberSchema = new Schema<
+  IMember,
+  Model<IMember, Record<string, never>, IMemberMethods>,
+  IMemberMethods
+>(
   {
     fullName: {
       type: String,
@@ -46,13 +64,31 @@ const memberSchema = new Schema<IMember>(
       required: [true, "Password is required"],
       trim: true,
     },
+    favoriteCategory: {
+      type: Schema.Types.ObjectId,
+      ref: Category,
+      required: [true, "Category is required"],
+      index: true,
+      validate: [
+        {
+          validator: (v: unknown) => isValidObjectId(v),
+          message: "Invalid category id",
+        },
+        {
+          validator: (v: unknown) =>
+            Category.findById(v).orFail(
+              new createHttpError.NotFound("Category not found")
+            ),
+        },
+      ],
+    },
     avatarName: {
       type: String,
       trim: true,
     },
     phoneNumber: {
       type: String,
-      required: true,
+      trim: true,
       validate: {
         validator: (v: unknown) => validator.isMobilePhone(String(v), "id-ID"),
         message: "Enter a valid mobile phone number",
@@ -63,11 +99,13 @@ const memberSchema = new Schema<IMember>(
 );
 
 memberSchema.pre("save", async function (next) {
-  if (this.isModified("password")) {
-    this.password = await bcrypt.hash(this.password, 12);
-  }
+  this.password = await bcrypt.hash(this.password, 12);
   next();
 });
+
+memberSchema.methods.verifyPassword = function (this: MemberDoc, password) {
+  return bcrypt.compare(password, this.password);
+};
 
 const Member = model("Member", memberSchema);
 export default Member;

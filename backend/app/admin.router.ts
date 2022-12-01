@@ -13,7 +13,7 @@ import { env, mongoUri } from "../lib/constant";
 import { version } from "../package.json";
 import format from "../utils/format";
 import adminsMiddleware from "./admins/middleware";
-import adminsPassport from "./admins/passport";
+import adminPassport from "./admins/passport";
 import adminsRouter from "./admins/router";
 import banksRouter from "./banks/router";
 import categoriesRouter from "./categories/router";
@@ -60,15 +60,15 @@ const mongoDBStore = new MongoDBStore({
 });
 adminRouter.use(
   session({
-    secret: env.SESSION_SECRET,
+    secret: env.BACKEND_SECRET,
     resave: false,
     saveUninitialized: false,
     store: mongoDBStore,
   })
 );
 
-adminRouter.use(adminsPassport.initialize());
-adminRouter.use(adminsPassport.session());
+adminRouter.use(adminPassport.initialize());
+adminRouter.use(adminPassport.session());
 
 adminRouter.use(flash());
 

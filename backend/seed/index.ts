@@ -188,13 +188,14 @@ export default async function seed() {
     email: "septian@example.net",
     password: "jajaja",
     phoneNumber: "0878334455541",
+    favoriteCategory: console.id,
   });
   const handi = new Member({
     fullName: "Handi Fajar Setiawan",
     email: "handi@example.com",
     password: "jajaja",
     avatarName: "avatar-handi.jpg",
-    phoneNumber: "082344441239",
+    favoriteCategory: desktop.id,
   });
   const andre = new Member({
     fullName: "Andre Saputra",
@@ -202,6 +203,7 @@ export default async function seed() {
     password: "jajaja",
     avatarName: "avatar-andre.jpg",
     phoneNumber: "08133994455",
+    favoriteCategory: mobile.id,
   });
   const membersInsertion = Member.insertMany([septian, handi, andre]);
 

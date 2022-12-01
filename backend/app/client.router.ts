@@ -5,6 +5,8 @@ import { getReasonPhrase, StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
 import { getErrorMessage, joinFormErrorMessages } from "../utils/error";
 import clientHomeController from "./homes/client.controller";
+import memberPassport from "./members/passport";
+import membersRouter from "./members/router";
 import clientVouchersRouter from "./vouchers/client.router";
 
 const clientRouter = express.Router();
@@ -13,8 +15,11 @@ clientRouter.use(cors());
 
 clientRouter.use(express.json());
 
+clientRouter.use(memberPassport.initialize());
+
 clientRouter.use("/homepage", clientHomeController.getHomepageData);
 clientRouter.use("/vouchers", clientVouchersRouter);
+clientRouter.use("/members", membersRouter);
 
 clientRouter.use((_, __, next) =>
   next(new createHttpError.NotFound("Page not found!"))
