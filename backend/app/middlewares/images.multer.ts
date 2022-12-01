@@ -1,10 +1,33 @@
 import crypto from "crypto";
 import type express from "express";
+import _ from "lodash";
 import multer from "multer";
 import path from "path";
 import { FormValidationError } from "../../lib/error";
 
-export default { setupSingleUpload };
+export default { handleUpload };
+
+function handleUpload(fieldName: string): express.RequestHandler {
+  const receiveImage = setupSingleUpload(fieldName);
+
+  return (req, res, next) => {
+    receiveImage(req, res, (error: unknown) => {
+      if (error instanceof multer.MulterError) {
+        const validationError = new FormValidationError();
+        validationError.addFieldError(fieldName, error.message);
+        next(validationError);
+        return;
+      }
+
+      if (_.isError(error)) {
+        next(error);
+        return;
+      }
+
+      next();
+    });
+  };
+}
 
 // Storage engine for single image upload
 const singleUploadStorage = multer.diskStorage({

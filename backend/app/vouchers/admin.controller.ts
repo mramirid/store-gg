@@ -4,9 +4,7 @@ import fs from "fs/promises";
 import createHttpError from "http-errors";
 import _ from "lodash";
 import mongoose from "mongoose";
-import multer from "multer";
 import path from "path";
-import { FormValidationError } from "../../lib/error";
 import {
   AlertStatuses,
   buildAlert,
@@ -15,7 +13,6 @@ import {
 } from "../../utils/alert";
 import { joinFormErrorMessages } from "../../utils/error";
 import Category, { type CategoryDoc } from "../categories/model";
-import imagesMulter from "../middlewares/images.multer";
 import type { NominalDoc } from "../nominals/model";
 import Nominal from "../nominals/model";
 import type { VoucherDoc } from "./model";
@@ -89,13 +86,6 @@ async function createVoucher(
   next: express.NextFunction
 ) {
   try {
-    await handleImageUpload(req, res, "imageName");
-  } catch (error) {
-    next(error);
-    return;
-  }
-
-  try {
     await Voucher.create({
       name: req.body.name,
       category: req.body.categoryId,
@@ -107,19 +97,19 @@ async function createVoucher(
     return;
   }
 
-  if (_.isUndefined(req.file)) {
-    next(
-      new Error("Cannot save the image file", {
-        cause: new TypeError("req.file is undefined"),
-      })
+  try {
+    if (_.isUndefined(req.file)) {
+      throw new TypeError("req.file is undefined");
+    }
+
+    await fs.copyFile(
+      req.file.path,
+      path.resolve("public", "uploads", req.file.filename)
     );
+  } catch (error) {
+    next(new Error("Cannot save the image file", { cause: error }));
     return;
   }
-
-  await fs.copyFile(
-    req.file.path,
-    path.resolve("public", "uploads", req.file.filename)
-  );
 
   setAlert(req, { message: "Voucher added", status: AlertStatuses.Success });
   res.redirect("/admin/vouchers");
@@ -218,10 +208,7 @@ export async function editVoucher(
   let voucher: VoucherDoc;
 
   try {
-    [voucher] = await Promise.all([
-      Voucher.findById(req.params.id).orFail(voucher404Error),
-      handleImageUpload(req, res, "imageName"),
-    ]);
+    voucher = await Voucher.findById(req.params.id).orFail(voucher404Error);
   } catch (error) {
     next(error);
     return;
@@ -319,32 +306,6 @@ function renderViewEditVoucher(
     pageTitle: "Edit Voucher",
     alert,
     ...options,
-  });
-}
-
-function handleImageUpload(
-  req: express.Request,
-  res: express.Response,
-  fieldName: string
-) {
-  const receiveImage = imagesMulter.setupSingleUpload(fieldName);
-
-  return new Promise((resolve, reject) => {
-    receiveImage(req, res, (error: unknown) => {
-      if (error instanceof multer.MulterError) {
-        const validationError = new FormValidationError();
-        validationError.addFieldError(fieldName, error.message);
-        reject(validationError);
-        return;
-      }
-
-      if (_.isError(error)) {
-        reject(error);
-        return;
-      }
-
-      resolve(undefined);
-    });
   });
 }
 
