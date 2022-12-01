@@ -4,6 +4,6 @@ import controller from "./controller";
 
 const membersRouter = Router();
 
-membersRouter.get("/", imagesMulter.handleUpload("avatar"), controller.signUp);
+membersRouter.post("/", imagesMulter.handleUpload("avatar"), controller.signUp);
 
 export default membersRouter;
