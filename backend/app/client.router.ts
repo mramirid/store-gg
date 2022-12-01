@@ -21,9 +21,7 @@ clientRouter.use("/homepage", clientHomeController.getHomepageData);
 clientRouter.use("/vouchers", clientVouchersRouter);
 clientRouter.use("/members", membersRouter);
 
-clientRouter.use((_, __, next) =>
-  next(new createHttpError.NotFound("Page not found!"))
-);
+clientRouter.use((_, __, next) => next(createHttpError(StatusCodes.NOT_FOUND)));
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const errorHandler: express.ErrorRequestHandler = (error, req, res, __) => {
