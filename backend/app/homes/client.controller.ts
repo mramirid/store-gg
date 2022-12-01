@@ -19,7 +19,7 @@ async function getHomepageData(
 
   try {
     vouchers = await Voucher.find()
-      .select({ name: 1, category: 1, imageName: 1 })
+      .select("name category imageName")
       .limit(5)
       .populate("category", "name");
   } catch (error) {

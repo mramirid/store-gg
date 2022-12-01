@@ -22,7 +22,7 @@ async function getVoucher(
   try {
     voucher = await Voucher.findById(req.params.id)
       .orFail(new createHttpError.NotFound("Voucher not found"))
-      .select({ name: 1, category: 1, nominals: 1, imageName: 1 })
+      .select("name category nominals imageName")
       .populate("category", "name")
       .populate("nominals", "name quantity price");
   } catch (error) {
