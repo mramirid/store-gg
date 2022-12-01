@@ -4,6 +4,8 @@ import Member from "../members/model";
 import Transaction from "../transactions/model";
 import Voucher from "../vouchers/model";
 
+export default { viewHome };
+
 async function viewHome(
   _: express.Request,
   res: express.Response,
@@ -35,6 +37,3 @@ async function viewHome(
     numTransactions,
   });
 }
-
-const adminHomeController = Object.freeze({ viewHome });
-export default adminHomeController;
