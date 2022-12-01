@@ -1,10 +1,13 @@
 import type express from "express";
 import fs from "fs/promises";
+import createHttpError from "http-errors";
 import { StatusCodes } from "http-status-codes";
 import jwt from "jsonwebtoken";
 import _ from "lodash";
+import mongoose from "mongoose";
 import path from "path";
 import { env } from "../../lib/constant";
+import { FormValidationError } from "../../lib/error";
 import { name as packageName } from "../../package.json";
 import Member, { IMember, MemberDoc } from "./model";
 
@@ -22,6 +25,20 @@ async function signUp(
   let member: MemberDoc;
 
   try {
+    const emailExists = await Member.exists({ email: req.body.email });
+    if (_.isObject(emailExists)) {
+      const validationError = new FormValidationError();
+      validationError.addFieldError("email", "Email is already in use");
+      const http409Error = new createHttpError.Conflict();
+      http409Error.cause = validationError;
+      throw http409Error;
+    }
+  } catch (error) {
+    next(error);
+    return;
+  }
+
+  try {
     member = await Member.create({
       fullName: req.body.fullName,
       email: req.body.email,
@@ -30,7 +47,13 @@ async function signUp(
       avatarName: req.file?.filename,
     });
   } catch (error) {
-    next(error);
+    if (error instanceof mongoose.Error.ValidationError) {
+      const http422Error = new createHttpError.UnprocessableEntity();
+      http422Error.cause = error;
+      next(http422Error);
+    } else {
+      next(error);
+    }
     return;
   }
 
@@ -41,7 +64,13 @@ async function signUp(
     );
   }
 
-  const token = jwt.sign(
+  res
+    .status(StatusCodes.CREATED)
+    .json({ message: "Sign-up success", token: issueJWT(member) });
+}
+
+function issueJWT(member: MemberDoc) {
+  return jwt.sign(
     {
       fullName: member.fullName,
       email: member.email,
@@ -55,6 +84,4 @@ async function signUp(
       expiresIn: "60d",
     }
   );
-
-  res.status(StatusCodes.CREATED).json({ message: "Sign-up success", token });
 }

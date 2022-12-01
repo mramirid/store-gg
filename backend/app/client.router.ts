@@ -27,23 +27,25 @@ clientRouter.use((_, __, next) => next(createHttpError(StatusCodes.NOT_FOUND)));
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const errorHandler: express.ErrorRequestHandler = (error, req, res, __) => {
-  if (error instanceof mongoose.Error.ValidationError) {
-    res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
-      message: joinFormErrorMessages(error.errors),
-      formErrors: error.errors,
-    });
-    return;
-  }
-
   const isDevMode = req.app.get("env") === "development";
 
   if (createHttpError.isHttpError(error)) {
-    res.status(error.status).json({
-      message:
-        error.expose || isDevMode
-          ? error.message
-          : getReasonPhrase(error.status),
-    });
+    res.status(error.status);
+
+    if (error.cause instanceof mongoose.Error.ValidationError) {
+      res.json({
+        message: joinFormErrorMessages(error.cause.errors),
+        formErrors: error.cause.errors,
+      });
+    } else {
+      res.json({
+        message:
+          error.expose || isDevMode
+            ? error.message
+            : getReasonPhrase(error.status),
+      });
+    }
+
     return;
   }
 
