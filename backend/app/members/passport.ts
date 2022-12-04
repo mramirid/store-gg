@@ -3,7 +3,6 @@ import passport from "passport";
 import { ExtractJwt, Strategy as JWTStrategy } from "passport-jwt";
 import { env } from "../../lib/constant";
 import { name as packageName } from "../../package.json";
-import { toError } from "../../utils/error";
 import Member, { MemberDoc } from "./model";
 
 const memberPassport = new passport.Passport();
@@ -20,7 +19,7 @@ memberPassport.use(
         const member = await Member.findOne({ email: jwt_payload.sub });
         done(undefined, member ?? undefined);
       } catch (error) {
-        done(toError(error));
+        done(error);
         return;
       }
     }
@@ -39,7 +38,7 @@ memberPassport.deserializeUser((memberId: string, done) => {
       const member = await Member.findById(memberId);
       done(undefined, member);
     } catch (error) {
-      done(toError(error));
+      done(error);
     }
   });
 });

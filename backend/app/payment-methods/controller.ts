@@ -8,7 +8,7 @@ import {
   getAlert,
   setAlert,
 } from "../../utils/alert";
-import { joinFormErrorMessages } from "../../utils/error";
+import { joinErrorMessages } from "../../utils/error";
 import type { BankDoc } from "../banks/model";
 import Bank from "../banks/model";
 import type { PaymentMethodDoc } from "./model";
@@ -123,7 +123,7 @@ function renderViewCreatePaymentMethod(
   }
 ) {
   const alert = _.isObject(options.formErrors)
-    ? buildAlert(joinFormErrorMessages(options.formErrors), AlertStatuses.Error)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
     : undefined;
 
   res.render("admin/payment-methods/create", {
@@ -229,7 +229,7 @@ function renderViewEditPaymentMethod(
   }
 ) {
   const alert = _.isObject(options.formErrors)
-    ? buildAlert(joinFormErrorMessages(options.formErrors), AlertStatuses.Error)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
     : undefined;
 
   res.render("admin/payment-methods/edit", {

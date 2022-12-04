@@ -2,8 +2,8 @@ import cors from "cors";
 import express from "express";
 import createHttpError from "http-errors";
 import { getReasonPhrase, StatusCodes } from "http-status-codes";
-import mongoose from "mongoose";
-import { getErrorMessage, joinFormErrorMessages } from "../utils/error";
+import { CustomValidationError } from "../lib/error";
+import { getErrorMessage, joinErrorMessages } from "../utils/error";
 import clientCategoriesRouter from "./categories/client.router";
 import clientHomeController from "./homes/client.controller";
 import memberPassport from "./members/passport";
@@ -25,27 +25,34 @@ clientRouter.use("/categories", clientCategoriesRouter);
 
 clientRouter.use((_, __, next) => next(createHttpError(StatusCodes.NOT_FOUND)));
 
+const validationErrorHandler: express.ErrorRequestHandler = (
+  error,
+  _,
+  __,
+  next
+) => {
+  if (error instanceof CustomValidationError) {
+    const httpError = createHttpError(error.status);
+    httpError.message = joinErrorMessages(error.errors);
+    httpError.cause = error;
+    next(httpError);
+    return;
+  }
+
+  next(error);
+};
+clientRouter.use(validationErrorHandler);
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const errorHandler: express.ErrorRequestHandler = (error, req, res, __) => {
   const isDevMode = req.app.get("env") === "development";
 
   if (createHttpError.isHttpError(error)) {
-    res.status(error.status);
-
-    if (error.cause instanceof mongoose.Error.ValidationError) {
-      res.json({
-        message: joinFormErrorMessages(error.cause.errors),
-        formErrors: error.cause.errors,
-      });
-    } else {
-      res.json({
-        message:
-          error.expose || isDevMode
-            ? error.message
-            : getReasonPhrase(error.status),
-      });
-    }
-
+    const shouldExpose = isDevMode || error.expose;
+    res.status(error.status).json({
+      message: shouldExpose ? error.message : getReasonPhrase(error.status),
+      cause: shouldExpose ? error.cause : undefined,
+    });
     return;
   }
 

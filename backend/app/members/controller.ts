@@ -1,17 +1,14 @@
 import type express from "express";
 import fs from "fs/promises";
-import createHttpError from "http-errors";
 import { StatusCodes } from "http-status-codes";
 import jwt from "jsonwebtoken";
 import _ from "lodash";
 import mongoose from "mongoose";
 import path from "path";
 import { env } from "../../lib/constant";
-import { FormValidationError } from "../../lib/error";
+import { CustomValidationError } from "../../lib/error";
 import { name as packageName } from "../../package.json";
 import Member, { IMember, MemberDoc } from "./model";
-
-export default { signUp };
 
 async function signUp(
   req: express.Request<
@@ -22,19 +19,20 @@ async function signUp(
   res: express.Response,
   next: express.NextFunction
 ) {
-  let member: MemberDoc;
+  let member: MemberDoc | null;
 
   try {
-    const emailExists = await Member.exists({ email: req.body.email });
-    if (_.isObject(emailExists)) {
-      const validationError = new FormValidationError();
-      validationError.addFieldError("email", "Email is already in use");
-      const http409Error = new createHttpError.Conflict();
-      http409Error.cause = validationError;
-      throw http409Error;
-    }
+    member = await Member.findOne({ email: req.body.email });
   } catch (error) {
     next(error);
+    return;
+  }
+
+  if (_.isObject(member)) {
+    const validationError = new CustomValidationError();
+    validationError.addValidatorError("email", "Email is already in use");
+    validationError.status = StatusCodes.CONFLICT;
+    next(validationError);
     return;
   }
 
@@ -48,9 +46,9 @@ async function signUp(
     });
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
-      const http422Error = new createHttpError.UnprocessableEntity();
-      http422Error.cause = error;
-      next(http422Error);
+      const validationError = new CustomValidationError(error);
+      validationError.status = StatusCodes.UNPROCESSABLE_ENTITY;
+      next(validationError);
     } else {
       next(error);
     }
@@ -66,7 +64,7 @@ async function signUp(
 
   res
     .status(StatusCodes.CREATED)
-    .json({ message: "Sign-up success", token: issueJWT(member) });
+    .json({ message: "Sign-up success", jwtToken: issueJWT(member) });
 }
 
 function issueJWT(member: MemberDoc) {
@@ -85,3 +83,5 @@ function issueJWT(member: MemberDoc) {
     }
   );
 }
+
+export default { signUp };

@@ -1,12 +1,27 @@
+import { StatusCodes } from "http-status-codes";
 import _ from "lodash";
 import mongoose from "mongoose";
 
-export class FormValidationError extends mongoose.Error.ValidationError {
-  addFieldError(fieldName: string, message: string) {
-    this.addError(fieldName, new mongoose.Error.ValidatorError({ message }));
+export class CustomValidationError extends mongoose.Error.ValidationError {
+  status = StatusCodes.BAD_REQUEST;
+
+  constructor(error?: mongoose.Error.ValidationError) {
+    super();
+
+    if (_.isObject(error)) {
+      this.errors = error.errors;
+      this.message = error.message;
+      this.cause = error.cause;
+    }
   }
 
-  get hasFieldError() {
-    return !_.isEmpty(this.errors);
+  addValidatorError(path: string, message: string) {
+    this.addError(path, new CustomValidatorError(message));
+  }
+}
+
+class CustomValidatorError extends mongoose.Error.ValidatorError {
+  constructor(public override message: string) {
+    super({ message });
   }
 }

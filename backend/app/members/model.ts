@@ -67,7 +67,7 @@ const memberSchema = new Schema<
     favoriteCategory: {
       type: Schema.Types.ObjectId,
       ref: Category,
-      required: [true, "Category is required"],
+      required: [true, "Favorite category is required"],
       index: true,
       validate: [
         {

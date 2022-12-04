@@ -1,8 +1,7 @@
 import _ from "lodash";
 import passport from "passport";
 import passportLocal from "passport-local";
-import { FormValidationError } from "../../lib/error";
-import { toError } from "../../utils/error";
+import { CustomValidationError } from "../../lib/error";
 import Admin, { type AdminDoc } from "./model";
 
 const adminPassport = new passport.Passport();
@@ -15,21 +14,21 @@ const localStrategy = new passportLocal.Strategy(
     try {
       admin = await Admin.findOne({ email });
     } catch (error) {
-      done(toError(error));
+      done(error);
       return;
     }
 
-    const validationError = new FormValidationError();
+    const validationError = new CustomValidationError();
 
     if (_.isNull(admin)) {
-      validationError.addFieldError("email", "Email not found.");
+      validationError.addValidatorError("email", "Email not found.");
       done(validationError);
       return;
     }
 
     const doesPasswordMatch = await admin.verifyPassword(password);
     if (!doesPasswordMatch) {
-      validationError.addFieldError("password", "Password does not match!");
+      validationError.addValidatorError("password", "Password does not match!");
       done(validationError);
       return;
     }
@@ -51,7 +50,7 @@ adminPassport.deserializeUser((adminId: string, done) => {
       const admin = await Admin.findById(adminId);
       done(undefined, admin);
     } catch (error) {
-      done(toError(error));
+      done(error);
     }
   });
 });

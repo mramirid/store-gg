@@ -1,9 +1,10 @@
 import crypto from "crypto";
 import type express from "express";
+import { StatusCodes } from "http-status-codes";
 import _ from "lodash";
 import multer from "multer";
 import path from "path";
-import { FormValidationError } from "../../lib/error";
+import { CustomValidationError } from "../../lib/error";
 
 export default { handleUpload };
 
@@ -13,8 +14,9 @@ function handleUpload(fieldName: string): express.RequestHandler {
   return (req, res, next) => {
     receiveImage(req, res, (error: unknown) => {
       if (error instanceof multer.MulterError) {
-        const validationError = new FormValidationError();
-        validationError.addFieldError(fieldName, error.message);
+        const validationError = new CustomValidationError();
+        validationError.addValidatorError(fieldName, error.message);
+        validationError.status = StatusCodes.UNPROCESSABLE_ENTITY;
         next(validationError);
         return;
       }
@@ -47,11 +49,12 @@ function setupSingleUpload(fieldName: string): express.RequestHandler {
         return;
       }
 
-      const validationError = new FormValidationError();
-      validationError.addFieldError(
+      const validationError = new CustomValidationError();
+      validationError.addValidatorError(
         fieldName,
         "Images only: jpeg, jpg, png, or gif"
       );
+      validationError.status = StatusCodes.UNPROCESSABLE_ENTITY;
       cb(validationError);
     },
   }).single(fieldName);

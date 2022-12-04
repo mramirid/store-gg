@@ -11,7 +11,7 @@ import {
   getAlert,
   setAlert,
 } from "../../utils/alert";
-import { joinFormErrorMessages } from "../../utils/error";
+import { joinErrorMessages } from "../../utils/error";
 import Category, { type CategoryDoc } from "../categories/model";
 import type { NominalDoc } from "../nominals/model";
 import Nominal from "../nominals/model";
@@ -156,7 +156,7 @@ function renderViewCreateVoucher(
   }
 ) {
   const alert = _.isObject(options.formErrors)
-    ? buildAlert(joinFormErrorMessages(options.formErrors), AlertStatuses.Error)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
     : undefined;
 
   res.render("admin/vouchers/create", {
@@ -299,7 +299,7 @@ function renderViewEditVoucher(
   }
 ) {
   const alert = _.isObject(options.formErrors)
-    ? buildAlert(joinFormErrorMessages(options.formErrors), AlertStatuses.Error)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
     : undefined;
 
   res.render("admin/vouchers/edit", {

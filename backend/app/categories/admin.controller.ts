@@ -8,7 +8,7 @@ import {
   getAlert,
   setAlert,
 } from "../../utils/alert";
-import { joinFormErrorMessages } from "../../utils/error";
+import { joinErrorMessages } from "../../utils/error";
 import Category, { CategoryDoc, ICategory } from "./model";
 
 export default {
@@ -79,7 +79,7 @@ function renderViewCreateCategory(
   }
 ) {
   const alert = _.isObject(options.formErrors)
-    ? buildAlert(joinFormErrorMessages(options.formErrors), AlertStatuses.Error)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
     : undefined;
 
   res.render("admin/categories/create", {
@@ -163,7 +163,7 @@ function renderViewEditCategory(
   }
 ) {
   const alert = _.isObject(options.formErrors)
-    ? buildAlert(joinFormErrorMessages(options.formErrors), AlertStatuses.Error)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
     : undefined;
 
   res.render("admin/categories/edit", {

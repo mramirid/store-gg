@@ -1,9 +1,9 @@
 import type express from "express";
 import _ from "lodash";
 import mongoose from "mongoose";
-import { FormValidationError } from "../../lib/error";
+import { CustomValidationError } from "../../lib/error";
 import { AlertStatuses, buildAlert, setAlert } from "../../utils/alert";
-import { joinFormErrorMessages } from "../../utils/error";
+import { joinErrorMessages } from "../../utils/error";
 import type { AdminDoc, IAdmin } from "./model";
 import Admin from "./model";
 
@@ -19,17 +19,13 @@ async function signUp(
   res: express.Response,
   next: express.NextFunction
 ) {
-  try {
-    if (req.body.password !== req.body.retypePassword) {
-      const validationError = new FormValidationError();
-      validationError.addFieldError(
-        "retypePassword",
-        "The retype password does not match with the password you entered"
-      );
-      throw validationError;
-    }
-  } catch (error) {
-    next(error);
+  if (req.body.password !== req.body.retypePassword) {
+    const validationError = new CustomValidationError();
+    validationError.addValidatorError(
+      "retypePassword",
+      "The retype password does not match with the password you entered"
+    );
+    next(validationError);
     return;
   }
 
@@ -87,7 +83,7 @@ function renderViewSignUp(
   }
 ) {
   const alert = _.isObject(options.formErrors)
-    ? buildAlert(joinFormErrorMessages(options.formErrors), AlertStatuses.Error)
+    ? buildAlert(joinErrorMessages(options.formErrors), AlertStatuses.Error)
     : undefined;
 
   res.render("admin/sign-up", {
@@ -140,7 +136,7 @@ function renderViewSignIn(
   }
 ) {
   const alertMessage = _.isObject(renderOptions.formErrors)
-    ? joinFormErrorMessages(renderOptions.formErrors)
+    ? joinErrorMessages(renderOptions.formErrors)
     : passportErrorMessage;
 
   const alert = _.isString(alertMessage)

@@ -4,7 +4,7 @@ export function getErrorMessage(maybeError: unknown) {
   return toError(maybeError).message;
 }
 
-export function toError(maybeError: unknown) {
+function toError(maybeError: unknown) {
   if (_.isError(maybeError)) {
     return maybeError;
   }
@@ -33,14 +33,12 @@ function isErrorWithMessage(
   );
 }
 
-export function joinFormErrorMessages(formErrors: Record<string, Error>) {
-  const errors = Object.values(formErrors);
+export function joinErrorMessages(errors: Error[] | Record<string, Error>) {
+  errors = _.isArray(errors) ? errors : Object.values(errors);
   const messages = errors.map(getErrorMessage);
-
   const formatter = new Intl.ListFormat("en-US", {
     style: "long",
     type: "conjunction",
   });
-
   return formatter.format(messages);
 }
