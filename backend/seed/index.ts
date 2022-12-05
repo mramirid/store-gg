@@ -205,7 +205,11 @@ export default async function seed() {
     phoneNumber: "08133994455",
     favoriteCategory: mobile.id,
   });
-  const membersInsertion = Member.insertMany([septian, handi, andre]);
+  const membersInsertion = Promise.all([
+    septian.save(),
+    handi.save(),
+    andre.save(),
+  ]);
 
   await Promise.all([
     vouchersInsertion,
