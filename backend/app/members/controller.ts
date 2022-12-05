@@ -67,6 +67,42 @@ async function signUp(
     .json({ message: "Sign-up success", jwtToken: issueJWT(member) });
 }
 
+async function signIn(
+  req: express.Request<unknown, unknown, Pick<IMember, "email" | "password">>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  let member: MemberDoc | null;
+
+  try {
+    member = await Member.findOne({ email: req.body.email });
+  } catch (error) {
+    next(error);
+    return;
+  }
+
+  const validationError = new CustomValidationError();
+
+  if (_.isNull(member)) {
+    validationError.addValidatorError("email", "Email not found.");
+    validationError.status = StatusCodes.NOT_FOUND;
+    next(validationError);
+    return;
+  }
+
+  const doesPasswordMatch = await member.verifyPassword(req.body.password);
+  if (!doesPasswordMatch) {
+    validationError.addValidatorError("password", "Password does not match!");
+    validationError.status = StatusCodes.UNAUTHORIZED;
+    next(validationError);
+    return;
+  }
+
+  res
+    .status(StatusCodes.OK)
+    .json({ message: "Sign-in success", jwtToken: issueJWT(member) });
+}
+
 function issueJWT(member: MemberDoc) {
   return jwt.sign(
     {
@@ -84,4 +120,4 @@ function issueJWT(member: MemberDoc) {
   );
 }
 
-export default { signUp };
+export default { signUp, signIn };

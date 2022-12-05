@@ -5,5 +5,6 @@ import controller from "./controller";
 const membersRouter = Router();
 
 membersRouter.post("/", imagesMulter.handleUpload("avatar"), controller.signUp);
+membersRouter.post("/sign-in", controller.signIn);
 
 export default membersRouter;
