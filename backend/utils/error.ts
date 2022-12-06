@@ -1,3 +1,4 @@
+import type { StatusCodes } from "http-status-codes";
 import _ from "lodash";
 
 export function getErrorMessage(maybeError: unknown) {
@@ -41,4 +42,16 @@ export function joinErrorMessages(errors: Error[] | Record<string, Error>) {
     type: "conjunction",
   });
   return formatter.format(messages);
+}
+
+type AuthenticationError = {
+  name: "AuthenticationError";
+  message: string;
+  status: StatusCodes;
+};
+
+export function isPassportAuthenticationError(
+  error: unknown
+): error is AuthenticationError {
+  return _.isError(error) && error.name === "AuthenticationError";
 }

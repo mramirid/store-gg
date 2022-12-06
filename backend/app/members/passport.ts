@@ -2,25 +2,25 @@ import type { JwtPayload } from "jsonwebtoken";
 import passport from "passport";
 import { ExtractJwt, Strategy as JWTStrategy } from "passport-jwt";
 import { env } from "../../lib/constant";
-import { name as packageName } from "../../package.json";
-import Member, { MemberDoc } from "./model";
+import Member, { IMember, MemberDoc } from "./model";
 
 const memberPassport = new passport.Passport();
+
+type MemberJWTPayload = JwtPayload &
+  Pick<IMember, "fullName" | "email" | "phoneNumber">;
 
 memberPassport.use(
   new JWTStrategy(
     {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: env.BACKEND_SECRET,
-      issuer: packageName,
     },
-    async (jwt_payload: JwtPayload, done) => {
+    async (jwtPayload: MemberJWTPayload, done) => {
       try {
-        const member = await Member.findOne({ email: jwt_payload.sub });
+        const member = await Member.findOne({ email: jwtPayload.email });
         done(undefined, member ?? undefined);
       } catch (error) {
         done(error);
-        return;
       }
     }
   )

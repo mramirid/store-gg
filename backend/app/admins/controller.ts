@@ -3,7 +3,10 @@ import _ from "lodash";
 import mongoose from "mongoose";
 import { CustomValidationError } from "../../lib/error";
 import { AlertStatuses, buildAlert, setAlert } from "../../utils/alert";
-import { joinErrorMessages } from "../../utils/error";
+import {
+  isPassportAuthenticationError,
+  joinErrorMessages,
+} from "../../utils/error";
 import type { AdminDoc, IAdmin } from "./model";
 import Admin from "./model";
 
@@ -106,7 +109,7 @@ const signInErrorHandler: express.ErrorRequestHandler = (
   res,
   next
 ) => {
-  if (_.isError(error) && error.name === "AuthenticationError") {
+  if (isPassportAuthenticationError(error)) {
     renderViewSignIn(res, req.flash("error").at(0), {
       formData: req.body,
       formErrors: undefined,
