@@ -2,8 +2,6 @@ import type express from "express";
 import createHttpError from "http-errors";
 import type mongoose from "mongoose";
 import { AlertStatuses, getAlert, setAlert } from "../../utils/alert";
-import type { IMember } from "../members/model";
-import type { ITransaction } from "./model";
 import Transaction from "./model";
 
 export default {
@@ -12,33 +10,19 @@ export default {
   rejectTransaction,
 };
 
-type TransactionPopulationPaths = Record<
-  "member",
-  mongoose.MergeType<ITransaction["member"], Record<"current", IMember>>
->;
-
-type PopulatedTransaction = mongoose.MergeType<
-  ITransaction,
-  TransactionPopulationPaths
->;
-
 async function viewTransactions(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
 ) {
-  let transactions: PopulatedTransaction[];
+  let transactions: mongoose.Document[];
 
   try {
-    transactions =
-      await Transaction.find().populate<TransactionPopulationPaths>(
-        "member.current"
-      );
+    transactions = await Transaction.find().populate("member.current");
   } catch (error) {
     next(error);
     return;
   }
-
   res.render("admin/transactions", {
     pageTitle: "Transactions",
     alert: getAlert(req),
@@ -59,7 +43,7 @@ async function acceptTrancation(
     const transaction = await Transaction.findById(req.params.id).orFail(
       transaction404Error
     );
-    transaction.status = "Accepted";
+    transaction.status = "accepted";
     await transaction.save();
   } catch (error) {
     next(error);
@@ -82,7 +66,7 @@ async function rejectTransaction(
     const transaction = await Transaction.findById(req.params.id).orFail(
       transaction404Error
     );
-    transaction.status = "Rejected";
+    transaction.status = "rejected";
     await transaction.save();
   } catch (error) {
     next(error);

@@ -13,14 +13,14 @@ import { env, mongoUri } from "../lib/constant";
 import { version } from "../package.json";
 import format from "../utils/format";
 import adminsMiddleware from "./admins/middleware";
-import adminPassport from "./admins/passport";
+import adminsPassport from "./admins/passport";
 import adminsRouter from "./admins/router";
 import banksRouter from "./banks/router";
 import adminCategoriesRouter from "./categories/admin.router";
 import adminHomeRouter from "./homes/admin.router";
 import nominalsRouter from "./nominals/router";
 import paymentMethodsRouter from "./payment-methods/router";
-import transactionsRouter from "./transactions/router";
+import adminTransactionsRouter from "./transactions/admin.router";
 import adminVouchersRouter from "./vouchers/admin.router";
 
 const adminRouter = express.Router();
@@ -67,8 +67,8 @@ adminRouter.use(
   })
 );
 
-adminRouter.use(adminPassport.initialize());
-adminRouter.use(adminPassport.session());
+adminRouter.use(adminsPassport.initialize());
+adminRouter.use(adminsPassport.session());
 
 adminRouter.use(flash());
 
@@ -94,7 +94,7 @@ adminRouter.use("/nominals", nominalsRouter);
 adminRouter.use("/vouchers", adminVouchersRouter);
 adminRouter.use("/banks", banksRouter);
 adminRouter.use("/payment-methods", paymentMethodsRouter);
-adminRouter.use("/transactions", transactionsRouter);
+adminRouter.use("/transactions", adminTransactionsRouter);
 
 adminRouter.use((_, res) => {
   res.status(StatusCodes.NOT_FOUND).render("admin/404", {

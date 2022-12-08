@@ -8,6 +8,7 @@ import clientCategoriesRouter from "./categories/client.router";
 import clientHomeController from "./homes/client.controller";
 import memberPassport from "./members/passport";
 import membersRouter from "./members/router";
+import clientTransactionsRouter from "./transactions/client.router";
 import clientVouchersRouter from "./vouchers/client.router";
 
 const clientRouter = express.Router();
@@ -22,6 +23,7 @@ clientRouter.use("/homepage", clientHomeController.getHomepageData);
 clientRouter.use("/vouchers", clientVouchersRouter);
 clientRouter.use("/members", membersRouter);
 clientRouter.use("/categories", clientCategoriesRouter);
+clientRouter.use("/transactions", clientTransactionsRouter);
 
 clientRouter.use((_, __, next) => next(createHttpError(StatusCodes.NOT_FOUND)));
 
