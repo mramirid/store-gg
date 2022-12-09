@@ -32,7 +32,7 @@ memberPassport.serializeUser<string>((member, done) => {
   });
 });
 
-memberPassport.deserializeUser((memberId: string, done) => {
+memberPassport.deserializeUser<string>((memberId, done) => {
   process.nextTick(async () => {
     try {
       const member = await Member.findById(memberId);

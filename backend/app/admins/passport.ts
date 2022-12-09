@@ -44,7 +44,7 @@ adminPassport.serializeUser<string>((admin, done) => {
   });
 });
 
-adminPassport.deserializeUser((adminId: string, done) => {
+adminPassport.deserializeUser<string>((adminId, done) => {
   process.nextTick(async () => {
     try {
       const admin = await Admin.findById(adminId);
