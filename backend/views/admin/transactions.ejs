@@ -52,18 +52,18 @@
                     (<%= transaction.category.name %>)
                   </td>
                   <td><%= transaction.nominal.quantity %> <%= transaction.nominal.name %></td>
-                  <td>Total Price</td>
+                  <td><%= format.toIDR(transaction.getTotalPrice()) %></td>
                   <td>
                     <%
                     let badgeColor; 
                     switch (transaction.status) {
-                      case "Accepted":
+                      case "accepted":
                         badgeColor = "badge-success";
                         break;
-                      case "Pending":
+                      case "pending":
                         badgeColor = "badge-warning";
                         break;
-                      case "Rejected":
+                      case "rejected":
                         badgeColor = "badge-danger";
                         break;
                       default:
@@ -71,7 +71,7 @@
                     }
                     %>
 
-                    <span class="badge <%= badgeColor %>"><%= transaction.status %></span>
+                    <span class="badge <%= badgeColor %>"><%= _.capitalize(transaction.status) %></span>
                   </td>
                   <td><%= transaction.member.current.fullName %></td>
                   <td>
@@ -79,7 +79,7 @@
                       class="d-inline">
                       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                       <button type="submit" type="button" class="btn btn-danger"
-                        <%= transaction.status === "Rejected" && "disabled" %>>
+                        <%= transaction.status === "rejected" && "disabled" %>>
                         <i class="fas fa-times"></i> Reject
                       </button>
                     </form>
@@ -87,7 +87,7 @@
                       class="d-inline">
                       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                       <button type="submit" type="button" class="btn btn-success"
-                        <%= transaction.status === "Accepted" && "disabled" %>>
+                        <%= transaction.status === "accepted" && "disabled" %>>
                         <i class="fas fa-check"></i> Accept
                       </button>
                     </form>
