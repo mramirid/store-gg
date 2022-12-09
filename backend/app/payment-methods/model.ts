@@ -1,22 +1,15 @@
 import createHttpError from "http-errors";
 import _ from "lodash";
 import {
-  HydratedDocument,
+  HydratedDocumentFromSchema,
+  InferSchemaType,
   isValidObjectId,
   model,
   Schema,
-  Types,
 } from "mongoose";
 import Bank from "../banks/model";
 
-export interface IPaymentMethod {
-  name: string;
-  banks: Types.ObjectId[];
-}
-
-export type PaymentMethodDoc = HydratedDocument<IPaymentMethod>;
-
-const paymentMethodSchema = new Schema<IPaymentMethod>(
+const paymentMethodSchema = new Schema(
   {
     name: {
       type: String,
@@ -53,6 +46,11 @@ const paymentMethodSchema = new Schema<IPaymentMethod>(
   },
   { timestamps: true }
 );
+
+export type TPaymentMethod = InferSchemaType<typeof paymentMethodSchema>;
+export type PaymentMethodDoc = HydratedDocumentFromSchema<
+  typeof paymentMethodSchema
+>;
 
 const PaymentMethod = model("PaymentMethod", paymentMethodSchema);
 export default PaymentMethod;

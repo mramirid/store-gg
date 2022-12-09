@@ -6,10 +6,10 @@ import {
   AlertStatuses,
   buildAlert,
   getAlert,
-  setAlert,
+  setAlert
 } from "../../utils/alert";
 import { joinErrorMessages } from "../../utils/error";
-import Bank, { BankDoc, BANK_NAMES, IBank } from "./model";
+import Bank, { BankDoc, TBank, BANK_NAMES } from "./model";
 
 export default {
   viewBanks,
@@ -49,7 +49,7 @@ function viewCreateBank(_: express.Request, res: express.Response) {
 }
 
 async function createBank(
-  req: express.Request<unknown, unknown, IBank>,
+  req: express.Request<unknown, unknown, TBank>,
   res: express.Response,
   next: express.NextFunction
 ) {
@@ -74,7 +74,7 @@ async function createBank(
 function renderViewCreateBank(
   res: express.Response,
   options: {
-    formData: IBank | undefined;
+    formData: TBank | undefined;
     formErrors: Record<string, Error> | undefined;
   }
 ) {
@@ -114,7 +114,7 @@ async function viewEditBank(
 }
 
 export async function editBank(
-  req: express.Request<{ id: string }, unknown, IBank>,
+  req: express.Request<{ id: string }, unknown, TBank>,
   res: express.Response,
   next: express.NextFunction
 ) {
@@ -161,7 +161,7 @@ function renderViewEditBank(
   res: express.Response,
   options: {
     bank: BankDoc;
-    formData: IBank;
+    formData: TBank;
     formErrors: Record<string, Error> | undefined;
   }
 ) {

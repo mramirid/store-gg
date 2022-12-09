@@ -30,5 +30,5 @@ async function getHomepageData(
   res.status(StatusCodes.OK).json({ vouchers });
 }
 
-const clientHomeController = Object.freeze({ getHomepageData });
-export default clientHomeController;
+const homeClientController = Object.freeze({ getHomepageData });
+export default homeClientController;

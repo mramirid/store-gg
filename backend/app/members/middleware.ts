@@ -20,7 +20,7 @@ const authenticateErrorHandler: express.ErrorRequestHandler = (
   next(error);
 };
 
-const ensureAuthenticated: express.RequestHandler[] = [
+export const ensureMemberAuthenticated: express.RequestHandler[] = [
   memberPassport.authenticate("jwt", {
     session: false,
     failWithError: true,
@@ -35,5 +35,3 @@ const ensureAuthenticated: express.RequestHandler[] = [
   },
   authenticateErrorHandler,
 ];
-
-export default { ensureAuthenticated };

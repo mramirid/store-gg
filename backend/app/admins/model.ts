@@ -1,21 +1,14 @@
 import bcrypt from "bcryptjs";
 import _ from "lodash";
-import { HydratedDocument, Model, model, Schema } from "mongoose";
+import {
+  HydratedDocumentFromSchema,
+  InferSchemaType,
+  model,
+  Schema,
+} from "mongoose";
 import validator from "validator";
 
-export interface IAdmin {
-  fullName: string;
-  email: string;
-  password: string;
-}
-
-interface IAdminMethods {
-  verifyPassword: (password: string) => Promise<boolean>;
-}
-
-export type AdminDoc = HydratedDocument<IAdmin, IAdminMethods>;
-
-const adminSchema = new Schema<IAdmin, Model<IAdmin>, IAdminMethods>(
+const adminSchema = new Schema(
   {
     fullName: {
       type: String,
@@ -34,9 +27,7 @@ const adminSchema = new Schema<IAdmin, Model<IAdmin>, IAdminMethods>(
         },
         {
           validator: async (v: unknown) => {
-            const emailExists = await model<Schema<IAdmin>>("Admin").exists({
-              email: v,
-            });
+            const emailExists = await model("Admin").exists({ email: v });
             return _.isNull(emailExists);
           },
           message: "Email is already in use",
@@ -49,7 +40,14 @@ const adminSchema = new Schema<IAdmin, Model<IAdmin>, IAdminMethods>(
       trim: true,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    methods: {
+      verifyPassword: function (password: string) {
+        return bcrypt.compare(password, this.password);
+      },
+    },
+  }
 );
 
 adminSchema.pre("save", async function (next) {
@@ -57,9 +55,8 @@ adminSchema.pre("save", async function (next) {
   next();
 });
 
-adminSchema.methods.verifyPassword = function (this: AdminDoc, password) {
-  return bcrypt.compare(password, this.password);
-};
+export type TAdmin = InferSchemaType<typeof adminSchema>;
+export type AdminDoc = HydratedDocumentFromSchema<typeof adminSchema>;
 
 const Admin = model("Admin", adminSchema);
 export default Admin;

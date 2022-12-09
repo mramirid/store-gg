@@ -1,12 +1,10 @@
 import createHttpError from "http-errors";
 import _ from "lodash";
 import {
-  HydratedDocumentFromSchema,
-  isValidObjectId,
+  HydratedDocumentFromSchema, InferSchemaType, isValidObjectId,
   model,
   Schema,
-  Types,
-  InferSchemaType,
+  Types
 } from "mongoose";
 import validator from "validator";
 import Category from "../categories/model";
@@ -176,7 +174,7 @@ const transactionSchema = new Schema(
   }
 );
 
-export type TransactionType = InferSchemaType<typeof transactionSchema>;
+export type TTransaction = InferSchemaType<typeof transactionSchema>;
 export type TransactionDoc = HydratedDocumentFromSchema<
   typeof transactionSchema
 >;

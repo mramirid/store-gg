@@ -7,7 +7,7 @@ import {
   isPassportAuthenticationError,
   joinErrorMessages,
 } from "../../utils/error";
-import type { AdminDoc, IAdmin } from "./model";
+import type { AdminDoc, TAdmin } from "./model";
 import Admin from "./model";
 
 function viewSignUp(_: express.Request, res: express.Response) {
@@ -76,7 +76,7 @@ const signUpErrorHandler: express.ErrorRequestHandler = (
   next(error);
 };
 
-type SignupReqBody = mongoose.MergeType<IAdmin, { retypePassword: string }>;
+type SignupReqBody = mongoose.MergeType<TAdmin, { retypePassword: string }>;
 
 function renderViewSignUp(
   res: express.Response,
@@ -128,7 +128,7 @@ const signInErrorHandler: express.ErrorRequestHandler = (
   next(error);
 };
 
-type SignInReqBody = Pick<IAdmin, "email" | "password">;
+type SignInReqBody = Pick<TAdmin, "email" | "password">;
 
 function renderViewSignIn(
   res: express.Response,

@@ -2,36 +2,16 @@ import bcrypt from "bcryptjs";
 import createHttpError from "http-errors";
 import _ from "lodash";
 import {
-  HydratedDocument,
+  HydratedDocumentFromSchema,
+  InferSchemaType,
   isValidObjectId,
-  Model,
   model,
   Schema,
-  Types,
 } from "mongoose";
 import validator from "validator";
 import Category from "../categories/model";
 
-export interface IMember {
-  fullName: string;
-  email: string;
-  password: string;
-  favoriteCategory: Types.ObjectId;
-  avatarName?: string;
-  phoneNumber?: string;
-}
-
-interface IMemberMethods {
-  verifyPassword: (password: string) => Promise<boolean>;
-}
-
-export type MemberDoc = HydratedDocument<IMember, IMemberMethods>;
-
-const memberSchema = new Schema<
-  IMember,
-  Model<IMember, Record<string, never>, IMemberMethods>,
-  IMemberMethods
->(
+const memberSchema = new Schema(
   {
     fullName: {
       type: String,
@@ -50,9 +30,7 @@ const memberSchema = new Schema<
         },
         {
           validator: async (v: unknown) => {
-            const emailExists = await model<Schema<IMember>>("Member").exists({
-              email: v,
-            });
+            const emailExists = await model("Member").exists({ email: v });
             return _.isNull(emailExists);
           },
           message: "Email is already in use",
@@ -95,7 +73,14 @@ const memberSchema = new Schema<
       },
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    methods: {
+      verifyPassword: function (password: string) {
+        return bcrypt.compare(password, this.password);
+      },
+    },
+  }
 );
 
 memberSchema.pre("save", async function (next) {
@@ -103,9 +88,8 @@ memberSchema.pre("save", async function (next) {
   next();
 });
 
-memberSchema.methods.verifyPassword = function (this: MemberDoc, password) {
-  return bcrypt.compare(password, this.password);
-};
+export type TMember = InferSchemaType<typeof memberSchema>;
+export type MemberDoc = HydratedDocumentFromSchema<typeof memberSchema>;
 
 const Member = model("Member", memberSchema);
 export default Member;

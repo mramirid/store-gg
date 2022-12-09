@@ -1,8 +1,8 @@
 import { Router } from "express";
 import controller from "./admin.controller";
 
-const adminHomeRouter = Router();
+const homeAdminRouter = Router();
 
-adminHomeRouter.get("/", controller.viewHome);
+homeAdminRouter.get("/", controller.viewHome);
 
-export default adminHomeRouter;
+export default homeAdminRouter;

@@ -1,6 +1,6 @@
 import type express from "express";
 
-function ensureAuthenticated(
+export function ensureAdminAuthenticated(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
@@ -12,7 +12,7 @@ function ensureAuthenticated(
   res.redirect("/admin/sign-in");
 }
 
-function ensureUnauthenticated(
+export function ensureAdminUnauthenticated(
   req: express.Request,
   res: express.Response,
   next: express.NextFunction
@@ -23,5 +23,3 @@ function ensureUnauthenticated(
   }
   res.redirect("/admin");
 }
-
-export default { ensureAuthenticated, ensureUnauthenticated };

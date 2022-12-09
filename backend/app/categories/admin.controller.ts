@@ -9,7 +9,7 @@ import {
   setAlert,
 } from "../../utils/alert";
 import { joinErrorMessages } from "../../utils/error";
-import Category, { CategoryDoc, ICategory } from "./model";
+import Category, { CategoryDoc, TCategory } from "./model";
 
 export default {
   viewCategories,
@@ -49,7 +49,7 @@ function viewCreateCategory(_: express.Request, res: express.Response) {
 }
 
 async function createCategory(
-  req: express.Request<unknown, unknown, ICategory>,
+  req: express.Request<unknown, unknown, TCategory>,
   res: express.Response,
   next: express.NextFunction
 ) {
@@ -74,7 +74,7 @@ async function createCategory(
 function renderViewCreateCategory(
   res: express.Response,
   options: {
-    formData: ICategory | undefined;
+    formData: TCategory | undefined;
     formErrors: Record<string, Error> | undefined;
   }
 ) {
@@ -113,7 +113,7 @@ async function viewEditCategory(
 }
 
 export async function editCategory(
-  req: express.Request<{ id: string }, unknown, ICategory>,
+  req: express.Request<{ id: string }, unknown, TCategory>,
   res: express.Response,
   next: express.NextFunction
 ) {
@@ -158,7 +158,7 @@ function renderViewEditCategory(
   res: express.Response,
   options: {
     category: CategoryDoc;
-    formData: ICategory;
+    formData: TCategory;
     formErrors: Record<string, Error> | undefined;
   }
 ) {

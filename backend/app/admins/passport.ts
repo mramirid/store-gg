@@ -1,10 +1,10 @@
 import _ from "lodash";
-import passport from "passport";
+import { Passport } from "passport";
 import passportLocal from "passport-local";
 import { CustomValidationError } from "../../lib/error";
-import Admin, { type AdminDoc } from "./model";
+import Admin, { AdminDoc } from "./model";
 
-const adminPassport = new passport.Passport();
+const adminPassport = new Passport();
 
 const localStrategy = new passportLocal.Strategy(
   { usernameField: "email" },

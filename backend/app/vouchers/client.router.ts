@@ -1,14 +1,14 @@
 import { Router } from "express";
-import memberMiddleware from "../members/middleware";
+import { ensureMemberAuthenticated } from "../members/middleware";
 import controller from "./client.controller";
 
-const clientVouchersRouter = Router();
+const vouchersClientRouter = Router();
 
-clientVouchersRouter.get("/:id", controller.getVoucher);
-clientVouchersRouter.post(
+vouchersClientRouter.get("/:id", controller.getVoucher);
+vouchersClientRouter.post(
   "/:id/checkout",
-  memberMiddleware.ensureAuthenticated,
+  ensureMemberAuthenticated,
   controller.checkout
 );
 
-export default clientVouchersRouter;
+export default vouchersClientRouter;

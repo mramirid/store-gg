@@ -2,12 +2,12 @@ import type { JwtPayload } from "jsonwebtoken";
 import passport from "passport";
 import { ExtractJwt, Strategy as JWTStrategy } from "passport-jwt";
 import { env } from "../../lib/constant";
-import Member, { IMember, MemberDoc } from "./model";
+import Member, { TMember, MemberDoc } from "./model";
 
 const memberPassport = new passport.Passport();
 
 type MemberJWTPayload = JwtPayload &
-  Pick<IMember, "fullName" | "email" | "phoneNumber">;
+  Pick<TMember, "fullName" | "email" | "phoneNumber">;
 
 memberPassport.use(
   new JWTStrategy(

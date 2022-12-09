@@ -8,13 +8,13 @@ import path from "path";
 import { env } from "../../lib/constant";
 import { CustomValidationError } from "../../lib/error";
 import { name as packageName } from "../../package.json";
-import Member, { IMember, MemberDoc } from "./model";
+import Member, { TMember, MemberDoc } from "./model";
 
 async function signUp(
   req: express.Request<
     unknown,
     unknown,
-    Pick<IMember, "fullName" | "email" | "password" | "favoriteCategory">
+    Pick<TMember, "fullName" | "email" | "password" | "favoriteCategory">
   >,
   res: express.Response,
   next: express.NextFunction
@@ -68,7 +68,7 @@ async function signUp(
 }
 
 async function signIn(
-  req: express.Request<unknown, unknown, Pick<IMember, "email" | "password">>,
+  req: express.Request<unknown, unknown, Pick<TMember, "email" | "password">>,
   res: express.Response,
   next: express.NextFunction
 ) {

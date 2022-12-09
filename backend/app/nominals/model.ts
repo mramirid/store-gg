@@ -1,20 +1,18 @@
 import createHttpError from "http-errors";
 import _ from "lodash";
-import { HydratedDocument, model, Schema, Types } from "mongoose";
+import {
+  InferSchemaType,
+  HydratedDocumentFromSchema,
+  model,
+  Schema,
+  Types,
+} from "mongoose";
 import validator from "validator";
-import type { IVoucher } from "../vouchers/model";
+import type { TVoucher } from "../vouchers/model";
 
 export const NOMINAL_NAMES = ["Gold", "Diamond", "Jewel"] as const;
 
-export interface INominal {
-  name: typeof NOMINAL_NAMES[number];
-  quantity: number;
-  price: Types.Decimal128;
-}
-
-export type NominalDoc = HydratedDocument<INominal>;
-
-const nominalSchema = new Schema<INominal>(
+const nominalSchema = new Schema(
   {
     name: {
       type: String,
@@ -48,7 +46,7 @@ nominalSchema.pre(
   async function () {
     const { _id } = this.getQuery();
 
-    const nominalUsed = await model<Schema<IVoucher>>("Voucher").exists({
+    const nominalUsed = await model<Schema<TVoucher>>("Voucher").exists({
       nominals: _id,
     });
 
@@ -59,6 +57,9 @@ nominalSchema.pre(
     }
   }
 );
+
+export type TNominal = InferSchemaType<typeof nominalSchema>;
+export type NominalDoc = HydratedDocumentFromSchema<typeof nominalSchema>;
 
 const Nominal = model("Nominal", nominalSchema);
 export default Nominal;

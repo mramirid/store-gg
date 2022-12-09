@@ -1,25 +1,16 @@
 import createHttpError from "http-errors";
 import _ from "lodash";
 import {
-  HydratedDocument,
+  HydratedDocumentFromSchema,
+  InferSchemaType,
   isValidObjectId,
   model,
-  Schema,
-  Types,
+  Schema
 } from "mongoose";
 import Category from "../categories/model";
 import Nominal from "../nominals/model";
 
-export interface IVoucher {
-  name: string;
-  imageName: string;
-  category: Types.ObjectId;
-  nominals: Types.ObjectId[];
-}
-
-export type VoucherDoc = HydratedDocument<IVoucher>;
-
-const voucherSchema = new Schema<IVoucher>(
+const voucherSchema = new Schema(
   {
     name: {
       type: String,
@@ -79,6 +70,9 @@ const voucherSchema = new Schema<IVoucher>(
   },
   { timestamps: true }
 );
+
+export type TVoucher = InferSchemaType<typeof voucherSchema>;
+export type VoucherDoc = HydratedDocumentFromSchema<typeof voucherSchema>;
 
 const Voucher = model("Voucher", voucherSchema);
 export default Voucher;

@@ -12,16 +12,16 @@ import path from "path";
 import { env, mongoUri } from "../lib/constant";
 import { version } from "../package.json";
 import format from "../utils/format";
-import adminsMiddleware from "./admins/middleware";
-import adminsPassport from "./admins/passport";
+import { ensureAdminAuthenticated } from "./admins/middleware";
+import adminPassport from "./admins/passport";
 import adminsRouter from "./admins/router";
 import banksRouter from "./banks/router";
-import adminCategoriesRouter from "./categories/admin.router";
-import adminHomeRouter from "./homes/admin.router";
+import categoriesAdminRouter from "./categories/admin.router";
+import homeAdminRouter from "./homes/admin.router";
 import nominalsRouter from "./nominals/router";
 import paymentMethodsRouter from "./payment-methods/router";
-import adminTransactionsRouter from "./transactions/admin.router";
-import adminVouchersRouter from "./vouchers/admin.router";
+import transactionsAdminRouter from "./transactions/admin.router";
+import vouchersAdminRouter from "./vouchers/admin.router";
 
 const adminRouter = express.Router();
 
@@ -67,8 +67,8 @@ adminRouter.use(
   })
 );
 
-adminRouter.use(adminsPassport.initialize());
-adminRouter.use(adminsPassport.session());
+adminRouter.use(adminPassport.initialize());
+adminRouter.use(adminPassport.session());
 
 adminRouter.use(flash());
 
@@ -87,14 +87,14 @@ adminRouter.use(csrf(), (req, res, next) => {
 });
 
 adminRouter.use(adminsRouter);
-adminRouter.use(adminsMiddleware.ensureAuthenticated);
-adminRouter.use("/", adminHomeRouter);
-adminRouter.use("/categories", adminCategoriesRouter);
+adminRouter.use(ensureAdminAuthenticated);
+adminRouter.use("/", homeAdminRouter);
+adminRouter.use("/categories", categoriesAdminRouter);
 adminRouter.use("/nominals", nominalsRouter);
-adminRouter.use("/vouchers", adminVouchersRouter);
+adminRouter.use("/vouchers", vouchersAdminRouter);
 adminRouter.use("/banks", banksRouter);
 adminRouter.use("/payment-methods", paymentMethodsRouter);
-adminRouter.use("/transactions", adminTransactionsRouter);
+adminRouter.use("/transactions", transactionsAdminRouter);
 
 adminRouter.use((_, res) => {
   res.status(StatusCodes.NOT_FOUND).render("admin/404", {

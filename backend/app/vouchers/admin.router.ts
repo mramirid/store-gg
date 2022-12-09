@@ -2,23 +2,23 @@ import { Router } from "express";
 import imagesMulter from "../middlewares/images.multer";
 import controller from "./admin.controller";
 
-const adminVouchersRouter = Router();
+const vouchersAdminRouter = Router();
 
-adminVouchersRouter.get("/", controller.viewVouchers);
-adminVouchersRouter.get("/create", controller.viewCreateVoucher);
-adminVouchersRouter.post(
+vouchersAdminRouter.get("/", controller.viewVouchers);
+vouchersAdminRouter.get("/create", controller.viewCreateVoucher);
+vouchersAdminRouter.post(
   "/",
   imagesMulter.handleUpload("imageName"),
   controller.createVoucher,
   controller.createVoucherErrorHandler
 );
-adminVouchersRouter.get("/:id/edit", controller.viewEditVoucher);
-adminVouchersRouter.patch(
+vouchersAdminRouter.get("/:id/edit", controller.viewEditVoucher);
+vouchersAdminRouter.patch(
   "/:id",
   imagesMulter.handleUpload("imageName"),
   controller.editVoucher,
   controller.editVoucherErrorHandler
 );
-adminVouchersRouter.delete("/:id", controller.deleteVoucher);
+vouchersAdminRouter.delete("/:id", controller.deleteVoucher);
 
-export default adminVouchersRouter;
+export default vouchersAdminRouter;

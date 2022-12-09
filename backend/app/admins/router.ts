@@ -1,36 +1,27 @@
 import { Router } from "express";
 import controller from "./controller";
-import middleware from "./middleware";
+import {
+  ensureAdminAuthenticated,
+  ensureAdminUnauthenticated,
+} from "./middleware";
 import adminPassport from "./passport";
 
 const adminsRouter = Router();
 
-adminsRouter.post(
-  "/sign-out",
-  middleware.ensureAuthenticated,
-  controller.signOut
-);
+adminsRouter.post("/sign-out", ensureAdminAuthenticated, controller.signOut);
 
-adminsRouter.get(
-  "/sign-up",
-  middleware.ensureUnauthenticated,
-  controller.viewSignUp
-);
+adminsRouter.get("/sign-up", ensureAdminUnauthenticated, controller.viewSignUp);
 adminsRouter.post(
   "/sign-up",
-  middleware.ensureUnauthenticated,
+  ensureAdminUnauthenticated,
   controller.signUp,
   controller.signUpErrorHandler
 );
 
-adminsRouter.get(
-  "/sign-in",
-  middleware.ensureUnauthenticated,
-  controller.viewSignIn
-);
+adminsRouter.get("/sign-in", ensureAdminUnauthenticated, controller.viewSignIn);
 adminsRouter.post(
   "/sign-in",
-  middleware.ensureUnauthenticated,
+  ensureAdminUnauthenticated,
   adminPassport.authenticate("local", {
     successRedirect: "/admin",
     failWithError: true,

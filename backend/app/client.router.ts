@@ -4,12 +4,12 @@ import createHttpError from "http-errors";
 import { getReasonPhrase, StatusCodes } from "http-status-codes";
 import { CustomValidationError } from "../lib/error";
 import { getErrorMessage, joinErrorMessages } from "../utils/error";
-import clientCategoriesRouter from "./categories/client.router";
-import clientHomeController from "./homes/client.controller";
+import categoriesClientRouter from "./categories/client.router";
+import homeClientController from "./homes/client.controller";
 import memberPassport from "./members/passport";
 import membersRouter from "./members/router";
-import clientTransactionsRouter from "./transactions/client.router";
-import clientVouchersRouter from "./vouchers/client.router";
+import transactionsClientRouter from "./transactions/client.router";
+import vouchersClientRouter from "./vouchers/client.router";
 
 const clientRouter = express.Router();
 
@@ -19,11 +19,11 @@ clientRouter.use(express.json());
 
 clientRouter.use(memberPassport.initialize());
 
-clientRouter.use("/homepage", clientHomeController.getHomepageData);
-clientRouter.use("/vouchers", clientVouchersRouter);
+clientRouter.use("/homepage", homeClientController.getHomepageData);
+clientRouter.use("/vouchers", vouchersClientRouter);
 clientRouter.use("/members", membersRouter);
-clientRouter.use("/categories", clientCategoriesRouter);
-clientRouter.use("/transactions", clientTransactionsRouter);
+clientRouter.use("/categories", categoriesClientRouter);
+clientRouter.use("/transactions", transactionsClientRouter);
 
 clientRouter.use((_, __, next) => next(createHttpError(StatusCodes.NOT_FOUND)));
 

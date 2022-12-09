@@ -9,7 +9,7 @@ import {
   setAlert,
 } from "../../utils/alert";
 import { joinErrorMessages } from "../../utils/error";
-import Nominal, { INominal, NominalDoc, NOMINAL_NAMES } from "./model";
+import Nominal, { TNominal, NominalDoc, NOMINAL_NAMES } from "./model";
 
 export default {
   viewNominals,
@@ -71,7 +71,7 @@ async function createNominal(
   res.redirect("/admin/nominals");
 }
 
-type CreateNominalReqBody = Pick<INominal, "name" | "quantity"> & {
+type CreateNominalReqBody = Pick<TNominal, "name" | "quantity"> & {
   price: number;
 };
 

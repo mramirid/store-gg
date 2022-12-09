@@ -1,10 +1,10 @@
 import { Router } from "express";
 import controller from "./admin.controller";
 
-const adminTransactionsRouter = Router();
+const transactionsAdminRouter = Router();
 
-adminTransactionsRouter.get("/", controller.viewTransactions);
-adminTransactionsRouter.patch("/:id/accept", controller.acceptTrancation);
-adminTransactionsRouter.patch("/:id/reject", controller.rejectTransaction);
+transactionsAdminRouter.get("/", controller.viewTransactions);
+transactionsAdminRouter.patch("/:id/accept", controller.acceptTrancation);
+transactionsAdminRouter.patch("/:id/reject", controller.rejectTransaction);
 
-export default adminTransactionsRouter;
+export default transactionsAdminRouter;

@@ -1,13 +1,13 @@
 import { Router } from "express";
-import membersMiddleware from "../members/middleware";
+import { ensureMemberAuthenticated } from "../members/middleware";
 import controller from "./client.controller";
 
-const clientTransactionsRouter = Router();
+const transactionsClientRouter = Router();
 
-clientTransactionsRouter.get(
+transactionsClientRouter.get(
   "/",
-  membersMiddleware.ensureAuthenticated,
+  ensureMemberAuthenticated,
   controller.getTransactions
 );
 
-export default clientTransactionsRouter;
+export default transactionsClientRouter;

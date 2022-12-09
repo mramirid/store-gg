@@ -1,8 +1,8 @@
 import { Router } from "express";
 import controller from "./client.controller";
 
-const clientCategoriesRouter = Router();
+const categoriesClientRouter = Router();
 
-clientCategoriesRouter.get("/", controller.getCategories);
+categoriesClientRouter.get("/", controller.getCategories);
 
-export default clientCategoriesRouter;
+export default categoriesClientRouter;

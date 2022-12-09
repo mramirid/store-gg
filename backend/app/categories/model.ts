@@ -1,15 +1,14 @@
 import createHttpError from "http-errors";
 import _ from "lodash";
-import { HydratedDocument, model, Schema } from "mongoose";
-import type { IVoucher } from "../vouchers/model";
+import {
+  HydratedDocumentFromSchema,
+  InferSchemaType,
+  model,
+  Schema,
+} from "mongoose";
+import type { TVoucher } from "../vouchers/model";
 
-export interface ICategory {
-  name: string;
-}
-
-export type CategoryDoc = HydratedDocument<ICategory>;
-
-const categorySchema = new Schema<ICategory>(
+const categorySchema = new Schema(
   {
     name: {
       type: String,
@@ -26,7 +25,7 @@ categorySchema.pre(
   async function () {
     const { _id } = this.getQuery();
 
-    const categoryUsed = await model<Schema<IVoucher>>("Voucher").exists({
+    const categoryUsed = await model<Schema<TVoucher>>("Voucher").exists({
       category: _id,
     });
 
@@ -37,6 +36,9 @@ categorySchema.pre(
     }
   }
 );
+
+export type TCategory = InferSchemaType<typeof categorySchema>;
+export type CategoryDoc = HydratedDocumentFromSchema<typeof categorySchema>;
 
 const Category = model("Category", categorySchema);
 export default Category;

@@ -1,8 +1,13 @@
 import createHttpError from "http-errors";
 import _ from "lodash";
-import { HydratedDocument, model, Schema } from "mongoose";
+import {
+  HydratedDocumentFromSchema,
+  InferSchemaType,
+  model,
+  Schema,
+} from "mongoose";
 import validator from "validator";
-import type { IPaymentMethod } from "../payment-methods/model";
+import type { TPaymentMethod } from "../payment-methods/model";
 
 export const BANK_NAMES = [
   "Bank Syariah Indonesia",
@@ -25,15 +30,7 @@ export const BANK_NAMES = [
   "Bank Bumiputera Syariah",
 ] as const;
 
-export interface IBank {
-  name: typeof BANK_NAMES[number];
-  holderName: string;
-  holderNumbers: string;
-}
-
-export type BankDoc = HydratedDocument<IBank>;
-
-const bankSchema = new Schema<IBank>(
+const bankSchema = new Schema(
   {
     name: {
       type: String,
@@ -65,7 +62,7 @@ bankSchema.pre(
   async function () {
     const { _id } = this.getQuery();
 
-    const bankUsed = await model<Schema<IPaymentMethod>>(
+    const bankUsed = await model<Schema<TPaymentMethod>>(
       "PaymentMethod"
     ).exists({ banks: _id });
 
@@ -76,6 +73,9 @@ bankSchema.pre(
     }
   }
 );
+
+export type TBank = InferSchemaType<typeof bankSchema>;
+export type BankDoc = HydratedDocumentFromSchema<typeof bankSchema>;
 
 const Bank = model("Bank", bankSchema);
 export default Bank;
