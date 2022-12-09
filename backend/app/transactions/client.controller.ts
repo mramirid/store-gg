@@ -1,10 +1,11 @@
 import type express from "express";
+import createHttpError from "http-errors";
 import { StatusCodes } from "http-status-codes";
 import type { FilterQuery } from "mongoose";
 import type { MemberDoc } from "../members/model";
 import Transaction, { TransactionDoc, TTransaction } from "./model";
 
-export default { getTransactions };
+export default { getTransactions, getTransaction };
 
 async function getTransactions(
   req: express.Request<
@@ -46,5 +47,30 @@ async function getTransactions(
   res.status(StatusCodes.OK).json({
     totalSpent: totalSpentResult?.value ?? 0,
     transactions,
+  });
+}
+
+async function getTransaction(
+  req: express.Request<{ id: string }>,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  let transaction: TransactionDoc;
+
+  try {
+    transaction = await Transaction.findOne({
+      _id: req.params.id,
+      "member.current": (req.user as MemberDoc)._id,
+    }).orFail(new createHttpError.NotFound("Transaction not found"));
+  } catch (error) {
+    next(error);
+    return;
+  }
+
+  res.status(StatusCodes.OK).json({
+    transaction: {
+      ...transaction.toJSON(),
+      totalPrice: transaction.getTotalPrice(),
+    },
   });
 }
