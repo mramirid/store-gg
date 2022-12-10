@@ -1,7 +1,6 @@
 import type express from "express";
 import createHttpError from "http-errors";
 import { StatusCodes } from "http-status-codes";
-import type { FilterQuery } from "mongoose";
 import type { MemberDoc } from "../members/model";
 import Transaction, { TransactionDoc, TTransaction } from "./model";
 
@@ -17,36 +16,43 @@ async function getTransactions(
   res: express.Response,
   next: express.NextFunction
 ) {
-  let transactions: TransactionDoc[],
-    totalSpentResult: Record<"value", number> | undefined;
-
-  const filter: FilterQuery<TTransaction> = {
-    ...req.query,
-    "member.current": (req.user as MemberDoc)._id,
-  };
+  let result:
+    | { transactions: TransactionDoc[]; totalSpent: number }
+    | undefined;
 
   try {
-    [transactions, [totalSpentResult]] = await Promise.all([
-      Transaction.find(filter),
-      Transaction.aggregate()
-        .match(filter)
-        .group({
-          _id: null,
-          value: { $sum: "$nominal.price" },
-        })
-        .project({
-          _id: 0,
-          value: { $toDouble: "$value" },
-        }),
-    ]);
+    [result] = await Transaction.aggregate()
+      // Query berdasarkan status transaksi & id member pemilik transaksi.
+      .match({
+        ...req.query,
+        "member.current": (req.user as MemberDoc)._id,
+      })
+      // Hitung total spent dengan menjumlahkan total prices dari semua transaksi.
+      .group({
+        _id: null,
+        totalSpent: {
+          $sum: {
+            $add: [
+              { $multiply: ["$nominal.price", "$taxRate"] },
+              "$nominal.price",
+            ],
+          },
+        },
+        transactions: { $push: "$$ROOT" },
+      })
+      .project({
+        _id: 0,
+        totalSpent: { $toDouble: "$totalSpent" },
+        transactions: 1,
+      });
   } catch (error) {
     next(error);
     return;
   }
 
   res.status(StatusCodes.OK).json({
-    totalSpent: totalSpentResult?.value ?? 0,
-    transactions,
+    transactions: result?.transactions ?? [],
+    totalSpent: result?.totalSpent ?? 0,
   });
 }
 
