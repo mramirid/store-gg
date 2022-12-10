@@ -1,10 +1,12 @@
 import createHttpError from "http-errors";
 import _ from "lodash";
 import {
-  HydratedDocumentFromSchema, InferSchemaType, isValidObjectId,
+  HydratedDocumentFromSchema,
+  InferSchemaType,
+  isValidObjectId,
   model,
   Schema,
-  Types
+  Types,
 } from "mongoose";
 import validator from "validator";
 import Category from "../categories/model";

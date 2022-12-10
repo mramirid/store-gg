@@ -5,7 +5,7 @@ import { getReasonPhrase, StatusCodes } from "http-status-codes";
 import { CustomValidationError } from "../lib/error";
 import { getErrorMessage, joinErrorMessages } from "../utils/error";
 import categoriesClientRouter from "./categories/client.router";
-import homeClientController from "./homes/client.controller";
+import homeClientRouter from "./homes/client.router";
 import memberPassport from "./members/passport";
 import membersRouter from "./members/router";
 import transactionsClientRouter from "./transactions/client.router";
@@ -19,7 +19,7 @@ clientRouter.use(express.json());
 
 clientRouter.use(memberPassport.initialize());
 
-clientRouter.use("/homepage", homeClientController.getHomepageData);
+clientRouter.use("/homepage", homeClientRouter);
 clientRouter.use("/vouchers", vouchersClientRouter);
 clientRouter.use("/members", membersRouter);
 clientRouter.use("/categories", categoriesClientRouter);

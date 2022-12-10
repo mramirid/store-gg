@@ -6,7 +6,7 @@ import {
   AlertStatuses,
   buildAlert,
   getAlert,
-  setAlert
+  setAlert,
 } from "../../utils/alert";
 import { joinErrorMessages } from "../../utils/error";
 import Bank, { BankDoc, TBank, BANK_NAMES } from "./model";

@@ -5,7 +5,7 @@ import {
   InferSchemaType,
   isValidObjectId,
   model,
-  Schema
+  Schema,
 } from "mongoose";
 import Category from "../categories/model";
 import Nominal from "../nominals/model";

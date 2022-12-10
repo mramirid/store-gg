@@ -1,7 +1,13 @@
 import type express from "express";
 import { StatusCodes } from "http-status-codes";
 import type mongoose from "mongoose";
+import type { FilterQuery } from "mongoose";
 import type { CategoryDoc } from "../categories/model";
+import type { MemberDoc } from "../members/model";
+import Transaction, {
+  TransactionDoc,
+  TTransaction,
+} from "../transactions/model";
 import type { VoucherDoc } from "../vouchers/model";
 import Voucher from "../vouchers/model";
 
@@ -30,5 +36,48 @@ async function getHomepageData(
   res.status(StatusCodes.OK).json({ vouchers });
 }
 
-const homeClientController = Object.freeze({ getHomepageData });
-export default homeClientController;
+async function getDashboardOverviewData(
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  const filterQuery: FilterQuery<TTransaction> = {
+    "member.current": (req.user as MemberDoc)._id,
+  };
+
+  let topUpCategories: unknown, latestTransactions: TransactionDoc[];
+
+  try {
+    [topUpCategories, latestTransactions] = await Promise.all([
+      Transaction.aggregate()
+        .match(filterQuery)
+        .group({
+          _id: "$category.current",
+          name: { $first: "$category.name" },
+          totalSpent: {
+            $sum: {
+              $add: [
+                { $multiply: ["$nominal.price", "$taxRate"] },
+                "$nominal.price",
+              ],
+            },
+          },
+        })
+        .sort({
+          totalSpent: -1,
+        })
+        .project({
+          name: 1,
+          totalSpent: { $toDouble: "$totalSpent" },
+        }),
+      Transaction.find(filterQuery).sort("-updatedAt").limit(5),
+    ]);
+  } catch (error) {
+    next(error);
+    return;
+  }
+
+  res.status(StatusCodes.OK).json({ topUpCategories, latestTransactions });
+}
+
+export default { getHomepageData, getDashboardOverviewData };
