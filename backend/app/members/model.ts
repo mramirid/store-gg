@@ -84,7 +84,9 @@ const memberSchema = new Schema(
 );
 
 memberSchema.pre("save", async function (next) {
-  this.password = await bcrypt.hash(this.password, 12);
+  if (this.isDirectModified("password")) {
+    this.password = await bcrypt.hash(this.password, 12);
+  }
   next();
 });
 
