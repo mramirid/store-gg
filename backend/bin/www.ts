@@ -6,7 +6,7 @@ import http from "http";
 import _ from "lodash";
 import type mongoose from "mongoose";
 import app from "../app";
-import db from "../lib/db";
+import database from "../lib/database";
 
 //
 // Get port from environment and store in Express.
@@ -38,13 +38,11 @@ function normalizePort(value: string) {
 //
 const server = http.createServer(app);
 
-//
-// Listen on provided port, on all network interfaces.
-//
-db.on("error", (error: mongoose.Error.MongooseServerSelectionError) => {
+database.on("error", (error: mongoose.Error.MongooseServerSelectionError) => {
   throw new Error("Failed to connect to MongoDB:", { cause: error });
 });
-db.on("open", () => {
+database.on("open", () => {
+  // Listen on provided port, on all network interfaces.
   server.listen(port);
   server.on("error", onError);
   server.on("listening", onListening);
