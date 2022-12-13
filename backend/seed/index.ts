@@ -243,7 +243,7 @@ export default async function seed() {
       bankAccountName: septian.fullName,
       gameId: "septian_gaming",
     },
-    status: "Accepted",
+    status: "accepted",
   });
   const handiTransaction = new Transaction({
     voucher: {
@@ -298,7 +298,7 @@ export default async function seed() {
       bankAccountName: andre.fullName,
       gameId: "ndreee",
     },
-    status: "Rejected",
+    status: "rejected",
   });
   const transactionsInsertion = Transaction.insertMany([
     septianTransaction,

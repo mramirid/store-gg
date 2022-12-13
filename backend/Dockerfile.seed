@@ -1,0 +1,22 @@
+FROM node:18-alpine
+
+WORKDIR /home
+
+COPY package.json .
+COPY package-lock.json .
+RUN npm i --omit=dev
+
+COPY app/admins/model.ts app/admins/
+COPY app/banks/model.ts app/banks/
+COPY app/categories/model.ts app/categories/
+COPY app/members/model.ts app/members/
+COPY app/nominals/model.ts app/nominals/
+COPY app/payment-methods/model.ts app/payment-methods/
+COPY app/transactions/model.ts app/transactions/
+COPY app/vouchers/model.ts app/vouchers/
+COPY bin/seed.ts bin/
+COPY lib/constant.ts lib/
+COPY seed/index.ts seed/
+COPY seed/images public/uploads/
+
+CMD [ "npm", "run", "seed" ]

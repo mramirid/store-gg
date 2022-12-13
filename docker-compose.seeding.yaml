@@ -1,0 +1,11 @@
+services:
+  seeding:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.seed
+    env_file:
+      - ./backend/.env.production
+    volumes:
+      - public_uploads:/home/public/uploads
+    depends_on:
+      - mongodb

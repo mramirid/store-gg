@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "seed:dev": "env-cmd -f ./.env.development.local ts-node ./bin/seed.ts",
+    "seed": "ts-node --transpile-only ./bin/seed.ts",
     "start": "ts-node --transpile-only ./bin/www.ts",
     "dev": "@powershell -Command $env:DEBUG='*'; env-cmd -f ./.env.development.local nodemon ./bin/www.ts",
     "prettier": "prettier --write \"**/*.{js,ts}\"",
@@ -14,7 +14,6 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@tsconfig/node-lts-strictest": "^18.12.1",
     "admin-lte": "^3.2.0",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
@@ -44,6 +43,7 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
+    "@tsconfig/node-lts-strictest": "^18.12.1",
     "@types/bcryptjs": "^2.4.2",
     "@types/compression": "^1.7.2",
     "@types/connect-flash": "^0.0.37",
