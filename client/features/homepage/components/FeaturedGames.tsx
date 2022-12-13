@@ -93,7 +93,7 @@ export function FeaturedGame(props: {
                 <h3 className="fw-semibold text-white text-xl m-0">
                   {props.name}
                 </h3>
-                <p className="fw-light text-white m-0">{props.name}</p>
+                <p className="fw-light text-white m-0">{props.category}</p>
               </div>
             </div>
           </div>
