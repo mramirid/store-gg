@@ -1,5 +1,9 @@
 import { isError } from "lodash-es";
 
+export function getErrorMessage(maybeError: unknown) {
+  return toError(maybeError).message;
+}
+
 export function toError(maybeError: unknown) {
   if (isError(maybeError)) {
     return maybeError;

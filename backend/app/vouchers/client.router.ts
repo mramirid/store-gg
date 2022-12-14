@@ -4,6 +4,7 @@ import controller from "./client.controller";
 
 const vouchersClientRouter = Router();
 
+vouchersClientRouter.get("/ids", controller.getVoucherIds);
 vouchersClientRouter.get("/:id", controller.getVoucher);
 vouchersClientRouter.post(
   "/:id/checkout",

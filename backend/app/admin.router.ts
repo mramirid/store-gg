@@ -19,7 +19,7 @@ import banksRouter from "./banks/router";
 import categoriesAdminRouter from "./categories/admin.router";
 import homeAdminRouter from "./homes/admin.router";
 import nominalsRouter from "./nominals/router";
-import paymentMethodsRouter from "./payment-methods/router";
+import paymentMethodsAdminRouter from "./payment-methods/admin.router";
 import transactionsAdminRouter from "./transactions/admin.router";
 import vouchersAdminRouter from "./vouchers/admin.router";
 
@@ -93,7 +93,7 @@ adminRouter.use("/categories", categoriesAdminRouter);
 adminRouter.use("/nominals", nominalsRouter);
 adminRouter.use("/vouchers", vouchersAdminRouter);
 adminRouter.use("/banks", banksRouter);
-adminRouter.use("/payment-methods", paymentMethodsRouter);
+adminRouter.use("/payment-methods", paymentMethodsAdminRouter);
 adminRouter.use("/transactions", transactionsAdminRouter);
 
 adminRouter.use((_, res) => {

@@ -8,6 +8,7 @@ import categoriesClientRouter from "./categories/client.router";
 import homeClientRouter from "./homes/client.router";
 import memberPassport from "./members/passport";
 import membersRouter from "./members/router";
+import paymentMethodsClientRouter from "./payment-methods/client.router";
 import transactionsClientRouter from "./transactions/client.router";
 import vouchersClientRouter from "./vouchers/client.router";
 
@@ -24,6 +25,7 @@ clientRouter.use("/vouchers", vouchersClientRouter);
 clientRouter.use("/members", membersRouter);
 clientRouter.use("/categories", categoriesClientRouter);
 clientRouter.use("/transactions", transactionsClientRouter);
+clientRouter.use("/payment-methods", paymentMethodsClientRouter);
 
 clientRouter.use((_, __, next) => next(createHttpError(StatusCodes.NOT_FOUND)));
 

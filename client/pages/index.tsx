@@ -43,6 +43,7 @@ export default Home;
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const response = await fetch(resolveApiEndpointURL("/homepage"));
+
   const data = await response.json();
   if (!response.ok) {
     throw toError(data);

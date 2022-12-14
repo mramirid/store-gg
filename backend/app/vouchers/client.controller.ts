@@ -14,9 +14,29 @@ import PaymentMethod from "../payment-methods/model";
 import Transaction from "../transactions/model";
 import Voucher, { VoucherDoc } from "./model";
 
-export default { getVoucher, checkout };
+export default { getVoucherIds, getVoucher, checkout };
 
 const voucher404Error = new createHttpError.NotFound("Voucher not found");
+
+async function getVoucherIds(
+  _: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) {
+  let result: { voucherIds: string[] } | undefined;
+
+  try {
+    [result] = await Voucher.aggregate().group({
+      _id: null,
+      voucherIds: { $push: "$_id" },
+    });
+  } catch (error) {
+    next(error);
+    return;
+  }
+
+  res.status(StatusCodes.OK).json({ voucherIds: result?.voucherIds ?? [] });
+}
 
 async function getVoucher(
   req: express.Request<{ id: string }>,

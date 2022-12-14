@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "seed:dev": "env-cmd -f ./.env.development.local ts-node ./bin/seed.ts",
     "seed": "ts-node --transpile-only ./bin/seed.ts",
     "start": "ts-node --transpile-only ./bin/www.ts",
     "dev": "@powershell -Command $env:DEBUG='*'; env-cmd -f ./.env.development.local nodemon ./bin/www.ts",

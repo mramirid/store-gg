@@ -1,0 +1,21 @@
+.radioCard {
+  transition: all 0.1s linear;
+  background-color: #f9faff;
+  border-radius: 1.625rem;
+  padding: 1.875rem;
+  cursor: pointer;
+}
+
+input[type="radio"]:checked + .radioCard {
+  border: 2px solid #00baff;
+  background-color: rgba(0, 186, 255, 0.05);
+}
+
+.radioCard #checkIcon {
+  transition: all 0.1s linear;
+  opacity: 0;
+}
+
+input[type="radio"]:checked + .radioCard #checkIcon {
+  opacity: 1;
+}

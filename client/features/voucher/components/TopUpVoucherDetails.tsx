@@ -1,6 +1,11 @@
 import Image from "next/image";
 
-export default function TopUpVouchersDetails(props: { forMobile?: boolean }) {
+export default function TopUpVouchersDetails(props: {
+  name: string;
+  imageUrl: string;
+  category: string;
+  forMobile?: boolean;
+}) {
   if (props.forMobile === true) {
     return (
       <div className="row align-items-center">
@@ -8,11 +13,11 @@ export default function TopUpVouchersDetails(props: { forMobile?: boolean }) {
           <div className="img-wrapper card">
             <Image
               className="img-fluid w-100"
-              src={require("../../homepage/assets/game-3.png")}
+              src={props.imageUrl}
               width={280}
               height={380}
+              alt={props.name}
               priority
-              alt=""
             />
           </div>
         </div>
@@ -20,12 +25,10 @@ export default function TopUpVouchersDetails(props: { forMobile?: boolean }) {
         {/* Mobile: Game title */}
         <div className="col-md-12 col-8 d-md-none d-block">
           <h2 className="text-xl fw-bold color-palette-1 text-start mb-10">
-            Mobile Legends:
-            <br />
-            The New Battle 2021
+            {props.name}
           </h2>
           <p className="text-sm color-palette-2 text-start mb-0">
-            Category: Mobile
+            Category: {props.category}
           </p>
         </div>
 
@@ -43,11 +46,9 @@ export default function TopUpVouchersDetails(props: { forMobile?: boolean }) {
   return (
     <div className="pb-50 d-md-block d-none">
       <h2 className="text-4xl fw-bold color-palette-1 text-start mb-10 mt-10">
-        Mobile Legends:
-        <br />
-        The New Battle 2021
+        {props.name}
       </h2>
-      <p className="text-lg color-palette-2 mb-0">Category: Mobile</p>
+      <p className="text-lg color-palette-2 mb-0">Category: {props.category}</p>
     </div>
   );
 }
