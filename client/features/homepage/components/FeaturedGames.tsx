@@ -2,7 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import type { SVGProps } from "react";
 
-export default function FeaturedGames() {
+export type FeaturedGame = {
+  id: string;
+  name: string;
+  imageUrl: string;
+  category: string;
+};
+
+export default function FeaturedGames(props: {
+  featuredGames: FeaturedGame[];
+}) {
   return (
     <section className="pt-50 pb-50">
       <div className="container-fluid">
@@ -14,36 +23,9 @@ export default function FeaturedGames() {
           className="d-flex flex-row flex-lg-wrap overflow-setting justify-content-lg-between gap-lg-3 gap-4"
           data-aos="fade-up"
         >
-          <FeaturedGame
-            id="123"
-            imageUrl={require("../assets/game-1.png")}
-            name="Super Mechs"
-            category="Mobile"
-          />
-          <FeaturedGame
-            id="345"
-            imageUrl={require("../assets/game-2.png")}
-            name="Call of Duty: MW"
-            category="Mobile"
-          />
-          <FeaturedGame
-            id="678"
-            imageUrl={require("../../homepage/assets/game-3.png")}
-            name="Mobile Legends"
-            category="Mobile"
-          />
-          <FeaturedGame
-            id="901"
-            imageUrl={require("../assets/game-4.png")}
-            name="Clash of Clans"
-            category="Mobile"
-          />
-          <FeaturedGame
-            id="234"
-            imageUrl={require("../assets/game-5.png")}
-            name="Valorant"
-            category="Desktop"
-          />
+          {props.featuredGames.map((featuredGame) => (
+            <FeaturedGame key={featuredGame.id} {...featuredGame} />
+          ))}
         </div>
       </div>
 
@@ -63,12 +45,7 @@ export default function FeaturedGames() {
   );
 }
 
-export function FeaturedGame(props: {
-  id: string;
-  imageUrl: string;
-  name: string;
-  category: string;
-}) {
+export function FeaturedGame(props: FeaturedGame) {
   return (
     <div className="card position-relative">
       <Link href={`/games/${props.id}/top-up`}>

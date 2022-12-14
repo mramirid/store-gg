@@ -5,3 +5,14 @@ export function formatIDR(amount: number) {
     // maximumFractionDigits: 0,
   });
 }
+
+export function resolveApiImageURL(imageName: string) {
+  return process.env["NEXT_PUBLIC_BACKEND_BASE_URL"] + "/uploads/" + imageName;
+}
+
+export function resolveApiEndpointURL(endpoint: string) {
+  if (endpoint.charAt(0) !== "/") {
+    endpoint = "/" + endpoint;
+  }
+  return process.env["NEXT_PUBLIC_BACKEND_BASE_URL"] + "/api/v1" + endpoint;
+}
