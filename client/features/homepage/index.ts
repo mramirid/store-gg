@@ -1,12 +1,14 @@
 export {
-  ChooseGameIcon,
+  ChooseVoucherIcon,
   default as Feature,
-  FeatureStep,
+  FeatureStep
 } from "./components/Feature";
 export {
-  default as FeaturedGames,
-  FeaturedGame,
-} from "./components/FeaturedGames";
+  default as FeaturedVouchers,
+  FeaturedVoucher,
+  type TFeaturedVoucher
+} from "./components/FeaturedVouchers";
 export { default as Hero } from "./components/Hero";
 export { default as Statistics } from "./components/Statistics";
 export { default as Story } from "./components/Story";
+

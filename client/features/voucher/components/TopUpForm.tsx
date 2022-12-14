@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 export default function TopUpForm() {
   const router = useRouter();
 
-  const { id: thisGameId } = router.query;
+  const { id: thisVoucherId } = router.query;
 
   return (
     <form action="./checkout.html" method="POST">
@@ -323,7 +323,7 @@ export default function TopUpForm() {
         />
       </div>
       <div className="d-sm-block d-flex flex-column w-100">
-        <Link href={`/games/${thisGameId}/top-up/checkout`}>
+        <Link href={`/vouchers/${thisVoucherId}/checkout`}>
           <button
             type="submit"
             className="btn btn-submit rounded-pill fw-medium text-white border-0 text-lg"

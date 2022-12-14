@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function TopUpGameDetails(props: { forMobile?: boolean }) {
+export default function TopUpVouchersDetails(props: { forMobile?: boolean }) {
   if (props.forMobile === true) {
     return (
       <div className="row align-items-center">

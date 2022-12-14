@@ -27,7 +27,7 @@ export default function Navbar() {
             <NavItem href="/" isActive>
               Home
             </NavItem>
-            <NavItem href="/games">Games</NavItem>
+            <NavItem href="/vouchers">Vouchers</NavItem>
             <NavItem href="/rewards">Rewards</NavItem>
             <NavItem href="/discover">Discover</NavItem>
             <NavItem href="/rank">Global Rank</NavItem>

@@ -4,20 +4,20 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import {
   Feature,
-  FeaturedGame,
-  FeaturedGames,
+  FeaturedVouchers,
   Hero,
   Statistics,
   Story,
+  TFeaturedVoucher,
 } from "../features/homepage";
 import { toError } from "../utils/error";
 import { resolveApiEndpointURL, resolveApiImageURL } from "../utils/format";
 
 type Props = {
-  featuredGames: FeaturedGame[];
+  featuredVouchers: TFeaturedVoucher[];
 };
 
-const Home: NextPage<Props> = ({ featuredGames }) => (
+const Home: NextPage<Props> = ({ featuredVouchers }) => (
   <>
     <Head>
       <title>Home &ndash; StoreGG</title>
@@ -30,7 +30,7 @@ const Home: NextPage<Props> = ({ featuredGames }) => (
     <main>
       <Hero />
       <Feature />
-      <FeaturedGames featuredGames={featuredGames} />
+      <FeaturedVouchers vouchers={featuredVouchers} />
       <Statistics />
       <Story />
     </main>
@@ -49,7 +49,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   }
 
   const { vouchers } = data as ResponseData;
-  const featuredGames = vouchers.map<FeaturedGame>((voucher) => ({
+  const featuredVouchers = vouchers.map<TFeaturedVoucher>((voucher) => ({
     id: voucher._id,
     name: voucher.name,
     imageUrl: resolveApiImageURL(voucher.imageName),
@@ -57,7 +57,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   }));
 
   return {
-    props: { featuredGames },
+    props: { featuredVouchers },
   };
 };
 

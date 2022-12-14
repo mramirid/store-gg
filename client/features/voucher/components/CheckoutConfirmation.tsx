@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 export default function CheckoutConfirmation() {
   const router = useRouter();
 
-  const { id: thisGameId } = router.query;
+  const { id: thisVoucherId } = router.query;
 
   return (
     <>
@@ -14,7 +14,7 @@ export default function CheckoutConfirmation() {
         <span className="checkmark" />
       </label>
       <div className="d-md-block d-flex flex-column w-100 pt-50">
-        <Link href={`/games/${thisGameId}/top-up/checkout-completed`}>
+        <Link href={`/vouchers/${thisVoucherId}/checkout-completed`}>
           <button className="btn btn-confirm-payment rounded-pill fw-medium text-white border-0 text-lg">
             Confirm Payment
           </button>

@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function CheckoutGameDetails() {
+export default function CheckoutVoucherDetails() {
   return (
     <div className="d-flex flex-row align-items-center pt-md-50 pb-md-50 pt-30 pb-30">
       <div className="pe-4">

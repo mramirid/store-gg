@@ -2,29 +2,29 @@ import Image from "next/image";
 import Link from "next/link";
 import type { SVGProps } from "react";
 
-export type FeaturedGame = {
+export type TFeaturedVoucher = {
   id: string;
   name: string;
   imageUrl: string;
   category: string;
 };
 
-export default function FeaturedGames(props: {
-  featuredGames: FeaturedGame[];
+export default function FeaturedVouchers(props: {
+  vouchers: TFeaturedVoucher[];
 }) {
   return (
     <section className="pt-50 pb-50">
       <div className="container-fluid">
         <h2 className="text-4xl fw-bold color-palette-1 mb-30">
           Our Featured
-          <br /> Games This Year
+          <br /> Vouchers This Year
         </h2>
         <div
           className="d-flex flex-row flex-lg-wrap overflow-setting justify-content-lg-between gap-lg-3 gap-4"
           data-aos="fade-up"
         >
-          {props.featuredGames.map((featuredGame) => (
-            <FeaturedGame key={featuredGame.id} {...featuredGame} />
+          {props.vouchers.map((featuredVoucher) => (
+            <FeaturedVoucher key={featuredVoucher.id} {...featuredVoucher} />
           ))}
         </div>
       </div>
@@ -45,10 +45,10 @@ export default function FeaturedGames(props: {
   );
 }
 
-export function FeaturedGame(props: FeaturedGame) {
+export function FeaturedVoucher(props: TFeaturedVoucher) {
   return (
     <div className="card position-relative">
-      <Link href={`/games/${props.id}/top-up`}>
+      <Link href={"/vouchers/" + props.id}>
         <>
           <div className="blur-sharp">
             <div className="img-wrapper">

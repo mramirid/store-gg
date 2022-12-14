@@ -1,5 +1,5 @@
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
-import { ChooseGameIcon, FeatureStep } from "../../../features/homepage";
+import { ChooseVoucherIcon, FeatureStep } from "../../../features/homepage";
 
 export default {
   title: "Features/Homepage/FeatureStep",
@@ -12,7 +12,10 @@ const Template: ComponentStory<typeof FeatureStep> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  Icon: ChooseGameIcon,
+  Icon: ChooseVoucherIcon,
   title: "1. Start",
-  descriptions: ["Pilih salah satu game", "yang ingin kamu top up"],
+  descriptions: [
+    "Pilih salah satu voucher dari",
+    "game yang ingin kamu top up",
+  ],
 };

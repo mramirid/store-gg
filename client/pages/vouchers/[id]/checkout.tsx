@@ -1,17 +1,18 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import LogoIcon from "../../../../components/LogoIcon";
+import LogoIcon from "../../../components/LogoIcon";
 import {
   CheckoutBillDetails,
   CheckoutConfirmation,
-  CheckoutGameDetails,
-} from "../../../../features/top-up";
+  CheckoutVoucherDetails,
+} from "../../../features/voucher";
 
 const Checkout: NextPage = () => (
   <>
     <Head>
-      <title>Checkout GAME_NAME &ndash; StoreGG</title>
+      {/* TODO: display voucher name */}
+      <title>Checkout VOUCHER_NAME &ndash; StoreGG</title>
     </Head>
 
     <div className="checkout mx-auto pt-md-100 pb-md-145 pt-30 pb-30">
@@ -28,7 +29,7 @@ const Checkout: NextPage = () => (
               Waktunya meningkatkan cara bermain
             </p>
           </div>
-          <CheckoutGameDetails />
+          <CheckoutVoucherDetails />
           <hr />
           <CheckoutBillDetails />
           <CheckoutConfirmation />

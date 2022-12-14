@@ -12,9 +12,12 @@ export default function Feature() {
         <div className="row gap-lg-0 gap-4" data-aos="fade-up">
           <FeatureStep
             className="col-lg-4"
-            Icon={ChooseGameIcon}
+            Icon={ChooseVoucherIcon}
             title="1. Start"
-            descriptions={["Pilih salah satu game", "yang ingin kamu top up"]}
+            descriptions={[
+              "Pilih salah satu voucher dari",
+              "game yang ingin kamu top up",
+            ]}
           />
           <FeatureStep
             className="col-lg-4"
@@ -73,7 +76,7 @@ export function FeatureStep(props: {
   );
 }
 
-export function ChooseGameIcon(props: SVGProps<SVGSVGElement>) {
+export function ChooseVoucherIcon(props: SVGProps<SVGSVGElement>) {
   const maskId = useId();
 
   return (

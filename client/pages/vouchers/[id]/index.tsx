@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Footer from "../../../../components/Footer";
-import Navbar from "../../../../components/Navbar";
-import { TopUpForm, TopUpGameDetails } from "../../../../features/top-up";
+import Footer from "../../../components/Footer";
+import Navbar from "../../../components/Navbar";
+import { TopUpForm, TopUpVoucherDetails } from "../../../features/voucher";
 
 const TopUp: NextPage = () => (
   <>
@@ -26,10 +26,10 @@ const TopUp: NextPage = () => (
         </div>
         <div className="row">
           <div className="col-xl-3 col-lg-4 col-md-5 pb-30 pb-md-0 pe-md-25 text-md-start">
-            <TopUpGameDetails forMobile />
+            <TopUpVoucherDetails forMobile />
           </div>
           <div className="col-xl-9 col-lg-8 col-md-7 ps-md-25">
-            <TopUpGameDetails />
+            <TopUpVoucherDetails />
             <hr />
             <TopUpForm />
           </div>

@@ -5,7 +5,7 @@ export default function Statistics() {
         <div className="d-flex flex-lg-row flex-column align-items-center justify-content-center gap-lg-0 gap-4">
           <Statistic value="290M+" unit="Players Top Up" />
           <Divider />
-          <Statistic value="12.500" unit="Games Available" />
+          <Statistic value="12.500" unit="Vouchers Available" />
           <Divider />
           <Statistic value="99,9%" unit="Happy Players" />
           <Divider />
