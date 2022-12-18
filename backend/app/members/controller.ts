@@ -9,8 +9,15 @@ import { env } from "../../lib/constant";
 import { CustomValidationError } from "../../lib/error";
 import { name as packageName } from "../../package.json";
 import Member, { MemberDoc, TMember } from "./model";
+import validator from "validator";
 
-export default { signUp, signIn, validateEditProfileRequest, editProfile };
+export default {
+  signUp,
+  validateSignInRequest,
+  signIn,
+  validateEditProfileRequest,
+  editProfile,
+};
 
 async function signUp(
   req: express.Request<
@@ -69,8 +76,36 @@ async function signUp(
     .json({ message: "Sign-up success", jwtToken: issueJWT(member) });
 }
 
+type SignInReqBody = Pick<TMember, "email" | "password">;
+
+async function validateSignInRequest(
+  req: express.Request<unknown, unknown, Partial<SignInReqBody>>,
+  __: express.Response,
+  next: express.NextFunction
+) {
+  const validationError = new CustomValidationError();
+
+  if (_.isEmpty(req.body.email)) {
+    validationError.addValidatorError("email", "Enter your email address");
+  } else if (!validator.isEmail(String(req.body.email))) {
+    validationError.addValidatorError("email", "Enter a valid email address");
+  }
+
+  if (_.isEmpty(req.body.password)) {
+    validationError.addValidatorError("password", "Enter your password");
+  }
+
+  if (validationError.hasError) {
+    validationError.status = StatusCodes.UNPROCESSABLE_ENTITY;
+    next(validationError);
+    return;
+  }
+
+  next();
+}
+
 async function signIn(
-  req: express.Request<unknown, unknown, Pick<TMember, "email" | "password">>,
+  req: express.Request<unknown, unknown, SignInReqBody>,
   res: express.Response,
   next: express.NextFunction
 ) {
@@ -133,7 +168,7 @@ async function validateEditProfileRequest(
   if (_.isString(req.query.removeAvatar) && _.isObject(req.file)) {
     validationError.addValidatorError(
       "avatar",
-      "Do not upload a new avatar if you want to remove the old avatar"
+      "Do not upload a new avatar if you are removing the old one"
     );
     validationError.status = StatusCodes.BAD_REQUEST;
     next(validationError);

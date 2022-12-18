@@ -7,7 +7,11 @@ const membersRouter = Router();
 
 membersRouter.post("/", imagesMulter.handleUpload("avatar"), controller.signUp);
 
-membersRouter.post("/sign-in", controller.signIn);
+membersRouter.post(
+  "/sign-in",
+  controller.validateSignInRequest,
+  controller.signIn
+);
 
 membersRouter.patch(
   "/edit",

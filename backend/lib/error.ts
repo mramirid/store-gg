@@ -18,6 +18,10 @@ export class CustomValidationError extends mongoose.Error.ValidationError {
   addValidatorError(path: string, message: string) {
     this.addError(path, new CustomValidatorError(message));
   }
+
+  get hasError() {
+    return !_.isEmpty(this.errors);
+  }
 }
 
 class CustomValidatorError extends mongoose.Error.ValidatorError {
