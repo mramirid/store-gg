@@ -2,12 +2,12 @@ import { StatusCodes } from "http-status-codes";
 import _ from "lodash";
 import type { ReactNode } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
-import { ResponseError, ResponseValidationError } from "../../../lib/error";
+import { ResponseError } from "../../../lib/error";
 import { createContext } from "../../../utils/context";
 import {
   ErrorWithMessage,
   getErrorMessage,
-  isErrorWithMessage,
+  isErrorWithMessage
 } from "../../../utils/error";
 import { resolveApiEndpointURL } from "../../../utils/format";
 
@@ -26,6 +26,11 @@ const [useContext, Provider] =
   }>();
 
 export { useContext as useSignUpContext };
+
+const validationErrorStatuses = Object.freeze([
+  StatusCodes.UNPROCESSABLE_ENTITY,
+  StatusCodes.CONFLICT,
+]);
 
 export function SignUpContextProvider(props: { children: ReactNode }) {
   const form = useForm<SignUpValues>();
@@ -87,28 +92,19 @@ export function SignUpContextProvider(props: { children: ReactNode }) {
       throw new Error("Failed to sign up. Try again later.", { cause: error });
     }
 
-    const data = await response.json();
+    const resBody = await response.json();
 
     if (!response.ok) {
-      const errorMessage = getErrorMessage(data);
+      const errorMessage = getErrorMessage(resBody);
 
-      if (
-        response.status === StatusCodes.UNPROCESSABLE_ENTITY ||
-        response.status === StatusCodes.CONFLICT
-      ) {
-        const validationError = new ResponseValidationError(
-          errorMessage,
-          data.cause.errors,
-          response.status
-        );
-        setFormErrors(validationError.errors);
-        throw validationError;
+      if (validationErrorStatuses.includes(response.status)) {
+        setFormErrors(resBody.cause.errors);
       }
 
       throw new ResponseError(errorMessage, response.status);
     }
 
-    return data.jwtToken as string;
+    return resBody.jwtToken as string;
   };
 
   return <Provider value={{ form, signUp }}>{props.children}</Provider>;
