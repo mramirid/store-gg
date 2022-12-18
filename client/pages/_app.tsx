@@ -3,6 +3,9 @@ import "aos/dist/aos.css";
 import type { AppProps } from "next/app";
 import Script from "next/script";
 import { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { SignUpContextProvider } from "../features/authentication";
 import "../styles/utilities.css";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
@@ -18,7 +21,12 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossOrigin="anonymous"
       />
-      <Component {...pageProps} />
+
+      <SignUpContextProvider>
+        <Component {...pageProps} />
+      </SignUpContextProvider>
+
+      <ToastContainer />
     </>
   );
 }
