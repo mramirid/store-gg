@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { Controller } from "react-hook-form";
 import { toast } from "react-toastify";
 import UploadPhotoIcon from "../../components/UploadPhotoIcon";
-import { useSignUpContext } from "../../features/authentication/lib/sign-up.context";
+import { useSignUpForm } from "../../features/authentication";
 import { getErrorMessage, toError } from "../../utils/error";
 import { resolveApiEndpointURL } from "../../utils/format";
 
@@ -18,7 +18,7 @@ type Props = {
 };
 
 const SignUpPhoto: NextPage<Props> = ({ categories }) => {
-  const { form, signUp } = useSignUpContext();
+  const { form, submit } = useSignUpForm();
   const { fullName, email } = form.getValues();
   const { avatar: avatarError, favoriteCategory: favoriteCategoryError } =
     form.formState.errors;
@@ -27,7 +27,7 @@ const SignUpPhoto: NextPage<Props> = ({ categories }) => {
 
   const submitHandler = async () => {
     try {
-      const jwtToken = await signUp();
+      const jwtToken = await submit();
       console.log(jwtToken);
     } catch (error) {
       toast.error(getErrorMessage(error));

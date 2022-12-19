@@ -7,7 +7,7 @@ import { createContext } from "../../../utils/context";
 import {
   ErrorWithMessage,
   getErrorMessage,
-  isErrorWithMessage
+  isErrorWithMessage,
 } from "../../../utils/error";
 import { resolveApiEndpointURL } from "../../../utils/format";
 
@@ -22,17 +22,17 @@ type SignUpValues = {
 const [useContext, Provider] =
   createContext<{
     form: UseFormReturn<SignUpValues>;
-    signUp: () => Promise<string>;
+    submit: () => Promise<string>;
   }>();
 
-export { useContext as useSignUpContext };
+export { useContext as useSignUpForm };
 
 const validationErrorStatuses = Object.freeze([
   StatusCodes.UNPROCESSABLE_ENTITY,
   StatusCodes.CONFLICT,
 ]);
 
-export function SignUpContextProvider(props: { children: ReactNode }) {
+export function SignUpFormProvider(props: { children: ReactNode }) {
   const form = useForm<SignUpValues>();
 
   const setFormErrors = (
@@ -70,7 +70,7 @@ export function SignUpContextProvider(props: { children: ReactNode }) {
     }
   };
 
-  const signUp = async () => {
+  const submit = async () => {
     const formValues = form.getValues();
 
     const formData = new FormData();
@@ -107,7 +107,7 @@ export function SignUpContextProvider(props: { children: ReactNode }) {
     return resBody.jwtToken as string;
   };
 
-  return <Provider value={{ form, signUp }}>{props.children}</Provider>;
+  return <Provider value={{ form, submit }}>{props.children}</Provider>;
 }
 
 // type JwtPayload = jwt.JwtPayload & {

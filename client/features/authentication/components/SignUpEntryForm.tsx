@@ -1,9 +1,9 @@
 import { isObject } from "lodash-es";
 import Link from "next/link";
-import { useSignUpContext } from "../lib/sign-up.context";
+import { useSignUpForm } from "../lib/sign-up-form";
 
 export default function SignUpEntryForm() {
-  const { form } = useSignUpContext();
+  const { form } = useSignUpForm();
   const {
     fullName: fullNameError,
     email: emailError,

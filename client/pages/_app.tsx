@@ -5,7 +5,7 @@ import Script from "next/script";
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { SignUpContextProvider } from "../features/authentication";
+import { SignUpFormProvider } from "../features/authentication";
 import "../styles/utilities.css";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
@@ -22,9 +22,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         crossOrigin="anonymous"
       />
 
-      <SignUpContextProvider>
+      <SignUpFormProvider>
         <Component {...pageProps} />
-      </SignUpContextProvider>
+      </SignUpFormProvider>
 
       <ToastContainer />
     </>
