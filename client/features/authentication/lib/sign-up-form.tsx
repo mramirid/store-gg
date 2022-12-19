@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import _ from "lodash";
+import { isObject } from "lodash-es";
 import type { ReactNode } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { ResponseError } from "../../../lib/error";
@@ -78,7 +78,7 @@ export function SignUpFormProvider(props: { children: ReactNode }) {
     formData.append("email", formValues.email);
     formData.append("password", formValues.password);
     formData.append("favoriteCategory", formValues.favoriteCategory);
-    if (_.isObject(formValues.avatar)) {
+    if (isObject(formValues.avatar)) {
       formData.append("avatar", formValues.avatar, formValues.avatar.name);
     }
 
@@ -109,15 +109,3 @@ export function SignUpFormProvider(props: { children: ReactNode }) {
 
   return <Provider value={{ form, submit }}>{props.children}</Provider>;
 }
-
-// type JwtPayload = jwt.JwtPayload & {
-//   fullName: string;
-//   email: string;
-//   avatarName?: string;
-//   phoneNumber?: string;
-// };
-
-// function saveJwt(jwtToken: string) {
-//   const jwtPayload = jwt.decode(jwtToken) as JwtPayload;
-//   console.log(jwtPayload);
-// }

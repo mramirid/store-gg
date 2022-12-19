@@ -1,5 +1,4 @@
 import { StatusCodes } from "http-status-codes";
-import jwt from "jsonwebtoken";
 import { isObject } from "lodash-es";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
@@ -10,6 +9,7 @@ import {
   isErrorWithMessage,
 } from "../../../utils/error";
 import { resolveApiEndpointURL } from "../../../utils/format";
+import { saveJwt } from "../lib/jwt";
 
 type SignInValues = {
   email: string;
@@ -71,8 +71,7 @@ export default function SignInForm() {
       return;
     }
 
-    const jwtToken = jwt.decode(resBody.jwtToken);
-    console.log(jwtToken);
+    saveJwt(resBody.jwtToken);
 
     router.replace("/member");
   };

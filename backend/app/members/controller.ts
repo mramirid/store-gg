@@ -261,7 +261,7 @@ function issueJWT(member: MemberDoc) {
     {
       issuer: packageName,
       subject: member.id,
-      expiresIn: "60d",
+      expiresIn: "1d",
     }
   );
 }

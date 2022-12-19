@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { Controller } from "react-hook-form";
 import { toast } from "react-toastify";
 import UploadPhotoIcon from "../../components/UploadPhotoIcon";
-import { useSignUpForm } from "../../features/authentication";
+import { saveJwt, useSignUpForm } from "../../features/authentication";
 import { getErrorMessage, toError } from "../../utils/error";
 import { resolveApiEndpointURL } from "../../utils/format";
 
@@ -28,7 +28,7 @@ const SignUpPhoto: NextPage<Props> = ({ categories }) => {
   const submitHandler = async () => {
     try {
       const jwtToken = await submit();
-      console.log(jwtToken);
+      saveJwt(jwtToken);
     } catch (error) {
       toast.error(getErrorMessage(error));
       return;
