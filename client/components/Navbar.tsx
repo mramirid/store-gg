@@ -1,11 +1,14 @@
 import classnames from "classnames";
+import { isString } from "lodash-es";
 import Image from "next/image";
 import Link from "next/link";
+import { useJwt } from "../features/auth";
+import EmptyAvatarIcon from "./EmptyAvatarIcon";
 import LogoIcon from "./LogoIcon";
 
-const isLoggedIn = process.env["NEXT_PUBLIC_IS_LOGGED_IN"] === "true";
-
 export default function Navbar() {
+  const jwt = useJwt();
+
   return (
     <nav
       className={classnames(
@@ -31,7 +34,7 @@ export default function Navbar() {
             <NavItem href="/rewards">Rewards</NavItem>
             <NavItem href="/discover">Discover</NavItem>
             <NavItem href="/rank">Global Rank</NavItem>
-            {isLoggedIn ? <AuthNavItem /> : <UnauthNavItem />}
+            {jwt.hasToken ? <AuthNavItem /> : <UnauthNavItem />}
           </ul>
         </div>
       </div>
@@ -98,6 +101,9 @@ function NavItem(props: {
 }
 
 function AuthNavItem() {
+  const { payload } = useJwt();
+  const avatarUrl = payload?.avatarUrl;
+
   return (
     <li className="nav-item my-auto dropdown d-flex">
       <div className="vertical-line d-lg-block d-none ms-lg-4" />
@@ -110,13 +116,21 @@ function AuthNavItem() {
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <Image
-            src={require("../features/homepage/assets/avatar-1.jpg")}
-            className="rounded-circle"
-            width={40}
-            height={40}
-            alt="Your avatar"
-          />
+          {isString(avatarUrl) ? (
+            <Image
+              src={avatarUrl}
+              className="rounded-circle"
+              width={40}
+              height={40}
+              alt="Your avatar"
+            />
+          ) : (
+            <EmptyAvatarIcon
+              className="rounded-circle"
+              width={40}
+              height={40}
+            />
+          )}
         </a>
         <ul
           className="dropdown-menu border-0"
@@ -196,11 +210,13 @@ function DropdownItem(props: {
 }
 
 function UnauthNavItem() {
+  const jwt = useJwt();
+
   return (
     <li className="nav-item my-auto">
       <Link href="/sign-in" className="text-decoration-none">
         <button className="btn btn-sign-in d-flex justify-content-center rounded-pill ms-lg-4">
-          Sign In
+          {jwt.isReady ? "Sign In" : "Loading"}
         </button>
       </Link>
 

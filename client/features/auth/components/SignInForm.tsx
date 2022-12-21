@@ -9,7 +9,7 @@ import {
   isErrorWithMessage,
 } from "../../../utils/error";
 import { resolveApiEndpointURL } from "../../../utils/format";
-import { saveJwt } from "../lib/jwt";
+import { useJwt } from "../lib/jwt";
 
 type SignInValues = {
   email: string;
@@ -46,6 +46,8 @@ export default function SignInForm() {
     }
   };
 
+  const jwt = useJwt();
+
   const submitHandler = async (formValues: SignInValues) => {
     let response: Response;
     try {
@@ -71,7 +73,7 @@ export default function SignInForm() {
       return;
     }
 
-    saveJwt(resBody.jwtToken);
+    jwt.setToken(resBody.jwtToken);
 
     router.replace("/member");
   };

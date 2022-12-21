@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Controller } from "react-hook-form";
 import { toast } from "react-toastify";
-import UploadPhotoIcon from "../../components/UploadPhotoIcon";
-import { saveJwt, useSignUpForm } from "../../features/authentication";
+import UploadAvatarIcon from "../../components/UploadAvatarIcon";
+import { useJwt, useSignUpForm } from "../../features/auth";
 import { getErrorMessage, toError } from "../../utils/error";
 import { resolveApiEndpointURL } from "../../utils/format";
 
@@ -17,7 +17,7 @@ type Props = {
   }>;
 };
 
-const SignUpPhoto: NextPage<Props> = ({ categories }) => {
+const SignUpAvatar: NextPage<Props> = ({ categories }) => {
   const { form, submit } = useSignUpForm();
   const { fullName, email } = form.getValues();
   const { avatar: avatarError, favoriteCategory: favoriteCategoryError } =
@@ -25,10 +25,12 @@ const SignUpPhoto: NextPage<Props> = ({ categories }) => {
 
   const router = useRouter();
 
+  const jwt = useJwt();
+
   const submitHandler = async () => {
     try {
       const jwtToken = await submit();
-      saveJwt(jwtToken);
+      jwt.setToken(jwtToken);
     } catch (error) {
       toast.error(getErrorMessage(error));
       return;
@@ -41,7 +43,7 @@ const SignUpPhoto: NextPage<Props> = ({ categories }) => {
   return (
     <>
       <Head>
-        <title>Sign Up Upload Photo &ndash; StoreGG</title>
+        <title>Sign Up Upload Avatar &ndash; StoreGG</title>
       </Head>
 
       <main className="mx-auto pt-lg-227 pb-lg-227 pt-130 pb-50">
@@ -67,7 +69,7 @@ const SignUpPhoto: NextPage<Props> = ({ categories }) => {
                               alt="Selected avatar"
                             />
                           ) : (
-                            <UploadPhotoIcon />
+                            <UploadAvatarIcon />
                           )}
                         </label>
                         <input
@@ -211,7 +213,7 @@ const SignUpPhoto: NextPage<Props> = ({ categories }) => {
   );
 };
 
-export default SignUpPhoto;
+export default SignUpAvatar;
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const response = await fetch(resolveApiEndpointURL("/categories"));

@@ -4,7 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import LogoIcon from "../components/LogoIcon";
-import { SignInForm } from "../features/authentication";
+import { SignInForm } from "../features/auth";
 
 const SignIn: NextPage = () => (
   <>

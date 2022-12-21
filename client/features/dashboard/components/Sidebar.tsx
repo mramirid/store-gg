@@ -1,8 +1,11 @@
 import classNames from "classnames";
+import { isString } from "lodash-es";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import EmptyAvatarIcon from "../../../components/EmptyAvatarIcon";
 import WinnerIcon from "../../../components/WinnerIcon";
+import { useJwt } from "../../auth";
 
 export default function Sidebar() {
   return (
@@ -86,17 +89,29 @@ export default function Sidebar() {
 }
 
 function Profile() {
+  const { payload } = useJwt();
+
   return (
     <header className="user text-center pb-50 pe-30">
-      <Image
-        src={require("../../homepage/assets/avatar-1.jpg")}
-        width={90}
-        height={90}
-        alt="Your avatar"
-        className="mb-20 rounded-circle"
-      />
-      <h2 className="fw-bold text-xl color-palette-1 m-0">Harley Hanson</h2>
-      <p className="color-palette-2 m-0">hanson@example.net</p>
+      {isString(payload?.avatarUrl) ? (
+        <Image
+          src={payload?.avatarUrl as string}
+          width={90}
+          height={90}
+          alt="Your avatar"
+          className="mb-20 rounded-circle"
+        />
+      ) : (
+        <EmptyAvatarIcon
+          className="mb-20 rounded-circle"
+          width={90}
+          height={90}
+        />
+      )}
+      <h2 className="fw-bold text-xl color-palette-1 m-0">
+        {payload?.fullName}
+      </h2>
+      <p className="color-palette-2 m-0">{payload?.email}</p>
     </header>
   );
 }

@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-export default function UploadPhotoIcon(props: SVGProps<SVGSVGElement>) {
+export default function UploadAvatarIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       width={120}

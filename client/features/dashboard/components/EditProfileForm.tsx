@@ -1,11 +1,11 @@
 import Image from "next/image";
 import TextInput from "../../../components/TextInput";
-import UploadPhotoIcon from "../../../components/UploadPhotoIcon";
+import UploadAvatarIcon from "../../../components/UploadAvatarIcon";
 
 export default function EditProfileForm() {
   return (
     <form>
-      <div className="photo d-flex">
+      <div className="d-flex">
         <div className="avatar__wrapper me-20">
           <Image
             className="avatar rounded-circle"
@@ -20,7 +20,7 @@ export default function EditProfileForm() {
         </div>
         <div className="image-upload">
           <label htmlFor="avatar">
-            <UploadPhotoIcon width={90} height={90} />
+            <UploadAvatarIcon width={90} height={90} />
           </label>
           <input
             id="avatar"
