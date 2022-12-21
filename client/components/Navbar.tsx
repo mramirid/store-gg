@@ -2,6 +2,7 @@ import classnames from "classnames";
 import { isString } from "lodash-es";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useJwt } from "../features/auth";
 import EmptyAvatarIcon from "./EmptyAvatarIcon";
 import LogoIcon from "./LogoIcon";
@@ -104,6 +105,15 @@ function AuthNavItem() {
   const { payload } = useJwt();
   const avatarUrl = payload?.avatarUrl;
 
+  const router = useRouter();
+
+  const jwt = useJwt();
+
+  const logoutHandler = () => {
+    jwt.removeToken();
+    router.replace("/");
+  };
+
   return (
     <li className="nav-item my-auto dropdown d-flex">
       <div className="vertical-line d-lg-block d-none ms-lg-4" />
@@ -136,12 +146,18 @@ function AuthNavItem() {
           className="dropdown-menu border-0"
           aria-labelledby="dropdownMenuLink"
         >
-          <DropdownItem href="/member">My Profile</DropdownItem>
-          <DropdownItem href="/member/wallet">Wallet</DropdownItem>
-          <DropdownItem href="/member/edit-profile">
+          <DropdownItem type="link" href="/member">
+            My Profile
+          </DropdownItem>
+          <DropdownItem type="link" href="/member/wallet">
+            Wallet
+          </DropdownItem>
+          <DropdownItem type="link" href="/member/edit-profile">
             Account Settings
           </DropdownItem>
-          <DropdownItem href="/sign-in">Log Out</DropdownItem>
+          <DropdownItem type="button" onClick={logoutHandler}>
+            Sign Out
+          </DropdownItem>
         </ul>
       </div>
 
@@ -176,21 +192,51 @@ function AuthNavItem() {
   );
 }
 
-function DropdownItem(props: {
-  children: string;
+type DropdownItemLinkProps = {
+  type: "link";
   href: string;
   isActive?: boolean;
-}) {
+};
+
+type DropdownItemButtonProps = {
+  type: "button";
+  onClick: () => void;
+};
+
+function DropdownItem(
+  props: (DropdownItemLinkProps | DropdownItemButtonProps) & {
+    children: string;
+  }
+) {
+  let clickable: JSX.Element;
+  const baseClassName = "dropdown-item text-lg color-palette-2";
+  switch (props.type) {
+    case "link":
+      clickable = (
+        <Link
+          href={props.href}
+          className={classnames(baseClassName, {
+            active: props.isActive,
+          })}
+        >
+          {props.children}
+        </Link>
+      );
+      break;
+    case "button":
+      clickable = (
+        <button className={baseClassName} onClick={props.onClick}>
+          {props.children}
+        </button>
+      );
+      break;
+    default:
+      throw new TypeError("Unknown type");
+  }
+
   return (
     <li>
-      <Link
-        href={props.href}
-        className={classnames("dropdown-item text-lg color-palette-2", {
-          active: props.isActive,
-        })}
-      >
-        {props.children}
-      </Link>
+      {clickable}
 
       <style jsx>{`
         .dropdown-item {

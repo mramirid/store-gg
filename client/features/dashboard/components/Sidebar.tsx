@@ -8,6 +8,15 @@ import WinnerIcon from "../../../components/WinnerIcon";
 import { useJwt } from "../../auth";
 
 export default function Sidebar() {
+  const jwt = useJwt();
+
+  const router = useRouter();
+
+  const logoutHandler = () => {
+    jwt.removeToken();
+    router.replace("/");
+  };
+
   return (
     <aside className="content pt-50 pb-30 ps-30">
       <Profile />
@@ -18,43 +27,50 @@ export default function Sidebar() {
             className="mb-30"
             Icon={OverviewIcon}
             label="Overview"
+            type="link"
             href="/member"
           />
           <MenuItem
             className="mb-30"
             Icon={TransactionsIcon}
             label="Transactions"
+            type="link"
             href="/member/transactions"
           />
           <MenuItem
             className="mb-30"
             Icon={MessagesIcon}
             label="Messages"
+            type="link"
             href="/member/messages"
           />
           <MenuItem
             className="mb-30"
             Icon={CardIcon}
             label="Card"
+            type="link"
             href="/member/card"
           />
           <MenuItem
             className="mb-30"
             Icon={RewardsIcon}
             label="Rewards"
+            type="link"
             href="/member/rewards"
           />
           <MenuItem
             className="mb-30"
             Icon={SettingsIcon}
             label="Settings"
+            type="link"
             href="/member/edit-profile"
           />
           <MenuItem
             className="mb-30"
             Icon={LogoutIcon}
-            label="Log Out"
-            href="/member/logout"
+            type="button"
+            label="Sign Out"
+            onClick={logoutHandler}
           />
         </ul>
       </nav>
@@ -116,23 +132,52 @@ function Profile() {
   );
 }
 
-function MenuItem(props: {
-  className: string;
-  Icon: React.FC;
-  label: string;
+type MenuItemLinkProps = {
+  type: "link";
   href: string;
-}) {
+};
+
+type MenuItemButtonProps = {
+  type: "button";
+  onClick: () => void;
+};
+
+function MenuItem(
+  props: (MenuItemLinkProps | MenuItemButtonProps) & {
+    className: string;
+    Icon: React.FC;
+    label: string;
+  }
+) {
   const router = useRouter();
+
+  let href: string;
+  let isActive: boolean;
+  let onClick: () => void;
+  switch (props.type) {
+    case "link":
+      href = props.href;
+      isActive = router.pathname === props.href;
+      onClick = () => {};
+      break;
+    case "button":
+      href = "#";
+      isActive = false;
+      onClick = props.onClick;
+      break;
+    default:
+      throw new TypeError("Unknown type");
+  }
 
   return (
     <>
-      <li
-        className={classNames(props.className, {
-          active: router.pathname === props.href,
-        })}
-      >
+      <li className={classNames(props.className, { active: isActive })}>
         <props.Icon />
-        <Link href={props.href} className="m-0 text-lg text-decoration-none">
+        <Link
+          href={href}
+          className="m-0 text-lg text-decoration-none"
+          onClick={onClick}
+        >
           <span className="label">{props.label}</span>
         </Link>
       </li>
