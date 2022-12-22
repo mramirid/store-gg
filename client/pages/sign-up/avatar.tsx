@@ -36,8 +36,8 @@ const SignUpAvatar: NextPage<Props> = ({ categories }) => {
       return;
     }
 
+    router.replace("/member");
     form.reset();
-    router.replace("/sign-up/success");
   };
 
   return (
