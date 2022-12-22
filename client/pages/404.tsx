@@ -21,7 +21,7 @@ const NotFound: NextPage = () => (
           <p className="text-lg text-center color-palette-1 m-0">
             Halaman yang anda kunjungi sudah
             <br className="d-sm-block d-none" />
-            tidak tersedia pada sistem kami dan menghubungi
+            tidak tersedia pada sistem kami
           </p>
         </div>
         <div className="button-group d-flex flex-column mx-auto">
