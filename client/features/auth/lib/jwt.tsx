@@ -6,13 +6,18 @@ import { ReactNode, useEffect, useState } from "react";
 import { createContext } from "../../../utils/context";
 import { resolveApiImageURL } from "../../../utils/format";
 
-export const JWT_COOKIE_NAME = "jwt-token";
+const JWT_COOKIE_NAME = "jwt-token";
 
 const [useContext, Provider] =
   createContext<{
     payload: JwtPayload | undefined;
+
+    /** `true` if the token has been retrieved from cookie, no matter if it is found or not. */
     isReady: boolean;
+
+    /** `true` if the payload is not undefined. */
     hasToken: boolean;
+
     setToken: (token: string) => void;
     removeToken: () => void;
   }>();
@@ -37,16 +42,10 @@ export function JwtProvider(props: { children: ReactNode }) {
     setToken(null);
   };
 
-  /**
-   * `true` if the token has been retrieved from cookie, no matter if it is found or not.
-   */
   const isReady = !isUndefined(token);
 
   const payload = isString(token) ? decodeJwt(token) : undefined;
 
-  /**
-   * `true` if the payload is not undefined.
-   */
   const hasToken = isObject(payload);
 
   return (
