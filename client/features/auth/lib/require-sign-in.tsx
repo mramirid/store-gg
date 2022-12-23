@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import { useJwt } from "./jwt";
 
 export default function requireSignIn<P extends JSX.IntrinsicAttributes>(
-  PageComponent: NextPage<P>
+  Page: NextPage<P>
 ) {
-  const PrivateRouteWrapper = (props: P) => {
+  const ProtectedPageWrapper = (props: P) => {
     const jwt = useJwt();
 
     const router = useRouter();
@@ -19,8 +19,8 @@ export default function requireSignIn<P extends JSX.IntrinsicAttributes>(
       return null;
     }
 
-    return <PageComponent {...props} />;
+    return <Page {...props} />;
   };
 
-  return PrivateRouteWrapper;
+  return ProtectedPageWrapper;
 }

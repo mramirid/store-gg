@@ -6,7 +6,7 @@ import {
   isValidObjectId,
   model,
   Schema,
-  Types,
+  Types
 } from "mongoose";
 import validator from "validator";
 import Category from "../categories/model";
@@ -160,8 +160,8 @@ const transactionSchema = new Schema(
     },
     status: {
       type: String,
-      default: "pending",
-      enum: ["accepted", "rejected", "pending"],
+      default: "paying",
+      enum: ["accepted", "rejected", "verifying", "paying"],
     },
   },
   {

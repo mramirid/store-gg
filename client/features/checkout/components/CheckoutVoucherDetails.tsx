@@ -1,25 +1,29 @@
 import Image from "next/image";
+import { resolveApiImageURL } from "../../../utils/format";
 
-export default function CheckoutVoucherDetails() {
+export default function CheckoutVoucherDetails(props: {
+  voucherName: string;
+  voucherImageName: string;
+  categoryName: string;
+}) {
   return (
     <div className="d-flex flex-row align-items-center pt-md-50 pb-md-50 pt-30 pb-30">
       <div className="pe-4">
         <div className="img-wrapper">
           <Image
-            src={require("../../homepage/assets/game-3.png")}
+            src={resolveApiImageURL(props.voucherImageName)}
             width={281}
             height={381}
             className="img-fluid"
-            alt=""
+            alt={props.voucherName}
           />
         </div>
       </div>
       <div>
         <h2 className="fw-bold text-xl color-palette-1 mb-10">
-          Mobile Legends:
-          <br /> The New Battle 2021
+          {props.voucherName}
         </h2>
-        <p className="color-palette-2 m-0">Category: Mobile</p>
+        <p className="color-palette-2 m-0">Category: {props.categoryName}</p>
       </div>
 
       <style jsx>{`

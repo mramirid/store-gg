@@ -179,7 +179,7 @@ export default async function seed() {
   });
   const visa = new PaymentMethod({
     name: "VISA",
-    banks: [bnis.id],
+    banks: [bnis.id, bsm.id],
   });
   const paymentMethodsInsertion = PaymentMethod.insertMany([transfer, visa]);
 
@@ -300,10 +300,39 @@ export default async function seed() {
     },
     status: "rejected",
   });
+  const andreTransaction2 = new Transaction({
+    voucher: {
+      name: codMW.name,
+      imageName: codMW.imageName,
+    },
+    category: {
+      current: desktop.id,
+      name: desktop.name,
+    },
+    nominal: {
+      name: jewel150.name,
+      quantity: jewel150.quantity,
+      price: jewel150.price,
+    },
+    paymentMethod: visa.name,
+    targetBank: {
+      name: bsm.name,
+      holderName: bsm.holderName,
+      holderNumbers: bsm.holderNumbers,
+    },
+    taxRate: 7 / 100,
+    member: {
+      current: andre.id,
+      bankAccountName: andre.fullName,
+      gameId: "ndreee",
+    },
+    status: "verifying",
+  });
   const transactionsInsertion = Transaction.insertMany([
     septianTransaction,
     handiTransaction,
     andreTransaction,
+    andreTransaction2,
   ]);
 
   const amir = new Admin({
@@ -314,31 +343,4 @@ export default async function seed() {
   const adminCreation = amir.save();
 
   await Promise.all([transactionsInsertion, adminCreation]);
-
-  return {
-    categories: { mobile, desktop, console },
-    nominals: {
-      gold50,
-      gold100,
-      gold125,
-      gold500,
-      gold225,
-      jewel50,
-      jewel100,
-      jewel150,
-      jewel225,
-      jewel500,
-      diamond50,
-      diamond100,
-      diamond150,
-      diamond300,
-      diamond500,
-    },
-    vouchers: { superMechs, codMW, mobileLegends, coc, valorant },
-    banks: { bsi, bsm, bnis },
-    paymentMethods: { transfer, visa },
-    transactions: { septianTransaction, handiTransaction, andreTransaction },
-    admins: { amir },
-    members: { septian, handi, andre },
-  };
 }

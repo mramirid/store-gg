@@ -23,10 +23,12 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.40.0",
-    "react-toastify": "^9.1.1"
+    "react-toastify": "^9.1.1",
+    "swr": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
+    "@hookform/devtools": "^4.3.0",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-essentials": "^6.5.13",
     "@storybook/addon-interactions": "^6.5.13",

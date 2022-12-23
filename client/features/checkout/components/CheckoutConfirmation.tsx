@@ -1,24 +1,66 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { getErrorMessage } from "../../../utils/error";
+import { resolveApiEndpointURL } from "../../../utils/format";
+import { useJwt } from "../../auth";
 
-export default function CheckoutConfirmation() {
+export default function CheckoutConfirmation(props: { transactionId: string }) {
+  const [hasTransferred, setHasTransferred] = useState(false);
+
   const router = useRouter();
 
-  const { id: thisVoucherId } = router.query;
+  const jwt = useJwt();
+
+  const confirmPayment = async () => {
+    if (!hasTransferred) {
+      return;
+    }
+
+    let response: Response;
+    try {
+      response = await fetch(
+        resolveApiEndpointURL(
+          `/transactions/${props.transactionId}/confirm-payment`
+        ),
+        {
+          method: "PATCH",
+          headers: { Authorization: `Bearer ${jwt.token}` },
+        }
+      );
+    } catch (_) {
+      toast.error("Failed to confirm the payment. Try again.");
+      return;
+    }
+
+    const resBody = await response.json();
+
+    if (!response.ok) {
+      toast.error(getErrorMessage(resBody));
+      return;
+    }
+
+    router.replace("/checkout/completed");
+  };
 
   return (
     <>
       <label className="checkbox-label text-lg color-palette-1">
         I have transferred the money
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          onChange={() => setHasTransferred(!hasTransferred)}
+        />
         <span className="checkmark" />
       </label>
       <div className="d-md-block d-flex flex-column w-100 pt-50">
-        <Link href={`/vouchers/${thisVoucherId}/checkout-completed`}>
-          <button className="btn btn-confirm-payment rounded-pill fw-medium text-white border-0 text-lg">
-            Confirm Payment
-          </button>
-        </Link>
+        <button
+          className="btn btn-confirm-payment rounded-pill fw-medium text-white border-0 text-lg"
+          onClick={confirmPayment}
+          disabled={!hasTransferred}
+        >
+          Confirm Payment
+        </button>
       </div>
 
       <style jsx>{`

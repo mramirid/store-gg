@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { CheckoutCompletedIlustration } from "../../../features/voucher";
+import { requireSignIn } from "../../features/auth";
+import { CheckoutCompletedIlustration } from "../../features/checkout";
 
 const CheckoutCompleted: NextPage = () => (
   <>
@@ -59,4 +60,4 @@ const CheckoutCompleted: NextPage = () => (
   </>
 );
 
-export default CheckoutCompleted;
+export default requireSignIn(CheckoutCompleted);

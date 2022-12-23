@@ -56,7 +56,7 @@ export default function SignInForm() {
         body: JSON.stringify(formValues),
         headers: { "Content-Type": "application/json" },
       });
-    } catch (error) {
+    } catch (_) {
       toast.error("Failed to sign in. Try again later.");
       return;
     }

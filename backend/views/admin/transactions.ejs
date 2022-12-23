@@ -60,14 +60,17 @@
                       case "accepted":
                         badgeColor = "badge-success";
                         break;
-                      case "pending":
-                        badgeColor = "badge-warning";
-                        break;
                       case "rejected":
                         badgeColor = "badge-danger";
                         break;
-                      default:
+                      case "verifying":
+                        badgeColor = "badge-warning";
+                        break;
+                      case "paying":
                         badgeColor = "badge-info";
+                        break;
+                      default:
+                        badgeColor = "badge-secondary";
                     }
                     %>
 
@@ -79,7 +82,7 @@
                       class="d-inline">
                       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                       <button type="submit" type="button" class="btn btn-danger"
-                        <%= transaction.status === "rejected" && "disabled" %>>
+                        <%= (transaction.status === "rejected" || transaction.status === "paying") && "disabled" %>>
                         <i class="fas fa-times"></i> Reject
                       </button>
                     </form>
@@ -87,7 +90,7 @@
                       class="d-inline">
                       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                       <button type="submit" type="button" class="btn btn-success"
-                        <%= transaction.status === "accepted" && "disabled" %>>
+                        <%= (transaction.status === "accepted" || transaction.status === "paying") && "disabled" %>>
                         <i class="fas fa-check"></i> Accept
                       </button>
                     </form>

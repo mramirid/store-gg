@@ -10,12 +10,13 @@ const JWT_COOKIE_NAME = "jwt-token";
 
 const [useContext, Provider] =
   createContext<{
-    payload: JwtPayload | undefined;
+    token: string | null;
+    payload: JwtPayload | null;
 
     /** `true` if the token has been retrieved from cookie, no matter if it is found or not. */
     isReady: boolean;
 
-    /** `true` if the payload is not undefined. */
+    /** `true` if the payload is not null. */
     hasToken: boolean;
 
     setToken: (token: string) => void;
@@ -44,13 +45,14 @@ export function JwtProvider(props: { children: ReactNode }) {
 
   const isReady = !isUndefined(token);
 
-  const payload = isString(token) ? decodeJwt(token) : undefined;
+  const payload = isString(token) ? decodeJwt(token) : null;
 
   const hasToken = isObject(payload);
 
   return (
     <Provider
       value={{
+        token: token ?? null,
         payload,
         isReady,
         hasToken,

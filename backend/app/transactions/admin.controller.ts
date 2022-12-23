@@ -40,9 +40,10 @@ async function acceptTrancation(
   next: express.NextFunction
 ) {
   try {
-    const transaction = await Transaction.findById(req.params.id).orFail(
-      transaction404Error
-    );
+    const transaction = await Transaction.findOne({
+      _id: req.params.id,
+      status: { $in: ["verifying", "rejected"] },
+    }).orFail(transaction404Error);
     transaction.status = "accepted";
     await transaction.save();
   } catch (error) {
@@ -63,9 +64,10 @@ async function rejectTransaction(
   next: express.NextFunction
 ) {
   try {
-    const transaction = await Transaction.findById(req.params.id).orFail(
-      transaction404Error
-    );
+    const transaction = await Transaction.findOne({
+      _id: req.params.id,
+      status: { $in: ["verifying", "accepted"] },
+    }).orFail(transaction404Error);
     transaction.status = "rejected";
     await transaction.save();
   } catch (error) {
