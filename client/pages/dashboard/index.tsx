@@ -1,12 +1,13 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { requireSignIn } from "../../features/auth";
 import {
   LatestTransactions,
   Sidebar,
   TopUpCategories,
 } from "../../features/dashboard";
 
-const MemberOverview: NextPage = () => (
+const DashboardOverview: NextPage = () => (
   <>
     <Head>
       <title>Overview &ndash; StoreGG</title>
@@ -44,4 +45,4 @@ const MemberOverview: NextPage = () => (
   </>
 );
 
-export default MemberOverview;
+export default requireSignIn(DashboardOverview);

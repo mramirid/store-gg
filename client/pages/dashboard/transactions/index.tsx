@@ -1,11 +1,12 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { requireSignIn } from "../../../features/auth";
 import { LatestTransactions, Sidebar } from "../../../features/dashboard";
 import TransactionStatusFilter from "../../../features/dashboard/components/TransactionStatusFilter";
 import { formatIDR } from "../../../utils/format";
 
-const MemberTransactions: NextPage = () => (
+const DashboardTransactions: NextPage = () => (
   <>
     <Head>
       <title>Your Transactions &ndash; StoreGG</title>
@@ -39,7 +40,7 @@ const MemberTransactions: NextPage = () => (
           </div>
           <LatestTransactions
             renderAction={(transactionId) => (
-              <Link href={"/member/transactions/" + transactionId}>
+              <Link href={"/dashboard/transactions/" + transactionId}>
                 <span className="btn btn-action rounded-pill text-sm">
                   Details
                 </span>
@@ -81,4 +82,4 @@ const MemberTransactions: NextPage = () => (
   </>
 );
 
-export default MemberTransactions;
+export default requireSignIn(DashboardTransactions);

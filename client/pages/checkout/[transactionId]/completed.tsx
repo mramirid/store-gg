@@ -30,7 +30,7 @@ const CheckoutCompleted: NextPage = () => {
             </p>
           </div>
           <div className="button-group d-flex flex-column mx-auto">
-            <Link href="/member">
+            <Link href="/dashboard">
               <button className="btn btn-dashboard fw-medium text-lg text-white rounded-pill mb-16">
                 My Dashboard
               </button>

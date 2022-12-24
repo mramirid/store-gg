@@ -1,12 +1,13 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { requireSignIn } from "../../../features/auth";
 import {
   Sidebar,
   TransactionGameDetails,
   TransactionProofDetails,
 } from "../../../features/dashboard";
 
-const MemberTransactionDetails: NextPage = () => (
+const DashboardTransactionDetails: NextPage = () => (
   <>
     <Head>
       <title>Transaction #GG001 &ndash; StoreGG</title>
@@ -88,4 +89,4 @@ const MemberTransactionDetails: NextPage = () => (
   </>
 );
 
-export default MemberTransactionDetails;
+export default requireSignIn(DashboardTransactionDetails);

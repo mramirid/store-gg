@@ -146,13 +146,13 @@ function AuthNavItem() {
           className="dropdown-menu border-0"
           aria-labelledby="dropdownMenuLink"
         >
-          <DropdownItem type="link" href="/member">
+          <DropdownItem type="link" href="/dashboard">
             My Profile
           </DropdownItem>
-          <DropdownItem type="link" href="/member/wallet">
+          <DropdownItem type="link" href="/dashboard/wallet">
             Wallet
           </DropdownItem>
-          <DropdownItem type="link" href="/member/edit-profile">
+          <DropdownItem type="link" href="/dashboard/edit-profile">
             Account Settings
           </DropdownItem>
           <DropdownItem type="button" onClick={logoutHandler}>

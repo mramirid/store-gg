@@ -42,7 +42,7 @@ const Checkout: NextPage = () => {
   }
 
   if (transaction.status !== "paying") {
-    router.replace(`/member/transactions/${transaction._id}`);
+    router.replace(`/dashboard/transactions/${transaction._id}`);
     return null;
   }
 

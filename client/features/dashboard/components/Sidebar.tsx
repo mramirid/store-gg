@@ -28,42 +28,42 @@ export default function Sidebar() {
             Icon={OverviewIcon}
             label="Overview"
             type="link"
-            href="/member"
+            href="/dashboard"
           />
           <MenuItem
             className="mb-30"
             Icon={TransactionsIcon}
             label="Transactions"
             type="link"
-            href="/member/transactions"
+            href="/dashboard/transactions"
           />
           <MenuItem
             className="mb-30"
             Icon={MessagesIcon}
             label="Messages"
             type="link"
-            href="/member/messages"
+            href="/dashboard/messages"
           />
           <MenuItem
             className="mb-30"
             Icon={CardIcon}
             label="Card"
             type="link"
-            href="/member/card"
+            href="/dashboard/card"
           />
           <MenuItem
             className="mb-30"
             Icon={RewardsIcon}
             label="Rewards"
             type="link"
-            href="/member/rewards"
+            href="/dashboard/rewards"
           />
           <MenuItem
             className="mb-30"
             Icon={SettingsIcon}
             label="Settings"
             type="link"
-            href="/member/edit-profile"
+            href="/dashboard/edit-profile"
           />
           <MenuItem
             className="mb-30"

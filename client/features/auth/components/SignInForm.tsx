@@ -75,7 +75,7 @@ export default function SignInForm() {
 
     jwt.setToken(resBody.jwtToken);
 
-    router.replace("/member");
+    router.replace("/dashboard");
   };
 
   return (
