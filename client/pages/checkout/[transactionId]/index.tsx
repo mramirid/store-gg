@@ -4,89 +4,24 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import useSWR, { Fetcher } from "swr";
-import LogoIcon from "../../components/LogoIcon";
-import { requireSignIn, useJwt } from "../../features/auth";
+import { toast } from "react-toastify";
+import LogoIcon from "../../../components/LogoIcon";
+import { requireSignIn } from "../../../features/auth";
 import {
   CheckoutBillDetails,
   CheckoutConfirmation,
   CheckoutVoucherDetails,
-} from "../../features/checkout";
-import { ResponseError } from "../../lib/error";
-import { getErrorMessage } from "../../utils/error";
-import { resolveApiEndpointURL } from "../../utils/format";
-
-const transactionFetcher: Fetcher<Transaction, [string, string]> = async ([
-  url,
-  jwtToken,
-]) => {
-  let response: Response;
-  try {
-    response = await fetch(url, {
-      headers: { Authorization: `Bearer ${jwtToken}` },
-    });
-  } catch (error) {
-    throw new Error("Failed to fetch the transaction. Try again later.", {
-      cause: error,
-    });
-  }
-
-  const resBody = await response.json();
-
-  if (!response.ok) {
-    throw new ResponseError(getErrorMessage(resBody), response.status);
-  }
-
-  return resBody.transaction;
-};
-
-type Transaction = {
-  _id: string;
-  voucher: {
-    name: string;
-    imageName: string;
-    _id: string;
-  };
-  category: {
-    current: string;
-    name: string;
-    _id: string;
-  };
-  nominal: {
-    name: string;
-    quantity: number;
-    price: number;
-    _id: string;
-  };
-  paymentMethod: string;
-  targetBank: {
-    name: string;
-    holderName: string;
-    holderNumbers: string;
-    _id: string;
-  };
-  taxRate: number;
-  totalPrice: number;
-  member: {
-    current: string;
-    bankAccountName: string;
-    gameId: string;
-    _id: string;
-  };
-  status: string;
-};
+} from "../../../features/checkout";
+import { useTransaction } from "../../../features/transaction";
+import { ResponseError } from "../../../lib/error";
+import { getErrorMessage } from "../../../utils/error";
 
 const Checkout: NextPage = () => {
   const router = useRouter();
   const { transactionId } = router.query;
 
-  const jwt = useJwt();
-
-  const { data: transaction, error } = useSWR(
-    router.isReady
-      ? [resolveApiEndpointURL(`/transactions/${transactionId}`), jwt.token]
-      : null,
-    transactionFetcher
+  const { transaction, error } = useTransaction(
+    transactionId as string | undefined
   );
 
   if (
@@ -98,7 +33,8 @@ const Checkout: NextPage = () => {
   }
 
   if (_.isError(error)) {
-    throw error;
+    toast.error(getErrorMessage(error));
+    return null;
   }
 
   if (isUndefined(transaction)) {
