@@ -1,5 +1,6 @@
 import { init as initAOS } from "aos";
 import "aos/dist/aos.css";
+import ErrorBoundary from "components/ErrorBoundary";
 import { JwtProvider, SignUpFormProvider } from "features/auth";
 import type { AppProps } from "next/app";
 import Script from "next/script";
@@ -22,13 +23,15 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         crossOrigin="anonymous"
       />
 
-      <JwtProvider>
-        <SignUpFormProvider>
-          <Component {...pageProps} />
-        </SignUpFormProvider>
-      </JwtProvider>
+      <ErrorBoundary>
+        <JwtProvider>
+          <SignUpFormProvider>
+            <Component {...pageProps} />
+          </SignUpFormProvider>
+        </JwtProvider>
 
-      <ToastContainer />
+        <ToastContainer />
+      </ErrorBoundary>
     </>
   );
 }
