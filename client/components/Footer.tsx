@@ -89,11 +89,11 @@ export default function Footer() {
 
 function NavItem(props: {
   title: string;
-  links: {
+  links: Array<{
     label: string;
     href: string;
     isExternal?: boolean;
-  }[];
+  }>;
 }) {
   return (
     <section>
