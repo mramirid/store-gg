@@ -39,6 +39,7 @@ const DashboardTransactions: NextPage = () => (
             </div>
           </div>
           <LatestTransactions
+            transactions={[]}
             renderAction={(transactionId) => (
               <Link href={"/dashboard/transactions/" + transactionId}>
                 <span className="btn btn-action rounded-pill text-sm">

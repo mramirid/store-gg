@@ -33,6 +33,10 @@ async function getTransactions(
     | { transactions: TransactionDoc[]; totalSpent: number }
     | undefined;
 
+  const calculateTotalPrice: mongoose.ArithmeticExpressionOperator = {
+    $add: [{ $multiply: ["$nominal.price", "$taxRate"] }, "$nominal.price"],
+  };
+
   try {
     [result] = await Transaction.aggregate()
       // Query berdasarkan status transaksi & id member pemilik transaksi.
@@ -40,17 +44,13 @@ async function getTransactions(
         ...req.query,
         "member.current": (req.user as MemberDoc)._id,
       })
+      .addFields({
+        totalPrice: { $toDouble: calculateTotalPrice },
+      })
       // Hitung total spent dengan menjumlahkan total prices dari semua transaksi.
       .group({
         _id: null,
-        totalSpent: {
-          $sum: {
-            $add: [
-              { $multiply: ["$nominal.price", "$taxRate"] },
-              "$nominal.price",
-            ],
-          },
-        },
+        totalSpent: { $sum: calculateTotalPrice },
         transactions: { $push: "$$ROOT" },
       })
       .project({

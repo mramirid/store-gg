@@ -47,21 +47,21 @@ async function getDashboardOverviewData(
 
   let topUpCategories: unknown, latestTransactions: TransactionDoc[];
 
+  const calculateTotalPrice: mongoose.ArithmeticExpressionOperator = {
+    $add: [{ $multiply: ["$nominal.price", "$taxRate"] }, "$nominal.price"],
+  };
+
   try {
     [topUpCategories, latestTransactions] = await Promise.all([
       Transaction.aggregate()
         .match(filterQuery)
+        .addFields({
+          totalPrice: { $toDouble: calculateTotalPrice },
+        })
         .group({
           _id: "$category.current",
           name: { $first: "$category.name" },
-          totalSpent: {
-            $sum: {
-              $add: [
-                { $multiply: ["$nominal.price", "$taxRate"] },
-                "$nominal.price",
-              ],
-            },
-          },
+          totalSpent: { $sum: calculateTotalPrice },
         })
         .sort({
           totalSpent: -1,
@@ -70,7 +70,11 @@ async function getDashboardOverviewData(
           name: 1,
           totalSpent: { $toDouble: "$totalSpent" },
         }),
-      Transaction.find(filterQuery).sort("-updatedAt").limit(5),
+      Transaction.aggregate()
+        .match(filterQuery)
+        .sort("-updatedAt")
+        .addFields({ totalPrice: { $toDouble: calculateTotalPrice } })
+        .limit(5),
     ]);
   } catch (error) {
     next(error);

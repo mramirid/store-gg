@@ -8,10 +8,10 @@ import { resolveApiEndpointURL } from "utils/format";
 export default function useTransaction(id: string | undefined) {
   const jwt = useJwt();
 
+  const endpointURL = resolveApiEndpointURL(`/transactions/${id}`);
+
   const { data, error } = useSWR<Transaction, Error>(
-    isString(id)
-      ? [resolveApiEndpointURL(`/transactions/${id}`), jwt.token]
-      : null,
+    isString(id) ? [endpointURL, jwt.token] : null,
     transactionFetcher
   );
 
@@ -42,7 +42,7 @@ const transactionFetcher: Fetcher<Transaction, [string, string]> = async ([
   return resBody.transaction;
 };
 
-type Transaction = {
+export type Transaction = {
   _id: string;
   voucher: {
     name: string;
@@ -75,5 +75,5 @@ type Transaction = {
     gameId: string;
     _id: string;
   };
-  status: string;
+  status: "paying" | "accepted" | "rejected" | "verifying";
 };

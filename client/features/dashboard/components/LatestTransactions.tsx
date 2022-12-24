@@ -1,12 +1,14 @@
 import classNames from "classnames";
+import type { Transaction } from "features/transaction";
 import { capitalize, isFunction } from "lodash-es";
 import Image from "next/image";
-import { formatIDR } from "utils/format";
+import { formatIDR, resolveApiImageURL } from "utils/format";
 
 type RenderAction = (transactionId: string) => JSX.Element;
 
 export default function LatestTransactions(props: {
   renderAction?: RenderAction;
+  transactions: Transaction[];
 }) {
   return (
     <section>
@@ -18,58 +20,32 @@ export default function LatestTransactions(props: {
         <table className="table table-borderless">
           <thead>
             <tr className="color-palette-1">
-              <th scope="col">Game</th>
-              <th scope="col">Item</th>
+              <th scope="col">Voucher</th>
+              <th scope="col">Nominal</th>
               <th scope="col">Price</th>
               <th scope="col">Status</th>
               {isFunction(props.renderAction) && <th scope="col">Action</th>}
             </tr>
           </thead>
           <tbody>
-            <TransactionRow
-              id={"crypto.randomUUID()"}
-              gameImageUrl={require("../assets/game-1.png")}
-              gameName="Mobile Legends: The New Battle 2021"
-              gameCategory="Desktop"
-              itemQuantity={200}
-              itemName="Gold"
-              price={290_000}
-              status="pending"
-              renderAction={props.renderAction}
-            />
-            <TransactionRow
-              id={"crypto.randomUUID()"}
-              gameImageUrl={require("../assets/game-2.png")}
-              gameName="Call of Duty:Modern"
-              gameCategory="Desktop"
-              itemQuantity={550}
-              itemName="Gold"
-              price={740_000}
-              status="success"
-              renderAction={props.renderAction}
-            />
-            <TransactionRow
-              id={"crypto.randomUUID()"}
-              gameImageUrl={require("../assets/game-3.png")}
-              gameName="Clash of Clans"
-              gameCategory="Mobile"
-              itemQuantity={100}
-              itemName="Gold"
-              price={120_000}
-              status="failed"
-              renderAction={props.renderAction}
-            />
-            <TransactionRow
-              id={"crypto.randomUUID()"}
-              gameImageUrl={require("../assets/game-4.png")}
-              gameName="The Royal Game"
-              gameCategory="Mobile"
-              itemQuantity={225}
-              itemName="Gold"
-              price={200_000}
-              status="pending"
-              renderAction={props.renderAction}
-            />
+            {props.transactions.map((transaction) => {
+              return (
+                <TransactionRow
+                  key={transaction._id}
+                  id={transaction._id}
+                  voucherImageUrl={resolveApiImageURL(
+                    transaction.voucher.imageName
+                  )}
+                  voucherName={transaction.voucher.name}
+                  category={transaction.category.name}
+                  nominalQuantity={transaction.nominal.quantity}
+                  nominalName={transaction.nominal.name}
+                  totalPrice={transaction.totalPrice}
+                  status={transaction.status}
+                  renderAction={props.renderAction}
+                />
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -91,13 +67,13 @@ export default function LatestTransactions(props: {
 
 function TransactionRow(props: {
   id: string;
-  gameImageUrl: string;
-  gameName: string;
-  gameCategory: string;
-  itemQuantity: number;
-  itemName: string;
-  price: number;
-  status: "success" | "pending" | "failed";
+  voucherImageUrl: string;
+  voucherName: string;
+  category: string;
+  nominalQuantity: number;
+  nominalName: string;
+  totalPrice: number;
+  status: Transaction["status"];
   renderAction: RenderAction | undefined;
 }) {
   const action = props.renderAction?.(props.id);
@@ -105,37 +81,43 @@ function TransactionRow(props: {
   return (
     <tr className="align-middle">
       <th scope="row">
-        <div className="float-start me-3 mb-lg-0 mb-3">
+        <div className="voucher-image-wrapper float-start me-3 mb-lg-0 mb-3">
           <Image
-            src={props.gameImageUrl}
+            src={props.voucherImageUrl}
             width={80}
             height={60}
-            alt={props.gameName}
+            alt={props.voucherName}
+            style={{ objectFit: "cover" }}
           />
         </div>
-        <div className="game-title-header">
-          <p className="game-title fw-medium text-start color-palette-1 m-0">
-            {props.gameName}
+        <div className="voucher-title-header">
+          <p className="voucher-title fw-medium text-start color-palette-1 m-0">
+            {props.voucherName}
           </p>
           <p className="text-xs fw-normal text-start color-palette-2 m-0">
-            {props.gameCategory}
+            {props.category}
           </p>
         </div>
       </th>
       <td>
         <p className="fw-medium color-palette-1 m-0">
-          {props.itemQuantity} {props.itemName}
+          {props.nominalQuantity} {props.nominalName}
         </p>
       </td>
       <td>
         <p className="fw-medium text-start color-palette-1 m-0">
-          {formatIDR(props.price)}
+          {formatIDR(props.totalPrice)}
         </p>
       </td>
       <td>
         <div>
           <span
-            className={classNames("float-start icon-status", props.status)}
+            className={classNames("float-start icon-status", {
+              "bg-success": props.status === "accepted",
+              "bg-danger": props.status === "rejected",
+              "bg-warning": props.status === "paying",
+              "bg-info": props.status === "verifying",
+            })}
           />
           <p className="fw-medium text-start color-palette-1 m-0 position-relative">
             {capitalize(props.status)}
@@ -149,12 +131,17 @@ function TransactionRow(props: {
           padding: 10px 0px;
         }
 
-        .game-title-header {
+        .voucher-image-wrapper {
+          border-radius: 1rem;
+          overflow: hidden;
+        }
+
+        .voucher-title-header {
           margin-top: 10px;
           margin-bottom: 10px;
         }
 
-        .game-title {
+        .voucher-title {
           white-space: nowrap;
           width: 135px;
           overflow: hidden;
@@ -166,18 +153,6 @@ function TransactionRow(props: {
           height: 6px;
           border-radius: 999px;
           margin: 9px 6px 0px 0px;
-        }
-
-        .icon-status.pending {
-          background-color: #febd57;
-        }
-
-        .icon-status.success {
-          background-color: #1abc9c;
-        }
-
-        .icon-status.failed {
-          background-color: #fe5761;
         }
       `}</style>
     </tr>
