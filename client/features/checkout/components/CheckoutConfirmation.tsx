@@ -40,7 +40,8 @@ export default function CheckoutConfirmation(props: { transactionId: string }) {
       return;
     }
 
-    router.replace("/checkout/completed");
+    toast.success(resBody.message);
+    router.replace(`/checkout/${props.transactionId}/completed`);
   };
 
   return (
