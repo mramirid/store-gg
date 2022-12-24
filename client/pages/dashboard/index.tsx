@@ -25,16 +25,13 @@ const DashboardOverview: NextPage = () => {
     dashboardOverviewFetcher
   );
 
-  if (isError(error)) {
-    toast.error(error.message);
-    return null;
-  }
-
   if (isLoading) {
     return null;
   }
 
-  console.log(data);
+  if (isError(error)) {
+    toast.error(error.message, { toastId: endpointURL });
+  }
 
   return (
     <>

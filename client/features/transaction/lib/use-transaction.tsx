@@ -1,21 +1,20 @@
 import { useJwt } from "features/auth";
 import { ResponseError } from "lib/error";
-import { isString } from "lodash-es";
 import useSWR, { Fetcher } from "swr";
 import { getErrorMessage } from "utils/error";
 import { resolveApiEndpointURL } from "utils/format";
 
-export default function useTransaction(id: string | undefined) {
+export default function useTransaction(id: string) {
   const jwt = useJwt();
 
   const endpointURL = resolveApiEndpointURL(`/transactions/${id}`);
 
-  const { data, error } = useSWR<Transaction, Error>(
-    isString(id) ? [endpointURL, jwt.token] : null,
+  const swrResult = useSWR<Transaction, Error>(
+    jwt.isReady ? [endpointURL, jwt.token] : null,
     transactionFetcher
   );
 
-  return { transaction: data, error };
+  return { transaction: swrResult.data, ...swrResult };
 }
 
 const transactionFetcher: Fetcher<Transaction, [string, string]> = async ([

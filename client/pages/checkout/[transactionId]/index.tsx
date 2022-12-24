@@ -8,7 +8,8 @@ import {
 import { useTransaction } from "features/transaction";
 import { StatusCodes } from "http-status-codes";
 import { ResponseError } from "lib/error";
-import _, { isUndefined } from "lodash";
+import { isUndefined } from "lodash";
+import { isError } from "lodash-es";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -16,13 +17,13 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { getErrorMessage } from "utils/error";
 
+const ERROR_TOAST_ID = "CHECKOUT_ERROR_TOAST";
+
 const Checkout: NextPage = () => {
   const router = useRouter();
-  const { transactionId } = router.query;
+  const transactionId = router.query["transactionId"] as string;
 
-  const { transaction, error } = useTransaction(
-    transactionId as string | undefined
-  );
+  const { isLoading, transaction, error } = useTransaction(transactionId);
 
   if (
     error instanceof ResponseError &&
@@ -32,12 +33,12 @@ const Checkout: NextPage = () => {
     return null;
   }
 
-  if (_.isError(error)) {
-    toast.error(getErrorMessage(error));
+  if (isError(error)) {
+    toast.error(getErrorMessage(error), { toastId: ERROR_TOAST_ID });
     return null;
   }
 
-  if (isUndefined(transaction)) {
+  if (isLoading || isUndefined(transaction)) {
     return null;
   }
 
