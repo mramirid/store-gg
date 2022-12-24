@@ -1,11 +1,12 @@
 import classNames from "classnames";
+import type { Transaction } from "features/transaction";
 import { isString } from "lodash-es";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { UrlObject } from "url";
 
 export default function TransactionStatusFilter(props: {
-  status?: "success" | "pending" | "failed";
+  status: Transaction["status"] | undefined;
   label: string;
 }) {
   const href: UrlObject = isString(props.status)
