@@ -1,7 +1,5 @@
-import type { GetStaticProps, NextPage } from "next";
-import Head from "next/head";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import Footer from "components/Footer";
+import Navbar from "components/Navbar";
 import {
   Feature,
   FeaturedVouchers,
@@ -9,9 +7,11 @@ import {
   Statistics,
   Story,
   TFeaturedVoucher,
-} from "../features/homepage";
-import { toError } from "../utils/error";
-import { resolveApiEndpointURL, resolveApiImageURL } from "../utils/format";
+} from "features/homepage";
+import type { GetStaticProps, NextPage } from "next";
+import Head from "next/head";
+import { toError } from "utils/error";
+import { resolveApiEndpointURL, resolveApiImageURL } from "utils/format";
 
 type Props = {
   featuredVouchers: TFeaturedVoucher[];

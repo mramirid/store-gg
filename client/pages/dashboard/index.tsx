@@ -1,11 +1,11 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import { requireSignIn } from "../../features/auth";
+import { requireSignIn } from "features/auth";
 import {
   LatestTransactions,
   Sidebar,
   TopUpCategories,
-} from "../../features/dashboard";
+} from "features/dashboard";
+import type { NextPage } from "next";
+import Head from "next/head";
 
 const DashboardOverview: NextPage = () => (
   <>

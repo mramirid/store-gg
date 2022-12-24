@@ -1,20 +1,13 @@
+import Footer from "components/Footer";
+import Navbar from "components/Navbar";
+import { CheckoutForm, Nominal, PaymentMethod } from "features/checkout";
 import { StatusCodes } from "http-status-codes";
+import { ResponseError } from "lib/error";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Footer from "../../../components/Footer";
-import Navbar from "../../../components/Navbar";
-import {
-  CheckoutForm,
-  Nominal,
-  PaymentMethod,
-} from "../../../features/checkout";
-import { ResponseError } from "../../../lib/error";
-import { getErrorMessage } from "../../../utils/error";
-import {
-  resolveApiEndpointURL,
-  resolveApiImageURL,
-} from "../../../utils/format";
+import { getErrorMessage } from "utils/error";
+import { resolveApiEndpointURL, resolveApiImageURL } from "utils/format";
 
 const TopUp: NextPage<Props> = ({ voucher, paymentMethods }) => {
   return (

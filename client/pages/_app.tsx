@@ -1,12 +1,12 @@
 import { init as initAOS } from "aos";
 import "aos/dist/aos.css";
+import { JwtProvider, SignUpFormProvider } from "features/auth";
 import type { AppProps } from "next/app";
 import Script from "next/script";
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { JwtProvider, SignUpFormProvider } from "../features/auth";
-import "../styles/utilities.css";
+import "styles/utilities.css";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {

@@ -1,3 +1,5 @@
+import UploadAvatarIcon from "components/UploadAvatarIcon";
+import { useJwt, useSignUpForm } from "features/auth";
 import { isObject } from "lodash-es";
 import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
@@ -5,10 +7,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Controller } from "react-hook-form";
 import { toast } from "react-toastify";
-import UploadAvatarIcon from "../../components/UploadAvatarIcon";
-import { useJwt, useSignUpForm } from "../../features/auth";
-import { getErrorMessage, toError } from "../../utils/error";
-import { resolveApiEndpointURL } from "../../utils/format";
+import { getErrorMessage, toError } from "utils/error";
+import { resolveApiEndpointURL } from "utils/format";
 
 type Props = {
   categories: Array<{

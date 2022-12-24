@@ -1,9 +1,9 @@
+import { useJwt } from "features/auth";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { getErrorMessage } from "../../../utils/error";
-import { resolveApiEndpointURL } from "../../../utils/format";
-import { useJwt } from "../../auth";
+import { getErrorMessage } from "utils/error";
+import { resolveApiEndpointURL } from "utils/format";
 
 export default function CheckoutConfirmation(props: { transactionId: string }) {
   const [hasTransferred, setHasTransferred] = useState(false);

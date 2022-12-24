@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ErrorWithMessage, isErrorWithMessage } from "../utils/error";
+import { ErrorWithMessage, isErrorWithMessage } from "utils/error";
 
 export default function InputErrorMessage(props: {
   error: Partial<ErrorWithMessage> | undefined;

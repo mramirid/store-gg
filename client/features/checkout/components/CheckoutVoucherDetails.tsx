@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { resolveApiImageURL } from "../../../utils/format";
+import { resolveApiImageURL } from "utils/format";
 
 export default function CheckoutVoucherDetails(props: {
   voucherName: string;

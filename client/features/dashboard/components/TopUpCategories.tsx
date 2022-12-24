@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { formatIDR } from "../../../utils/format";
+import { formatIDR } from "utils/format";
 
 export default function TopUpCategories(props: { className: string }) {
   return (

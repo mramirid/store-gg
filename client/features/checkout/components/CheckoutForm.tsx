@@ -1,16 +1,16 @@
+import InputErrorMessage from "components/InputErrorMessage";
+import { useJwt } from "features/auth";
 import { StatusCodes } from "http-status-codes";
 import { useRouter } from "next/router";
 import { forwardRef } from "react";
 import { Controller, useForm, UseFormRegisterReturn } from "react-hook-form";
 import { toast } from "react-toastify";
-import InputErrorMessage from "../../../components/InputErrorMessage";
 import {
   ErrorWithMessage,
   getErrorMessage,
-  isErrorWithMessage
-} from "../../../utils/error";
-import { formatIDR, resolveApiEndpointURL } from "../../../utils/format";
-import { useJwt } from "../../auth";
+  isErrorWithMessage,
+} from "utils/error";
+import { formatIDR, resolveApiEndpointURL } from "utils/format";
 import styles from "./CheckoutForm.module.css";
 
 type CheckoutFormValues = {

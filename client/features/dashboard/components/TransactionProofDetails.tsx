@@ -1,4 +1,4 @@
-import { formatIDR } from "../../../utils/format";
+import { formatIDR } from "utils/format";
 
 export default function TransactionPurchaseDetails() {
   return (

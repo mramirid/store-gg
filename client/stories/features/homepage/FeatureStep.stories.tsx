@@ -1,5 +1,5 @@
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
-import { ChooseVoucherIcon, FeatureStep } from "../../../features/homepage";
+import { ChooseVoucherIcon, FeatureStep } from "features/homepage";
 
 export default {
   title: "Features/Homepage/FeatureStep",

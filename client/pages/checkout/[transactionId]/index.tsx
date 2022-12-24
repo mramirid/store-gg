@@ -1,20 +1,20 @@
+import LogoIcon from "components/LogoIcon";
+import { requireSignIn } from "features/auth";
+import {
+  CheckoutBillDetails,
+  CheckoutConfirmation,
+  CheckoutVoucherDetails,
+} from "features/checkout";
+import { useTransaction } from "features/transaction";
 import { StatusCodes } from "http-status-codes";
+import { ResponseError } from "lib/error";
 import _, { isUndefined } from "lodash";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import LogoIcon from "../../../components/LogoIcon";
-import { requireSignIn } from "../../../features/auth";
-import {
-  CheckoutBillDetails,
-  CheckoutConfirmation,
-  CheckoutVoucherDetails,
-} from "../../../features/checkout";
-import { useTransaction } from "../../../features/transaction";
-import { ResponseError } from "../../../lib/error";
-import { getErrorMessage } from "../../../utils/error";
+import { getErrorMessage } from "utils/error";
 
 const Checkout: NextPage = () => {
   const router = useRouter();

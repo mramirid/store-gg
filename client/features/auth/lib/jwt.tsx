@@ -3,8 +3,8 @@ import jwt from "jsonwebtoken";
 import { isNull, isObject, isString, isUndefined } from "lodash-es";
 import ms from "ms";
 import { ReactNode, useEffect, useState } from "react";
-import { createContext } from "../../../utils/context";
-import { resolveApiImageURL } from "../../../utils/format";
+import { createContext } from "utils/context";
+import { resolveApiImageURL } from "utils/format";
 
 const JWT_COOKIE_NAME = "jwt-token";
 

@@ -1,5 +1,5 @@
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
-import { FeaturedVoucher } from "../../../features/homepage";
+import { FeaturedVoucher } from "features/homepage";
 
 export default {
   title: "Features/Homepage/FeaturedVoucher",

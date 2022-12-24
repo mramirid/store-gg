@@ -1,8 +1,8 @@
+import LogoIcon from "components/LogoIcon";
+import { SignUpEntryForm } from "features/auth";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import LogoIcon from "../../components/LogoIcon";
-import { SignUpEntryForm } from "../../features/auth";
 
 const SignUp: NextPage = () => (
   <>

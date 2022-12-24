@@ -1,8 +1,8 @@
+import { requireSignIn } from "features/auth";
+import { Sidebar } from "features/dashboard";
+import EditProfileForm from "features/dashboard/components/EditProfileForm";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { requireSignIn } from "../../features/auth";
-import { Sidebar } from "../../features/dashboard";
-import EditProfileForm from "../../features/dashboard/components/EditProfileForm";
 
 const EditProfile: NextPage = () => (
   <>

@@ -1,10 +1,10 @@
+import { requireSignIn } from "features/auth";
+import { LatestTransactions, Sidebar } from "features/dashboard";
+import TransactionStatusFilter from "features/dashboard/components/TransactionStatusFilter";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { requireSignIn } from "../../../features/auth";
-import { LatestTransactions, Sidebar } from "../../../features/dashboard";
-import TransactionStatusFilter from "../../../features/dashboard/components/TransactionStatusFilter";
-import { formatIDR } from "../../../utils/format";
+import { formatIDR } from "utils/format";
 
 const DashboardTransactions: NextPage = () => (
   <>

@@ -1,15 +1,15 @@
 import { StatusCodes } from "http-status-codes";
+import { ResponseError } from "lib/error";
 import { isObject } from "lodash-es";
 import type { ReactNode } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
-import { ResponseError } from "../../../lib/error";
-import { createContext } from "../../../utils/context";
+import { createContext } from "utils/context";
 import {
   ErrorWithMessage,
   getErrorMessage,
   isErrorWithMessage,
-} from "../../../utils/error";
-import { resolveApiEndpointURL } from "../../../utils/format";
+} from "utils/error";
+import { resolveApiEndpointURL } from "utils/format";
 
 type SignUpValues = {
   fullName: string;

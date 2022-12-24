@@ -1,9 +1,9 @@
+import { requireSignIn } from "features/auth";
+import { CheckoutCompletedIlustration } from "features/checkout";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { requireSignIn } from "../../../features/auth";
-import { CheckoutCompletedIlustration } from "../../../features/checkout";
 
 const CheckoutCompleted: NextPage = () => {
   const router = useRouter();

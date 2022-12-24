@@ -7,8 +7,8 @@ import {
   ErrorWithMessage,
   getErrorMessage,
   isErrorWithMessage,
-} from "../../../utils/error";
-import { resolveApiEndpointURL } from "../../../utils/format";
+} from "utils/error";
+import { resolveApiEndpointURL } from "utils/format";
 import { useJwt } from "../lib/jwt";
 
 type SignInValues = {

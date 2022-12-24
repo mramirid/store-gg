@@ -1,11 +1,11 @@
 import classNames from "classnames";
+import EmptyAvatarIcon from "components/EmptyAvatarIcon";
+import WinnerIcon from "components/WinnerIcon";
+import { useJwt } from "features/auth";
 import { isString } from "lodash-es";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import EmptyAvatarIcon from "../../../components/EmptyAvatarIcon";
-import WinnerIcon from "../../../components/WinnerIcon";
-import { useJwt } from "../../auth";
 
 export default function Sidebar() {
   const jwt = useJwt();

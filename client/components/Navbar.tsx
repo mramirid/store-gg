@@ -1,9 +1,9 @@
 import classnames from "classnames";
+import { useJwt } from "features/auth";
 import { isString } from "lodash-es";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useJwt } from "../features/auth";
 import EmptyAvatarIcon from "./EmptyAvatarIcon";
 import LogoIcon from "./LogoIcon";
 
