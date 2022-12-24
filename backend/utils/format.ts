@@ -5,7 +5,7 @@ function toIDR(amount: number | Types.Decimal128) {
   return _.toNumber(amount).toLocaleString("id-ID", {
     style: "currency",
     currency: "IDR",
-    // maximumFractionDigits: 0,
+    maximumFractionDigits: 0,
   });
 }
 
