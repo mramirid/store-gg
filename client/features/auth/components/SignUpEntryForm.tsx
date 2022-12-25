@@ -1,4 +1,4 @@
-import { isObject } from "lodash-es";
+import InputErrorMessage from "components/InputErrorMessage";
 import Link from "next/link";
 import { useSignUpForm } from "../lib/sign-up-form";
 
@@ -27,11 +27,7 @@ export default function SignUpEntryForm() {
           aria-describedby="fullName"
           placeholder="Enter your name"
         />
-        {isObject(fullNameError) && (
-          <div className="mt-2 text-danger text-sm">
-            {fullNameError.message}
-          </div>
-        )}
+        <InputErrorMessage className="mt-2" error={fullNameError} />
       </div>
       <div className="pt-30">
         <label
@@ -48,9 +44,7 @@ export default function SignUpEntryForm() {
           aria-describedby="email"
           placeholder="Enter your email address"
         />
-        {isObject(emailError) && (
-          <div className="mt-2 text-danger text-sm">{emailError.message}</div>
-        )}
+        <InputErrorMessage className="mt-2" error={emailError} />
       </div>
       <div className="pt-30">
         <label
@@ -67,11 +61,7 @@ export default function SignUpEntryForm() {
           aria-describedby="password"
           placeholder="Your password"
         />
-        {isObject(passwordError) && (
-          <div className="mt-2 text-danger text-sm">
-            {passwordError.message}
-          </div>
-        )}
+        <InputErrorMessage className="mt-2" error={passwordError} />
       </div>
       <Link href="/sign-up/avatar" className="text-decoration-none">
         <button

@@ -1,5 +1,5 @@
+import InputErrorMessage from "components/InputErrorMessage";
 import { StatusCodes } from "http-status-codes";
-import { isObject } from "lodash-es";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -95,9 +95,7 @@ export default function SignInForm() {
           aria-describedby="email"
           placeholder="Enter your email address"
         />
-        {isObject(emailError) && (
-          <div className="mt-2 text-danger text-sm">{emailError.message}</div>
-        )}
+        <InputErrorMessage className="mt-2" error={emailError} />
       </div>
       <div className="pt-30">
         <label
@@ -114,11 +112,7 @@ export default function SignInForm() {
           aria-describedby="password"
           placeholder="Your password"
         />
-        {isObject(passwordError) && (
-          <div className="mt-2 text-danger text-sm">
-            {passwordError.message}
-          </div>
-        )}
+        <InputErrorMessage className="mt-2" error={passwordError} />
       </div>
       <button
         className="btn btn-sign-in fw-medium text-lg text-white rounded-pill d-block w-100 mt-50"

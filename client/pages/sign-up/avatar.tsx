@@ -1,3 +1,4 @@
+import InputErrorMessage from "components/InputErrorMessage";
 import UploadAvatarIcon from "components/UploadAvatarIcon";
 import { useJwt, useSignUpForm } from "features/auth";
 import { isObject } from "lodash-es";
@@ -83,11 +84,10 @@ const SignUpAvatar: NextPage<Props> = ({ categories }) => {
                             }
                           }}
                         />
-                        {isObject(avatarError) && (
-                          <div className="mt-2 text-danger text-sm">
-                            {avatarError.message}
-                          </div>
-                        )}
+                        <InputErrorMessage
+                          className="mt-2"
+                          error={avatarError}
+                        />
                       </>
                     )}
                   />
@@ -116,11 +116,10 @@ const SignUpAvatar: NextPage<Props> = ({ categories }) => {
                     </option>
                   ))}
                 </select>
-                {isObject(favoriteCategoryError) && (
-                  <div className="mt-2 text-danger text-sm">
-                    {favoriteCategoryError.message}
-                  </div>
-                )}
+                <InputErrorMessage
+                  className="mt-2"
+                  error={favoriteCategoryError}
+                />
               </div>
             </div>
             <div className="button-group d-flex flex-column mx-auto">
