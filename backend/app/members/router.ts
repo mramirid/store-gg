@@ -6,19 +6,18 @@ import { ensureMemberAuthenticated } from "./middleware";
 const membersRouter = Router();
 
 membersRouter.post("/", imagesMulter.handleUpload("avatar"), controller.signUp);
+membersRouter.patch(
+  "/",
+  ensureMemberAuthenticated,
+  imagesMulter.handleUpload("avatar"),
+  controller.validateEditProfileRequest,
+  controller.editProfile
+);
 
 membersRouter.post(
   "/sign-in",
   controller.validateSignInRequest,
   controller.signIn
-);
-
-membersRouter.patch(
-  "/edit",
-  ensureMemberAuthenticated,
-  imagesMulter.handleUpload("avatar"),
-  controller.validateEditProfileRequest,
-  controller.editProfile
 );
 
 export default membersRouter;

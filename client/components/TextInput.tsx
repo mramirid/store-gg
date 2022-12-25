@@ -1,13 +1,15 @@
 import { ForwardedRef, forwardRef } from "react";
+import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
+import InputErrorMessage from "./InputErrorMessage";
 
 function TextInput(
-  props: {
+  props: UseFormRegisterReturn & {
     label: string;
     type: "text" | "email" | "tel";
-    name?: string;
-    id?: string;
+    id: string;
     "aria-describedby"?: string;
     placeholder?: string;
+    error: FieldError | undefined;
   },
   ref: ForwardedRef<HTMLInputElement>
 ) {
@@ -27,7 +29,10 @@ function TextInput(
         name={props.name}
         aria-describedby={props["aria-describedby"]}
         placeholder={props.placeholder}
+        onChange={props.onChange}
+        onBlur={props.onBlur}
       />
+      <InputErrorMessage className="mt-2" error={props.error} />
 
       <style jsx>{`
         input {

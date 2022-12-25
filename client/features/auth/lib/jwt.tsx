@@ -98,7 +98,7 @@ type RawJwtPayload = {
   phoneNumber: string | undefined;
 };
 
-type JwtPayload = { avatarUrl: string | undefined } & Pick<
+export type JwtPayload = { avatarUrl: string | undefined } & Pick<
   RawJwtPayload,
   "sub" | "exp" | "fullName" | "email" | "phoneNumber"
 >;
