@@ -3,12 +3,9 @@ import { ResponseError } from "lib/error";
 import { isObject } from "lodash-es";
 import type { ReactNode } from "react";
 import { useForm, UseFormReturn } from "react-hook-form";
+import { objectKeys } from "utils";
 import { createContext } from "utils/context";
-import {
-  ErrorWithMessage,
-  getErrorMessage,
-  isErrorWithMessage,
-} from "utils/error";
+import { ErrorWithMessage, getErrorMessage } from "utils/error";
 import { resolveApiEndpointURL } from "utils/format";
 
 type SignUpValues = {
@@ -38,36 +35,12 @@ export function SignUpFormProvider(props: { children: ReactNode }) {
   const setFormErrors = (
     errors: Record<keyof SignUpValues, ErrorWithMessage>
   ) => {
-    if (isErrorWithMessage(errors["fullName"])) {
-      form.setError("fullName", {
+    objectKeys(errors).forEach((fieldName) => {
+      form.setError(fieldName, {
         type: "onChange",
-        message: errors["fullName"].message,
+        message: getErrorMessage(errors[fieldName]),
       });
-    }
-    if (isErrorWithMessage(errors["email"])) {
-      form.setError("email", {
-        type: "onChange",
-        message: errors["email"].message,
-      });
-    }
-    if (isErrorWithMessage(errors["password"])) {
-      form.setError("password", {
-        type: "onChange",
-        message: errors["password"].message,
-      });
-    }
-    if (isErrorWithMessage(errors["favoriteCategory"])) {
-      form.setError("favoriteCategory", {
-        type: "onChange",
-        message: errors["favoriteCategory"].message,
-      });
-    }
-    if (isErrorWithMessage(errors["avatar"])) {
-      form.setError("avatar", {
-        type: "onChange",
-        message: errors["avatar"].message,
-      });
-    }
+    });
   };
 
   const submit = async () => {

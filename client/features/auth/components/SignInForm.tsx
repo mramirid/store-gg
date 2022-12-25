@@ -3,11 +3,8 @@ import { StatusCodes } from "http-status-codes";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import {
-  ErrorWithMessage,
-  getErrorMessage,
-  isErrorWithMessage,
-} from "utils/error";
+import { objectKeys } from "utils";
+import { ErrorWithMessage, getErrorMessage } from "utils/error";
 import { resolveApiEndpointURL } from "utils/format";
 import { useJwt } from "../lib/jwt";
 
@@ -32,18 +29,12 @@ export default function SignInForm() {
   const setFormErrors = (
     errors: Record<keyof SignInValues, ErrorWithMessage>
   ) => {
-    if (isErrorWithMessage(errors["email"])) {
-      setError("email", {
+    objectKeys(errors).forEach((fieldName) => {
+      setError(fieldName, {
         type: "onChange",
-        message: errors["email"].message,
+        message: getErrorMessage(errors[fieldName]),
       });
-    }
-    if (isErrorWithMessage(errors["password"])) {
-      setError("password", {
-        type: "onChange",
-        message: errors["password"].message,
-      });
-    }
+    });
   };
 
   const jwt = useJwt();
