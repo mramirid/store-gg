@@ -12,7 +12,7 @@ export default function TransactionVoucherDetails(props: {
 }) {
   return (
     <section className="d-flex flex-row  align-items-center justify-content-between mb-30">
-      <div className="game-checkout d-flex flex-row align-items-center">
+      <div className="d-flex flex-row align-items-center">
         <div className="pe-4">
           <div className="cropped">
             <Image

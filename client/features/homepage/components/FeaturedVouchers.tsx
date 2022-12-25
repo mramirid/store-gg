@@ -63,7 +63,7 @@ export function FeaturedVoucher(props: TFeaturedVoucher) {
           </div>
           <div className="cover position-absolute bottom-0 m-32">
             <div className="d-flex flex-column h-100 justify-content-between text-decoration-none">
-              <div className="game-icon mx-auto">
+              <div className="console-icon-wrapper mx-auto">
                 <ConsoleIcon />
               </div>
               <div>
@@ -118,7 +118,7 @@ export function FeaturedVoucher(props: TFeaturedVoucher) {
           opacity: 1;
         }
 
-        .game-icon {
+        .console-icon-wrapper {
           margin-top: 3.125rem;
         }
 
