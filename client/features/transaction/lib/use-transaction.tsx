@@ -1,16 +1,17 @@
-import { useJwt } from "features/auth";
 import { ResponseError } from "lib/error";
 import useSWR, { Fetcher } from "swr";
 import { getErrorMessage } from "utils/error";
 import { resolveApiEndpointURL } from "utils/format";
 
-export default function useTransaction(id: string) {
-  const jwt = useJwt();
-
-  const endpointURL = resolveApiEndpointURL(`/transactions/${id}`);
+export default function useTransaction(args: {
+  id: string;
+  jwtToken: string;
+  shouldFetch: boolean;
+}) {
+  const endpointURL = resolveApiEndpointURL(`/transactions/${args.id}`);
 
   const swrResult = useSWR<Transaction, Error>(
-    jwt.isReady ? [endpointURL, jwt.token] : null,
+    args.shouldFetch ? [endpointURL, args.jwtToken] : null,
     transactionFetcher
   );
 

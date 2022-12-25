@@ -1,6 +1,15 @@
+import classNames from "classnames";
+import type { Transaction } from "features/transaction";
+import { capitalize } from "lodash-es";
 import Image from "next/image";
+import { resolveApiImageURL } from "utils/format";
 
-export default function TransactionGameDetails() {
+export default function TransactionVoucherDetails(props: {
+  imageName: string;
+  name: string;
+  category: string;
+  status: Transaction["status"];
+}) {
   return (
     <section className="d-flex flex-row  align-items-center justify-content-between mb-30">
       <div className="game-checkout d-flex flex-row align-items-center">
@@ -8,24 +17,26 @@ export default function TransactionGameDetails() {
           <div className="cropped">
             <Image
               className="img-fluid"
-              src={require("features/homepage/assets/game-3.png")}
+              src={resolveApiImageURL(props.imageName)}
               width={281}
               height={381}
-              alt=""
+              alt={props.name}
             />
           </div>
         </div>
         <div>
-          <p className="fw-bold text-xl color-palette-1 mb-10">
-            Mobile Legends:
-            <br /> The New Battle 2021
-          </p>
-          <p className="color-palette-2 m-0">Category: Mobile</p>
+          <p className="fw-bold text-xl color-palette-1 mb-10">{props.name}</p>
+          <p className="color-palette-2 m-0">Category: {props.category}</p>
         </div>
       </div>
       <div>
-        <p className="fw-medium text-center label pending m-0 rounded-pill">
-          Pending
+        <p
+          className={classNames(
+            "fw-medium text-center label m-0 rounded-pill",
+            props.status
+          )}
+        >
+          {capitalize(props.status)}
         </p>
       </div>
 
@@ -35,7 +46,7 @@ export default function TransactionGameDetails() {
           padding: 0.5rem;
         }
 
-        .label.pending {
+        .label.paying {
           color: #febd57;
           background-color: #ffeed3;
         }
@@ -45,9 +56,14 @@ export default function TransactionGameDetails() {
           background-color: #b8e9df;
         }
 
-        .label.failed {
+        .label.rejected {
           color: #fe5761;
           background-color: #ffc6c9;
+        }
+
+        .label.verifying {
+          color: #17a2b8;
+          background-color: #bffbff;
         }
 
         .img-fluid {

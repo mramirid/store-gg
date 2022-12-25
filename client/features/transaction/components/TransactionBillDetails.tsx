@@ -1,6 +1,6 @@
 import { formatIDR } from "utils/format";
 
-export default function CheckoutBillDetails(props: {
+export default function TransactionBillDetails(props: {
   memberGameId: string;
   transactionId: string;
   nominalQuantity: number;
@@ -16,7 +16,7 @@ export default function CheckoutBillDetails(props: {
 }) {
   return (
     <>
-      <div className="purchase pt-md-50 pt-30">
+      <section className="purchase pt-30">
         <h2 className="fw-bold text-xl color-palette-1 mb-20">
           Purchase Details
         </h2>
@@ -31,7 +31,7 @@ export default function CheckoutBillDetails(props: {
         <p className="text-lg color-palette-1 mb-20">
           Item{" "}
           <span className="purchase-details">
-            {props.nominalName} {props.nominalQuantity}
+            {props.nominalQuantity} {props.nominalName}
           </span>
         </p>
         <p className="text-lg color-palette-1 mb-20">
@@ -52,9 +52,9 @@ export default function CheckoutBillDetails(props: {
             {formatIDR(props.totalPrice)}
           </span>
         </p>
-      </div>
+      </section>
 
-      <div className="payment pt-md-50 pb-md-50 pt-10 pb-10">
+      <section className="payment pt-10 pb-10">
         <h2 className="fw-bold text-xl color-palette-1 mb-20">
           Payment Informations
         </h2>
@@ -79,7 +79,7 @@ export default function CheckoutBillDetails(props: {
             {props.targetBankHolderNumbers}
           </span>
         </p>
-      </div>
+      </section>
 
       <style jsx>{`
         .purchase-details,

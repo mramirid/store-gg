@@ -1,11 +1,10 @@
 import LogoIcon from "components/LogoIcon";
-import { requireSignIn } from "features/auth";
+import { requireSignIn, useJwt } from "features/auth";
 import {
-  CheckoutBillDetails,
   CheckoutConfirmation,
   CheckoutVoucherDetails,
 } from "features/checkout";
-import { useTransaction } from "features/transaction";
+import { TransactionBillDetails, useTransaction } from "features/transaction";
 import { StatusCodes } from "http-status-codes";
 import { ResponseError } from "lib/error";
 import { isUndefined } from "lodash";
@@ -17,13 +16,17 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { getErrorMessage } from "utils/error";
 
-const ERROR_TOAST_ID = "CHECKOUT_ERROR_TOAST";
-
 const Checkout: NextPage = () => {
   const router = useRouter();
   const transactionId = router.query["transactionId"] as string;
 
-  const { isLoading, transaction, error } = useTransaction(transactionId);
+  const jwt = useJwt();
+
+  const { isLoading, transaction, error } = useTransaction({
+    shouldFetch: jwt.isReady && router.isReady,
+    id: transactionId,
+    jwtToken: jwt.token as string,
+  });
 
   if (
     error instanceof ResponseError &&
@@ -34,7 +37,7 @@ const Checkout: NextPage = () => {
   }
 
   if (isError(error)) {
-    toast.error(getErrorMessage(error), { toastId: ERROR_TOAST_ID });
+    toast.error(getErrorMessage(error), { toastId: transactionId });
     return null;
   }
 
@@ -74,8 +77,8 @@ const Checkout: NextPage = () => {
               voucherName={transaction.voucher.name}
               categoryName={transaction.category.name}
             />
-            <hr />
-            <CheckoutBillDetails
+            <hr className="mb-25" />
+            <TransactionBillDetails
               memberGameId={transaction.member.gameId}
               transactionId={transaction._id}
               nominalQuantity={transaction.nominal.quantity}
@@ -100,7 +103,7 @@ const Checkout: NextPage = () => {
         }
 
         hr {
-          margin: 0;
+          margin: 0 0 20px 0;
           background-color: #e7eaf5;
           border: 0;
           opacity: 1;

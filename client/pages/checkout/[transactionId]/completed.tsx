@@ -44,7 +44,7 @@ const CheckoutCompleted: NextPage = () => {
                 `Hello, I have made a payment for order id #${transactionId}. Please verify it.`
               )}`}
             >
-              WhatsApp ke Admin
+              WhatsApp to Admin
             </a>
           </div>
         </div>

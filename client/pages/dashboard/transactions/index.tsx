@@ -111,7 +111,6 @@ function Content() {
           margin-right: auto;
           position: relative;
           padding: 50px 50px 50px 0px;
-          max-width: 1047px;
         }
 
         .btn-action {
