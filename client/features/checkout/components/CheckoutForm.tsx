@@ -1,4 +1,5 @@
 import InputErrorMessage from "components/InputErrorMessage";
+import TextInput from "components/TextInput";
 import { useJwt } from "features/auth";
 import { StatusCodes } from "http-status-codes";
 import { useRouter } from "next/router";
@@ -33,10 +34,6 @@ export default function CheckoutForm(props: {
   const router = useRouter();
 
   const form = useForm<CheckoutFormValues>();
-  const bankAccountNameError = form.formState.errors.member?.bankAccountName;
-  const gameIdError = form.formState.errors.member?.gameId;
-  const paymentMethodError = form.formState.errors.paymentMethod;
-  const nominalIdError = form.formState.errors.nominalId;
 
   const setFormErrors = (errors: Record<string, ErrorWithMessage>) => {
     if (isErrorWithMessage(errors["member.bankAccountName"])) {
@@ -101,27 +98,24 @@ export default function CheckoutForm(props: {
   return (
     <form onSubmit={form.handleSubmit(submitHandler)}>
       <div className="pt-md-50 pt-30">
-        <label
-          htmlFor="game-id"
-          className="form-label text-lg fw-medium color-palette-1 mb-10"
-        >
-          Game ID
-        </label>
-        <input
+        <TextInput
           {...form.register("member.gameId")}
           type="text"
-          className="form-control rounded-pill text-lg"
-          id="game-id"
+          label="Game ID"
+          id="gameID"
           aria-describedby="gameID"
           placeholder="Enter your ID"
+          error={form.formState.errors.member?.gameId}
         />
-        <InputErrorMessage className="mt-3" error={gameIdError} />
       </div>
       <div className="pt-md-50 pb-md-50 pt-30 pb-20">
         <p className="text-lg fw-medium color-palette-1 mb-md-10 mb-0">
           Nominal Top Up
         </p>
-        <InputErrorMessage className="my-2" error={nominalIdError} />
+        <InputErrorMessage
+          className="my-2"
+          error={form.formState.errors.nominalId}
+        />
         <div className="row justify-content-between">
           {props.nominals.map((nominal) => (
             <NominalInputRadio
@@ -139,7 +133,10 @@ export default function CheckoutForm(props: {
         <p className="text-lg fw-medium color-palette-1 mb-md-10 mb-0">
           Payment Method
         </p>
-        <InputErrorMessage className="my-2" error={paymentMethodError} />
+        <InputErrorMessage
+          className="my-2"
+          error={form.formState.errors.paymentMethod}
+        />
         <fieldset id="paymentMethod">
           <div className="row justify-content-between">
             <Controller
@@ -175,26 +172,21 @@ export default function CheckoutForm(props: {
         </fieldset>
       </div>
       <div className="pb-50">
-        <label
-          htmlFor="bankAccountName"
-          className="form-label text-lg fw-medium color-palette-1 mb-10"
-        >
-          Bank Account Name
-        </label>
-        <input
+        <TextInput
           {...form.register("member.bankAccountName")}
           type="text"
-          className="form-control rounded-pill text-lg"
+          label="Bank Account Name"
           id="bankAccountName"
           aria-describedby="bankAccountName"
           placeholder="Enter your bank account name"
+          error={form.formState.errors.member?.bankAccountName}
         />
-        <InputErrorMessage className="mt-3" error={bankAccountNameError} />
       </div>
       <div className="d-sm-block d-flex flex-column w-100">
         <button
           className="btn btn-submit rounded-pill fw-medium text-white border-0 text-lg"
           type="submit"
+          disabled={!jwt.hasToken}
         >
           Continue
         </button>

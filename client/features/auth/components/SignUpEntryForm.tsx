@@ -1,67 +1,44 @@
-import InputErrorMessage from "components/InputErrorMessage";
+import TextInput from "components/TextInput";
 import Link from "next/link";
 import { useSignUpForm } from "../lib/sign-up-form";
 
 export default function SignUpEntryForm() {
   const { form } = useSignUpForm();
-  const {
-    fullName: fullNameError,
-    email: emailError,
-    password: passwordError,
-  } = form.formState.errors;
 
   return (
     <form className="mt-50">
       <div>
-        <label
-          htmlFor="fullName"
-          className="form-label text-lg fw-medium color-palette-1 mb-10"
-        >
-          Full Name
-        </label>
-        <input
+        <TextInput
           {...form.register("fullName")}
           type="text"
-          className="form-control rounded-pill text-lg"
+          label="Full Name"
           id="fullName"
           aria-describedby="fullName"
-          placeholder="Enter your name"
+          placeholder="Enter your full name"
+          error={form.formState.errors.fullName}
         />
-        <InputErrorMessage className="mt-2" error={fullNameError} />
       </div>
       <div className="pt-30">
-        <label
-          htmlFor="email"
-          className="form-label text-lg fw-medium color-palette-1 mb-10"
-        >
-          Email Address
-        </label>
-        <input
+        <TextInput
           {...form.register("email")}
           type="email"
-          className="form-control rounded-pill text-lg"
+          label="Email Address"
           id="email"
           aria-describedby="email"
           placeholder="Enter your email address"
+          error={form.formState.errors.email}
         />
-        <InputErrorMessage className="mt-2" error={emailError} />
       </div>
       <div className="pt-30">
-        <label
-          htmlFor="password"
-          className="form-label text-lg fw-medium color-palette-1 mb-10"
-        >
-          Password
-        </label>
-        <input
+        <TextInput
           {...form.register("password")}
           type="password"
-          className="form-control rounded-pill text-lg"
+          label="Password"
           id="password"
           aria-describedby="password"
           placeholder="Your password"
+          error={form.formState.errors.password}
         />
-        <InputErrorMessage className="mt-2" error={passwordError} />
       </div>
       <Link href="/sign-up/avatar" className="text-decoration-none">
         <button

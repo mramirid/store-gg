@@ -5,7 +5,7 @@ import InputErrorMessage from "./InputErrorMessage";
 function TextInput(
   props: UseFormRegisterReturn & {
     label: string;
-    type: "text" | "email" | "tel";
+    type: "text" | "email" | "tel" | "password";
     id: string;
     "aria-describedby"?: string;
     placeholder?: string;

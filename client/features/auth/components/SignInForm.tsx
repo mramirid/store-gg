@@ -1,4 +1,4 @@
-import InputErrorMessage from "components/InputErrorMessage";
+import TextInput from "components/TextInput";
 import { StatusCodes } from "http-status-codes";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
@@ -22,7 +22,6 @@ const validationErrorStatuses = Object.freeze([
 export default function SignInForm() {
   const { register, handleSubmit, setError, formState } =
     useForm<SignInValues>();
-  const { email: emailError, password: passwordError } = formState.errors;
 
   const router = useRouter();
 
@@ -72,38 +71,26 @@ export default function SignInForm() {
   return (
     <form className="mt-50" onSubmit={handleSubmit(submitHandler)}>
       <div>
-        <label
-          htmlFor="email"
-          className="form-label text-lg fw-medium color-palette-1 mb-10"
-        >
-          Email Address
-        </label>
-        <input
+        <TextInput
           {...register("email")}
+          label="Email Address"
           type="email"
-          className="form-control rounded-pill text-lg"
           id="email"
           aria-describedby="email"
           placeholder="Enter your email address"
+          error={formState.errors.email}
         />
-        <InputErrorMessage className="mt-2" error={emailError} />
       </div>
       <div className="pt-30">
-        <label
-          htmlFor="password"
-          className="form-label text-lg fw-medium color-palette-1 mb-10"
-        >
-          Password
-        </label>
-        <input
+        <TextInput
           {...register("password")}
+          label="Password"
           type="password"
-          className="form-control rounded-pill text-lg"
           id="password"
           aria-describedby="password"
           placeholder="Your password"
+          error={formState.errors.password}
         />
-        <InputErrorMessage className="mt-2" error={passwordError} />
       </div>
       <button
         className="btn btn-sign-in fw-medium text-lg text-white rounded-pill d-block w-100 mt-50"
