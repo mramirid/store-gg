@@ -10,13 +10,6 @@ import { useRouter } from "next/router";
 export default function Sidebar() {
   const jwt = useJwt();
 
-  const router = useRouter();
-
-  const logoutHandler = () => {
-    jwt.removeToken();
-    router.replace("/");
-  };
-
   return (
     <aside className="content pt-50 pb-30 ps-30">
       <Profile />
@@ -70,7 +63,7 @@ export default function Sidebar() {
             Icon={LogoutIcon}
             type="button"
             label="Sign Out"
-            onClick={logoutHandler}
+            onClick={jwt.removeToken}
           />
         </ul>
       </nav>

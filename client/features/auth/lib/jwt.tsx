@@ -28,10 +28,11 @@ export { useContext as useJwt };
 export function JwtProvider(props: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const token = Cookies.get(JWT_COOKIE_NAME);
     setToken(token ?? null);
-  }, []);
+  });
 
   const setTokenHandler = (token: string) => {
     saveJwtAsCookie(token);
@@ -40,7 +41,7 @@ export function JwtProvider(props: { children: ReactNode }) {
 
   const removeTokenHandler = () => {
     Cookies.remove(JWT_COOKIE_NAME);
-    setToken(null);
+    setToken(undefined);
   };
 
   const isReady = !isUndefined(token);

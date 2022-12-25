@@ -3,7 +3,6 @@ import { useJwt } from "features/auth";
 import { isString } from "lodash-es";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import EmptyAvatarIcon from "./EmptyAvatarIcon";
 import LogoIcon from "./LogoIcon";
 
@@ -105,14 +104,7 @@ function AuthNavItem() {
   const { payload } = useJwt();
   const avatarUrl = payload?.avatarUrl;
 
-  const router = useRouter();
-
   const jwt = useJwt();
-
-  const logoutHandler = () => {
-    jwt.removeToken();
-    router.replace("/");
-  };
 
   return (
     <li className="nav-item my-auto dropdown d-flex">
@@ -155,7 +147,7 @@ function AuthNavItem() {
           <DropdownItem type="link" href="/dashboard/edit-profile">
             Account Settings
           </DropdownItem>
-          <DropdownItem type="button" onClick={logoutHandler}>
+          <DropdownItem type="button" onClick={jwt.removeToken}>
             Sign Out
           </DropdownItem>
         </ul>
