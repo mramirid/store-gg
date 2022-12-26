@@ -224,5 +224,6 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
   return {
     props: { categories: data.categories },
+    revalidate: 86_400, // every 24 hours
   };
 };
