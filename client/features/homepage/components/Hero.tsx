@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import avatar1 from "../assets/avatar-1.jpg";
 import avatar2 from "../assets/avatar-2.jpg";
-import heroBanner from "../assets/hero-banner.png";
 
 export default function Hero() {
   return (
@@ -89,7 +88,7 @@ function Banner() {
       <div className="d-flex justify-content-lg-end justify-content-center me-lg-5">
         <div className="position-relative" data-aos="zoom-in">
           <Image
-            src={heroBanner}
+            src="/images/hero-banner.png"
             className="img-fluid"
             alt="Hero banner"
             priority

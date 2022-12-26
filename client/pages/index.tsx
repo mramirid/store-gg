@@ -17,10 +17,27 @@ type Props = {
   featuredVouchers: TFeaturedVoucher[];
 };
 
+const PAGE_DESC =
+  "Kami menyediakan jutaan cara untuk membantu players menjadi pemenang sejati";
+
+const THIS_BASE_URL = process.env["NEXT_PUBLIC_THIS_BASE_URL"];
+
 const Home: NextPage<Props> = ({ featuredVouchers }) => (
   <>
     <Head>
       <title>Home &ndash; StoreGG</title>
+      <meta name="description" content={PAGE_DESC} />
+
+      <meta
+        property="og:title"
+        content="StoreGG - Topup & Get a New Experience in Gaming"
+      />
+      <meta property="og:description" content={PAGE_DESC} />
+      <meta
+        property="og:image"
+        content={THIS_BASE_URL + "/images/hero-banner.png"}
+      />
+      <meta property="og:url" content={THIS_BASE_URL} />
     </Head>
 
     <header>
