@@ -188,7 +188,7 @@ export default function CheckoutForm(props: {
           type="submit"
           disabled={!jwt.hasToken}
         >
-          Continue
+          Checkout
         </button>
       </div>
 
