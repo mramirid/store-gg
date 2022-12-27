@@ -1,0 +1,2699 @@
+{
+	"info": {
+		"_postman_id": "cf1ae404-2975-44a9-b35b-517f6389b6aa",
+		"name": "Client API – StoreGG",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9718150"
+	},
+	"item": [
+		{
+			"name": "Homepage",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/homepage",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"homepage"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 ~ Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/homepage",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"homepage"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "767"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2ff-bhzxsUcqOiUgIPu0xLC9Xko7KVw\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Dec 2022 05:57:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"vouchers\": [\n        {\n            \"_id\": \"638445282732215a92cc3979\",\n            \"name\": \"Super Mechs\",\n            \"imageName\": \"super-mechs.png\",\n            \"category\": {\n                \"_id\": \"638445282732215a92cc3960\",\n                \"name\": \"Console\"\n            }\n        },\n        {\n            \"_id\": \"638445282732215a92cc397a\",\n            \"name\": \"Call of Duty: Modern\",\n            \"imageName\": \"cod-mw.png\",\n            \"category\": {\n                \"_id\": \"638445282732215a92cc395f\",\n                \"name\": \"Desktop\"\n            }\n        },\n        {\n            \"_id\": \"638445282732215a92cc397b\",\n            \"name\": \"Mobile Legends\",\n            \"imageName\": \"mobile-legends.png\",\n            \"category\": {\n                \"_id\": \"638445282732215a92cc395e\",\n                \"name\": \"Mobile\"\n            }\n        },\n        {\n            \"_id\": \"638445282732215a92cc397c\",\n            \"name\": \"Clash of Clans\",\n            \"imageName\": \"clash-of-clans.png\",\n            \"category\": {\n                \"_id\": \"638445282732215a92cc395e\",\n                \"name\": \"Mobile\"\n            }\n        },\n        {\n            \"_id\": \"638445282732215a92cc397d\",\n            \"name\": \"Valorant\",\n            \"imageName\": \"valorant.png\",\n            \"category\": {\n                \"_id\": \"638445282732215a92cc395f\",\n                \"name\": \"Desktop\"\n            }\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Voucher IDs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/vouchers/ids",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"vouchers",
+						"ids"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 ~ Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/vouchers/ids",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"vouchers",
+								"ids"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "151"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"97-TDdrBs+Sph5YEQR8VD6JsG+8hKs\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 15 Dec 2022 01:54:27 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"voucherIds\": [\n        \"639968dd748af79e77cde925\",\n        \"639968dd748af79e77cde926\",\n        \"639968dd748af79e77cde927\",\n        \"639968dd748af79e77cde928\",\n        \"639968dd748af79e77cde929\"\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Voucher",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/vouchers/:id",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"vouchers",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "6398293974f2d90a6a46ebb5",
+							"description": "Voucher id"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 ~ Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/vouchers/638445282732215a92cc3979",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"vouchers",
+								"638445282732215a92cc3979"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "572"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"23c-ED79sSEQIqi4z5aG8dppxKbkLvo\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Dec 2022 05:58:30 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"voucher\": {\n        \"_id\": \"638445282732215a92cc3979\",\n        \"name\": \"Super Mechs\",\n        \"imageName\": \"super-mechs.png\",\n        \"category\": {\n            \"_id\": \"638445282732215a92cc3960\",\n            \"name\": \"Console\"\n        },\n        \"nominals\": [\n            {\n                \"_id\": \"638445282732215a92cc3961\",\n                \"name\": \"Gold\",\n                \"quantity\": 50,\n                \"price\": 1250000\n            },\n            {\n                \"_id\": \"638445282732215a92cc3962\",\n                \"name\": \"Gold\",\n                \"quantity\": 100,\n                \"price\": 2250000\n            },\n            {\n                \"_id\": \"638445282732215a92cc3963\",\n                \"name\": \"Gold\",\n                \"quantity\": 125,\n                \"price\": 3250000\n            },\n            {\n                \"_id\": \"638445282732215a92cc3964\",\n                \"name\": \"Gold\",\n                \"quantity\": 500,\n                \"price\": 5000000\n            },\n            {\n                \"_id\": \"638445282732215a92cc3965\",\n                \"name\": \"Gold\",\n                \"quantity\": 225,\n                \"price\": 4250000\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Payment Methods",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/payment-methods",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"payment-methods"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 ~ Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/payment-methods",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"payment-methods"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "387"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"183-w+ccqXw4mru92HRKWVvD8Mm75E8\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 15 Dec 2022 02:14:14 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"paymentMethods\": [\n        {\n            \"_id\": \"639968dd748af79e77cde92a\",\n            \"name\": \"Tranfer\",\n            \"bank\": {\n                \"_id\": \"639968dd748af79e77cde91e\",\n                \"name\": \"Bank Syariah Indonesia\"\n            }\n        },\n        {\n            \"_id\": \"639968dd748af79e77cde92a\",\n            \"name\": \"Tranfer\",\n            \"bank\": {\n                \"_id\": \"639968dd748af79e77cde91f\",\n                \"name\": \"Bank Syariah Mandiri\"\n            }\n        },\n        {\n            \"_id\": \"639968dd748af79e77cde92b\",\n            \"name\": \"VISA\",\n            \"bank\": {\n                \"_id\": \"639968dd748af79e77cde920\",\n                \"name\": \"Bank BNI Syariah\"\n            }\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/categories",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"categories"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 ~ Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/categories",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "171"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"ab-9pVDH2n4qE2CSPySiDjGwgqZ5mE\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 01 Dec 2022 06:03:29 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"categories\": [\n        {\n            \"_id\": \"638445282732215a92cc395e\",\n            \"name\": \"Mobile\"\n        },\n        {\n            \"_id\": \"638445282732215a92cc395f\",\n            \"name\": \"Desktop\"\n        },\n        {\n            \"_id\": \"638445282732215a92cc3960\",\n            \"name\": \"Console\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Sign-up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fullName",
+							"value": "Yudha Ardiansyah",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "yudha88@example.org",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "jajaja",
+							"type": "text"
+						},
+						{
+							"key": "favoriteCategory",
+							"value": "638daa8d7b75ffc8e20bec5e",
+							"type": "text"
+						},
+						{
+							"key": "avatar",
+							"description": "Optional",
+							"type": "file",
+							"src": "/C:/Users/ASUS/Downloads/avatar.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/members",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"members"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "201 ~ Member Registered",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Yudha Ardiansyah",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "yudha88@example.org",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "jajaja",
+									"type": "text"
+								},
+								{
+									"key": "favoriteCategory",
+									"value": "638daa8d7b75ffc8e20bec5e",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"description": "Optional",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Downloads/avatar.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/members",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"members"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "330"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"14a-9vieaTcvy8vLD+y/SYDf6oiR3Ms\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 09 Dec 2022 08:30:16 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Sign-up success\",\n    \"jwtToken\": \"MEMBER_TOKEN\"\n}"
+				},
+				{
+					"name": "422 ~ Form Validation Failed 1",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Yudha Ardiansyah",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "yudha88@example.org",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "jajaja",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "favoriteCategory",
+									"value": "638844ab8df352a19a9f615b",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"description": "Optional",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Downloads/avatar.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/members",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"members"
+							]
+						}
+					},
+					"status": "Unprocessable Entity",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "816"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"330-SnKfYNsJAMDJtipBsCh2Occp1Gs\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 09 Dec 2022 08:29:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Password is required and Category not found\",\n    \"cause\": {\n        \"errors\": {\n            \"password\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Password is required\",\n                \"properties\": {\n                    \"message\": \"Password is required\",\n                    \"type\": \"required\",\n                    \"path\": \"password\"\n                },\n                \"kind\": \"required\",\n                \"path\": \"password\"\n            },\n            \"favoriteCategory\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Category not found\",\n                \"properties\": {\n                    \"message\": \"Category not found\",\n                    \"type\": \"user defined\",\n                    \"path\": \"favoriteCategory\",\n                    \"value\": \"638844ab8df352a19a9f615b\",\n                    \"reason\": {\n                        \"message\": \"Category not found\"\n                    }\n                },\n                \"kind\": \"user defined\",\n                \"path\": \"favoriteCategory\",\n                \"value\": \"638844ab8df352a19a9f615b\",\n                \"reason\": {\n                    \"message\": \"Category not found\"\n                }\n            }\n        },\n        \"_message\": \"Validation failed\",\n        \"status\": 422,\n        \"name\": \"ValidationError\",\n        \"message\": \"Member validation failed: password: Password is required, favoriteCategory: Category not found\"\n    }\n}"
+				},
+				{
+					"name": "422 ~ Form Validation Failed 2 - Upload Avatar Failed",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Yudha Ardiansyah",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "yudha88@example.org",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "jajaja",
+									"type": "text"
+								},
+								{
+									"key": "favoriteCategory",
+									"value": "638daa8d7b75ffc8e20bec5e",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"description": "Optional",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Downloads/TypeScript Call Signature Example.txt"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/members",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"members"
+							]
+						}
+					},
+					"status": "Unprocessable Entity",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "379"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"17b-HDVfcAHKkzW/gooC4wggv/qaBYE\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 25 Dec 2022 08:44:18 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Images only: jpeg, jpg, png, or gif\",\n    \"cause\": {\n        \"errors\": {\n            \"avatar\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Images only: jpeg, jpg, png, or gif\",\n                \"properties\": {\n                    \"message\": \"Images only: jpeg, jpg, png, or gif\"\n                }\n            }\n        },\n        \"_message\": \"Validation failed\",\n        \"status\": 422,\n        \"storageErrors\": [],\n        \"name\": \"ValidationError\",\n        \"message\": \"Validation failed: avatar: Images only: jpeg, jpg, png, or gif\"\n    }\n}"
+				},
+				{
+					"name": "409 ~ Form Validation Failed 3 - Email Has Already Been Used",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Yudha Ardiansyah",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "yudha88@example.org",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "jajaja",
+									"type": "text"
+								},
+								{
+									"key": "favoriteCategory",
+									"value": "638daa8d7b75ffc8e20bec5e",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"description": "Optional",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Downloads/avatar.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/members",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"members"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "310"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"136-2MKMdi41QkP7u5WOZudr8ZRCcE0\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 09 Dec 2022 08:34:16 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Email is already in use\",\n    \"cause\": {\n        \"errors\": {\n            \"email\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Email is already in use\",\n                \"properties\": {\n                    \"message\": \"Email is already in use\"\n                }\n            }\n        },\n        \"_message\": \"Validation failed\",\n        \"status\": 409,\n        \"name\": \"ValidationError\",\n        \"message\": \"Validation failed: email: Email is already in use\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Sign-in",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"septian@example.net\",\r\n    \"password\": \"jajaja\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/members/sign-in",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"members",
+						"sign-in"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 ~ Ok",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"septian@example.net\",\r\n    \"password\": \"jajaja\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/members/sign-in",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"members",
+								"sign-in"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "368"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"170-j+FrVeKidJE/KPxonx6ieF4OnPI\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 09 Dec 2022 08:32:37 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Sign-in success\",\n    \"jwtToken\": \"MEMBER_TOKEN\"\n}"
+				},
+				{
+					"name": "422 ~ Form Validation Failed 1",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"septianexample.net\",\r\n    \"password\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/members/sign-in",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"members",
+								"sign-in"
+							]
+						}
+					},
+					"status": "Unprocessable Entity",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "497"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1f1-HoAM2NjFVSct7uBcfFegtoipfGA\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 18 Dec 2022 09:33:23 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Enter a valid email address and Enter your password\",\n    \"cause\": {\n        \"errors\": {\n            \"email\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Enter a valid email address\",\n                \"properties\": {\n                    \"message\": \"Enter a valid email address\"\n                }\n            },\n            \"password\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Enter your password\",\n                \"properties\": {\n                    \"message\": \"Enter your password\"\n                }\n            }\n        },\n        \"_message\": \"Validation failed\",\n        \"status\": 422,\n        \"name\": \"ValidationError\",\n        \"message\": \"Validation failed: email: Enter a valid email address, password: Enter your password\"\n    }\n}"
+				},
+				{
+					"name": "404 ~ Form Validation Failed  2 - Email Not Found",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"amir@example.net\",\r\n    \"password\": \"jajaja\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/members/sign-in",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"members",
+								"sign-in"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "282"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"11a-AzcRcTUMn6ATcaIfWURJatFUlQQ\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 09 Dec 2022 08:35:37 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Email not found.\",\n    \"cause\": {\n        \"errors\": {\n            \"email\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Email not found.\",\n                \"properties\": {\n                    \"message\": \"Email not found.\"\n                }\n            }\n        },\n        \"_message\": \"Validation failed\",\n        \"status\": 404,\n        \"name\": \"ValidationError\",\n        \"message\": \"Validation failed: email: Email not found.\"\n    }\n}"
+				},
+				{
+					"name": "401 ~ Form Validation Failed 3 - Password Does Not Match",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"septian@example.net\",\r\n    \"password\": \"jajaja\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/members/sign-in",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"members",
+								"sign-in"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "320"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"140-T+DPjBQ48gSwH6U0mVdaCiKBSjA\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 05 Dec 2022 08:59:44 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Password does not match!\",\n    \"cause\": {\n        \"errors\": {\n            \"password\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Password does not match!\",\n                \"properties\": {\n                    \"message\": \"Password does not match!\"\n                }\n            }\n        },\n        \"_message\": \"Validation failed\",\n        \"status\": 401,\n        \"name\": \"ValidationError\",\n        \"message\": \"Validation failed: password: Password does not match!\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Checkout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{MEMBER_JWT_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"voucherId\": \"6398293974f2d90a6a46ebb5\",\r\n    \"nominalId\": \"6398293974f2d90a6a46eb9c\",\r\n    \"paymentMethodId\": \"6398293974f2d90a6a46ebb7\",\r\n    \"bankId\": \"6398293974f2d90a6a46eba9\",\r\n    \"member\": {\r\n        \"bankAccountName\": \"Sepian Saputra Novel\",\r\n        \"gameId\": \"KuliahPulang\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/transactions",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "201 ~ Created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"voucherId\": \"6398293974f2d90a6a46ebb5\",\r\n    \"nominalId\": \"6398293974f2d90a6a46eb9c\",\r\n    \"paymentMethodId\": \"6398293974f2d90a6a46ebb7\",\r\n    \"bankId\": \"6398293974f2d90a6a46eba9\",\r\n    \"member\": {\r\n        \"bankAccountName\": \"Sepian Saputra Novel\",\r\n        \"gameId\": \"KuliahPulang\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/transactions",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "67"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"43-+z1/MSD5Ck1z1ayjknGIzC3IZTw\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Dec 2022 09:32:01 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Checkout success\",\n    \"transactionId\": \"63a424111e3a36fcd9e28835\"\n}"
+				},
+				{
+					"name": "422 ~ Form Validation Failed",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"voucherId\": \"6398293974f2d90a6a46ebb5\",\r\n    \"nominalId\": \"6398293974f2d90a6a46eb9c\",\r\n    \"paymentMethodId\": \"6398293974f2d90a6a46ebb7\",\r\n    \"bankId\": \"6398293974f2d90a6a46eba9\",\r\n    \"member\": {\r\n        \"bankAccountName\": \"\",\r\n        \"gameId\": \"\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/transactions",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"status": "Unprocessable Entity",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "783"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"30f-8OaSCS8CrYU/3IDJ+9zMrR3x/UY\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Dec 2022 09:33:00 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Member full name is required and Member game id is required\",\n    \"cause\": {\n        \"errors\": {\n            \"member.bankAccountName\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Member full name is required\",\n                \"properties\": {\n                    \"message\": \"Member full name is required\",\n                    \"type\": \"required\",\n                    \"path\": \"bankAccountName\",\n                    \"value\": \"\"\n                },\n                \"kind\": \"required\",\n                \"path\": \"bankAccountName\",\n                \"value\": \"\"\n            },\n            \"member.gameId\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Member game id is required\",\n                \"properties\": {\n                    \"message\": \"Member game id is required\",\n                    \"type\": \"required\",\n                    \"path\": \"gameId\",\n                    \"value\": \"\"\n                },\n                \"kind\": \"required\",\n                \"path\": \"gameId\",\n                \"value\": \"\"\n            }\n        },\n        \"_message\": \"Validation failed\",\n        \"status\": 422,\n        \"name\": \"ValidationError\",\n        \"message\": \"Transaction validation failed: member.bankAccountName: Member full name is required, member.gameId: Member game id is required\"\n    }\n}"
+				},
+				{
+					"name": "404 ~ Primary Key Reference Not Found",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"voucherId\": \"6398293974f2d90a6a46ebb5\",\r\n    \"nominalId\": \"6398293974f2d90a6a46eb9c\",\r\n    \"paymentMethodId\": \"638daa8d7b75ffc8e20bec7b\",\r\n    \"bankId\": \"6398293974f2d90a6a46eba9\",\r\n    \"member\": {\r\n        \"bankAccountName\": \"Sepian Saputra Novel\",\r\n        \"gameId\": \"KuliahPulang\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/transactions",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "38"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"26-LpFdbU5OcuGIIj5HdqdzDaLHnfY\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 22 Dec 2022 09:32:44 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Payment method not found\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Confirm Payment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{MEMBER_JWT_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/transactions/:id/confirm-payment",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"transactions",
+						":id",
+						"confirm-payment"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "63a556a5b3a92c0db3a5b493"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 ~ Payment Confirmed",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/transactions/:id/confirm-payment",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"transactions",
+								":id",
+								"confirm-payment"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "63a550fd05fc88654cb0a0af"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "73"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"49-vlAro7uBbmz+6gOno4M21IfhmpI\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 23 Dec 2022 07:11:27 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Payment has been confirmed. Please wait for admin verification.\"\n}"
+				},
+				{
+					"name": "403 ~ Reconfirmation Failed",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/transactions/:id/confirm-payment",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"transactions",
+								":id",
+								"confirm-payment"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "63a556a5b3a92c0db3a5b493"
+								}
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "101"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"65-EcOgie8OLfyiY3nNX+YRhmhxG+0\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 23 Dec 2022 07:25:12 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Unable to confirm this payment. Payment for this transaction has already been confirmed.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Transactions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{MEMBER_JWT_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/transactions?status=verifying",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "accepted",
+							"disabled": true
+						},
+						{
+							"key": "status",
+							"value": "paying",
+							"disabled": true
+						},
+						{
+							"key": "status",
+							"value": "rejected",
+							"disabled": true
+						},
+						{
+							"key": "status",
+							"value": "verifying"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 ~ All Transactions",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/transactions",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "accepted",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "paying",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "rejected",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "verifying",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"632-pDi64ekUC3KIP/gs63qknJMXZe8\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 24 Dec 2022 10:38:06 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"transactions\": [\n        {\n            \"_id\": \"63a556a5b3a92c0db3a5b49f\",\n            \"voucher\": {\n                \"name\": \"Super Mechs\",\n                \"imageName\": \"super-mechs.png\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a0\"\n            },\n            \"category\": {\n                \"current\": \"63a556a3b3a92c0db3a5b443\",\n                \"name\": \"Console\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a1\"\n            },\n            \"nominal\": {\n                \"name\": \"Gold\",\n                \"quantity\": 500,\n                \"price\": {\n                    \"$numberDecimal\": \"5000000\"\n                },\n                \"_id\": \"63a556a5b3a92c0db3a5b4a2\"\n            },\n            \"paymentMethod\": \"VISA\",\n            \"targetBank\": {\n                \"name\": \"Bank BNI Syariah\",\n                \"holderName\": \"Jotaro Kujo\",\n                \"holderNumbers\": \"99888443\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a3\"\n            },\n            \"taxRate\": 0.12,\n            \"member\": {\n                \"current\": \"63a556a4b3a92c0db3a5b463\",\n                \"bankAccountName\": \"Andre Saputra\",\n                \"gameId\": \"ndreee\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a4\"\n            },\n            \"status\": \"rejected\",\n            \"__v\": 0,\n            \"createdAt\": \"2022-12-23T07:20:05.136Z\",\n            \"updatedAt\": \"2022-12-23T07:20:05.136Z\",\n            \"totalPrice\": 5600000\n        },\n        {\n            \"_id\": \"63a556a5b3a92c0db3a5b4a5\",\n            \"voucher\": {\n                \"name\": \"Call of Duty: Modern\",\n                \"imageName\": \"cod-mw.png\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a6\"\n            },\n            \"category\": {\n                \"current\": \"63a556a3b3a92c0db3a5b442\",\n                \"name\": \"Desktop\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a7\"\n            },\n            \"nominal\": {\n                \"name\": \"Jewel\",\n                \"quantity\": 150,\n                \"price\": {\n                    \"$numberDecimal\": \"150000\"\n                },\n                \"_id\": \"63a556a5b3a92c0db3a5b4a8\"\n            },\n            \"paymentMethod\": \"VISA\",\n            \"targetBank\": {\n                \"name\": \"Bank Syariah Mandiri\",\n                \"holderName\": \"Muhammad Avdol\",\n                \"holderNumbers\": \"77542493\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a9\"\n            },\n            \"taxRate\": 0.07,\n            \"member\": {\n                \"current\": \"63a556a4b3a92c0db3a5b463\",\n                \"bankAccountName\": \"Andre Saputra\",\n                \"gameId\": \"ndreee\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4aa\"\n            },\n            \"status\": \"verifying\",\n            \"__v\": 0,\n            \"createdAt\": \"2022-12-23T07:20:05.136Z\",\n            \"updatedAt\": \"2022-12-23T07:20:05.136Z\",\n            \"totalPrice\": 160500\n        }\n    ],\n    \"totalSpent\": 5760500\n}"
+				},
+				{
+					"name": "200 ~ Query by status",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/transactions?status=verifying",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "accepted",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "paying",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "rejected",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "verifying"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "817"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"331-7iyWYFWdLvTU98xh+t+vKurhf5w\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 24 Dec 2022 10:38:51 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"transactions\": [\n        {\n            \"_id\": \"63a556a5b3a92c0db3a5b4a5\",\n            \"voucher\": {\n                \"name\": \"Call of Duty: Modern\",\n                \"imageName\": \"cod-mw.png\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a6\"\n            },\n            \"category\": {\n                \"current\": \"63a556a3b3a92c0db3a5b442\",\n                \"name\": \"Desktop\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a7\"\n            },\n            \"nominal\": {\n                \"name\": \"Jewel\",\n                \"quantity\": 150,\n                \"price\": {\n                    \"$numberDecimal\": \"150000\"\n                },\n                \"_id\": \"63a556a5b3a92c0db3a5b4a8\"\n            },\n            \"paymentMethod\": \"VISA\",\n            \"targetBank\": {\n                \"name\": \"Bank Syariah Mandiri\",\n                \"holderName\": \"Muhammad Avdol\",\n                \"holderNumbers\": \"77542493\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a9\"\n            },\n            \"taxRate\": 0.07,\n            \"member\": {\n                \"current\": \"63a556a4b3a92c0db3a5b463\",\n                \"bankAccountName\": \"Andre Saputra\",\n                \"gameId\": \"ndreee\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4aa\"\n            },\n            \"status\": \"verifying\",\n            \"__v\": 0,\n            \"createdAt\": \"2022-12-23T07:20:05.136Z\",\n            \"updatedAt\": \"2022-12-23T07:20:05.136Z\",\n            \"totalPrice\": 160500\n        }\n    ],\n    \"totalSpent\": 160500\n}"
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{MEMBER_JWT_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/transactions/:id",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"transactions",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "638daa8e7b75ffc8e20becac"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 ~ Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/transactions/:id",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"transactions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "638daa8e7b75ffc8e20becac"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "792"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"318-m+sbfjgONtxi7zremXMUdeRz8og\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 09 Dec 2022 09:19:44 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"transaction\": {\n        \"_id\": \"638daa8e7b75ffc8e20becac\",\n        \"voucher\": {\n            \"name\": \"Mobile Legends\",\n            \"imageName\": \"mobile-legends.png\",\n            \"_id\": \"6392fdb064ab02211ad6ea48\"\n        },\n        \"category\": {\n            \"current\": \"638daa8d7b75ffc8e20bec5e\",\n            \"name\": \"Mobile\",\n            \"_id\": \"6392fdb064ab02211ad6ea49\"\n        },\n        \"nominal\": {\n            \"name\": \"Gold\",\n            \"quantity\": 50,\n            \"price\": 1250000,\n            \"_id\": \"6392fdb064ab02211ad6ea4a\"\n        },\n        \"paymentMethod\": \"Tranfer\",\n        \"targetBank\": {\n            \"name\": \"Bank Syariah Indonesia\",\n            \"holderName\": \"Amir Muhammad Hakim\",\n            \"holderNumbers\": \"22081544\",\n            \"_id\": \"6392fdb064ab02211ad6ea4b\"\n        },\n        \"taxRate\": 0.1,\n        \"member\": {\n            \"current\": \"638daa8d7b75ffc8e20bec7d\",\n            \"bankAccountName\": \"Septian Saputra\",\n            \"gameId\": \"septian_gaming\",\n            \"_id\": \"6392fdb064ab02211ad6ea4c\"\n        },\n        \"status\": \"accepted\",\n        \"__v\": 0,\n        \"createdAt\": \"2022-12-05T08:23:42.736Z\",\n        \"updatedAt\": \"2022-12-05T08:23:42.736Z\",\n        \"totalPrice\": 1375000\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Dashboard Overview Data",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{MEMBER_JWT_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/homepage/dashboard",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"homepage",
+						"dashboard"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 ~ Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/homepage/dashboard",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"homepage",
+								"dashboard"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"6c8-6YTLHcZ7g5uOBTlLMVVM7lfG8bs\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 24 Dec 2022 10:41:02 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"topUpCategories\": [\n        {\n            \"_id\": \"63a556a3b3a92c0db3a5b443\",\n            \"name\": \"Console\",\n            \"totalSpent\": 5600000\n        },\n        {\n            \"_id\": \"63a556a3b3a92c0db3a5b442\",\n            \"name\": \"Desktop\",\n            \"totalSpent\": 160500\n        }\n    ],\n    \"latestTransactions\": [\n        {\n            \"_id\": \"63a556a5b3a92c0db3a5b49f\",\n            \"voucher\": {\n                \"name\": \"Super Mechs\",\n                \"imageName\": \"super-mechs.png\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a0\"\n            },\n            \"category\": {\n                \"current\": \"63a556a3b3a92c0db3a5b443\",\n                \"name\": \"Console\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a1\"\n            },\n            \"nominal\": {\n                \"name\": \"Gold\",\n                \"quantity\": 500,\n                \"price\": {\n                    \"$numberDecimal\": \"5000000\"\n                },\n                \"_id\": \"63a556a5b3a92c0db3a5b4a2\"\n            },\n            \"paymentMethod\": \"VISA\",\n            \"targetBank\": {\n                \"name\": \"Bank BNI Syariah\",\n                \"holderName\": \"Jotaro Kujo\",\n                \"holderNumbers\": \"99888443\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a3\"\n            },\n            \"taxRate\": 0.12,\n            \"member\": {\n                \"current\": \"63a556a4b3a92c0db3a5b463\",\n                \"bankAccountName\": \"Andre Saputra\",\n                \"gameId\": \"ndreee\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a4\"\n            },\n            \"status\": \"rejected\",\n            \"__v\": 0,\n            \"createdAt\": \"2022-12-23T07:20:05.136Z\",\n            \"updatedAt\": \"2022-12-23T07:20:05.136Z\",\n            \"totalPrice\": 5600000\n        },\n        {\n            \"_id\": \"63a556a5b3a92c0db3a5b4a5\",\n            \"voucher\": {\n                \"name\": \"Call of Duty: Modern\",\n                \"imageName\": \"cod-mw.png\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a6\"\n            },\n            \"category\": {\n                \"current\": \"63a556a3b3a92c0db3a5b442\",\n                \"name\": \"Desktop\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a7\"\n            },\n            \"nominal\": {\n                \"name\": \"Jewel\",\n                \"quantity\": 150,\n                \"price\": {\n                    \"$numberDecimal\": \"150000\"\n                },\n                \"_id\": \"63a556a5b3a92c0db3a5b4a8\"\n            },\n            \"paymentMethod\": \"VISA\",\n            \"targetBank\": {\n                \"name\": \"Bank Syariah Mandiri\",\n                \"holderName\": \"Muhammad Avdol\",\n                \"holderNumbers\": \"77542493\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4a9\"\n            },\n            \"taxRate\": 0.07,\n            \"member\": {\n                \"current\": \"63a556a4b3a92c0db3a5b463\",\n                \"bankAccountName\": \"Andre Saputra\",\n                \"gameId\": \"ndreee\",\n                \"_id\": \"63a556a5b3a92c0db3a5b4aa\"\n            },\n            \"status\": \"verifying\",\n            \"__v\": 0,\n            \"createdAt\": \"2022-12-23T07:20:05.136Z\",\n            \"updatedAt\": \"2022-12-23T07:20:05.136Z\",\n            \"totalPrice\": 160500\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Edit Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{MEMBER_JWT_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fullName",
+							"value": "Septian Ali Nugroho",
+							"description": "Required",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "septian@example.net",
+							"description": "Required",
+							"type": "text"
+						},
+						{
+							"key": "phoneNumber",
+							"value": "0878334455541",
+							"description": "Required; Set it to empty string to remove the phone number",
+							"type": "text"
+						},
+						{
+							"key": "avatar",
+							"description": "Optional; Do not attach it to the request body if you want to remove the old avatar with query url ?removeAvatar",
+							"type": "file",
+							"src": "/C:/Users/ASUS/Downloads/avatar.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/members/edit",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"members",
+						"edit"
+					],
+					"query": [
+						{
+							"key": "removeAvatar",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 ~ Ok",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Septian Ali Nugroho",
+									"description": "Required",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "septian@example.net",
+									"description": "Required",
+									"type": "text"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "0878334455541",
+									"description": "Required; Set it to empty string to remove the phone number",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"description": "Optional; Do not attach it to the request body if you want to remove the old avatar with query url ?removeAvatar",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Downloads/avatar.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/members",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"members"
+							],
+							"query": [
+								{
+									"key": "removeAvatar",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "447"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1bf-Au+ERdAP5r9aa0qeAgSniKvUJUo\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 13 Dec 2022 01:22:39 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Profile edited\",\n    \"jwtToken\": \"member-jwt-token\"\n}"
+				},
+				{
+					"name": "200 ~ Avatar Removed",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Septian Ali Nugroho",
+									"description": "Required",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "septian@example.net",
+									"description": "Required",
+									"type": "text"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "0878334455541",
+									"description": "Required; Set it to empty string to remove the phone number",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"description": "Optional; Do not attach it to the request body if you want to remove the old avatar with query url ?removeAvatar",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Downloads/avatar.png",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/members?removeAvatar",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"members"
+							],
+							"query": [
+								{
+									"key": "removeAvatar",
+									"value": null
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "373"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"175-hYseUmkLsFVXMFFcPmX9xCjAY9o\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 13 Dec 2022 01:23:32 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Profile edited\",\n    \"jwtToken\": \"member-jwt-token\"\n}"
+				},
+				{
+					"name": "422 ~ Form Validation Failed 1",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "",
+									"description": "Required",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"description": "Required",
+									"type": "text"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "087833",
+									"description": "Required; Set it to empty string to remove the phone number",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"description": "Optional; Do not attach it to the request body if you want to remove the old avatar with query url ?removeAvatar",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Downloads/avatar.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/members",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"members"
+							],
+							"query": [
+								{
+									"key": "removeAvatar",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "Unprocessable Entity",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "985"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3d9-QYnlnJKiFXFhBaJd0lDufua9kpg\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 25 Dec 2022 07:50:01 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Name is required, Email is required, and Enter a valid mobile phone number\",\n    \"cause\": {\n        \"errors\": {\n            \"fullName\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Name is required\",\n                \"properties\": {\n                    \"message\": \"Name is required\",\n                    \"type\": \"required\",\n                    \"path\": \"fullName\",\n                    \"value\": \"\"\n                },\n                \"kind\": \"required\",\n                \"path\": \"fullName\",\n                \"value\": \"\"\n            },\n            \"email\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Email is required\",\n                \"properties\": {\n                    \"message\": \"Email is required\",\n                    \"type\": \"required\",\n                    \"path\": \"email\",\n                    \"value\": \"\"\n                },\n                \"kind\": \"required\",\n                \"path\": \"email\",\n                \"value\": \"\"\n            },\n            \"phoneNumber\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Enter a valid mobile phone number\",\n                \"properties\": {\n                    \"message\": \"Enter a valid mobile phone number\",\n                    \"type\": \"user defined\",\n                    \"path\": \"phoneNumber\",\n                    \"value\": \"087833\"\n                },\n                \"kind\": \"user defined\",\n                \"path\": \"phoneNumber\",\n                \"value\": \"087833\"\n            }\n        },\n        \"_message\": \"Validation failed\",\n        \"status\": 422,\n        \"name\": \"ValidationError\",\n        \"message\": \"Member validation failed: fullName: Name is required, email: Email is required, phoneNumber: Enter a valid mobile phone number\"\n    }\n}"
+				},
+				{
+					"name": "422 ~ Form Validation Failed 2 - Upload Avatar Failed",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "",
+									"description": "Required",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"description": "Required",
+									"type": "text"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "087833",
+									"description": "Required; Set it to empty string to remove the phone number",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"description": "Optional; Do not attach it to the request body if you want to remove the old avatar with query url ?removeAvatar",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Downloads/TypeScript Call Signature Example.txt"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/members",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"members"
+							],
+							"query": [
+								{
+									"key": "removeAvatar",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "Unprocessable Entity",
+					"code": 422,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "379"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"17b-HDVfcAHKkzW/gooC4wggv/qaBYE\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 25 Dec 2022 07:50:24 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Images only: jpeg, jpg, png, or gif\",\n    \"cause\": {\n        \"errors\": {\n            \"avatar\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Images only: jpeg, jpg, png, or gif\",\n                \"properties\": {\n                    \"message\": \"Images only: jpeg, jpg, png, or gif\"\n                }\n            }\n        },\n        \"_message\": \"Validation failed\",\n        \"status\": 422,\n        \"storageErrors\": [],\n        \"name\": \"ValidationError\",\n        \"message\": \"Validation failed: avatar: Images only: jpeg, jpg, png, or gif\"\n    }\n}"
+				},
+				{
+					"name": "409 - Form Validation Failed 3 - Email Has Already Been Used",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Septian Ali Nugroho",
+									"description": "Required",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "amir.muh.hakim@gmail.com",
+									"description": "Required",
+									"type": "text"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "0878334455541",
+									"description": "Required; Set it to empty string to remove the phone number",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"description": "Optional; Do not attach it to the request body if you want to remove the old avatar with query url ?removeAvatar",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Downloads/avatar.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/members",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"members"
+							],
+							"query": [
+								{
+									"key": "removeAvatar",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "310"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"136-2MKMdi41QkP7u5WOZudr8ZRCcE0\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 25 Dec 2022 10:07:07 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Email is already in use\",\n    \"cause\": {\n        \"errors\": {\n            \"email\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Email is already in use\",\n                \"properties\": {\n                    \"message\": \"Email is already in use\"\n                }\n            }\n        },\n        \"_message\": \"Validation failed\",\n        \"status\": 409,\n        \"name\": \"ValidationError\",\n        \"message\": \"Validation failed: email: Email is already in use\"\n    }\n}"
+				},
+				{
+					"name": "400 ~ Delete Avatar Failed",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Septian Ali Nugroho",
+									"description": "Required",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "septian@example.net",
+									"description": "Required",
+									"type": "text"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "0878334455541",
+									"description": "Required; Set it to empty string to remove the phone number",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"description": "Optional; Do not attach it to the request body if you want to remove the old avatar with query url ?removeAvatar",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Downloads/photo1660050195.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/members?removeAvatar",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"members"
+							],
+							"query": [
+								{
+									"key": "removeAvatar",
+									"value": null
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "452"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1c4-+8ft/MYmTOvfbaqwjUsqO8iasH0\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 25 Dec 2022 07:52:25 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Do not upload a new avatar if you are removing the old one\",\n    \"cause\": {\n        \"errors\": {\n            \"avatar\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Do not upload a new avatar if you are removing the old one\",\n                \"properties\": {\n                    \"message\": \"Do not upload a new avatar if you are removing the old one\"\n                }\n            }\n        },\n        \"_message\": \"Validation failed\",\n        \"status\": 400,\n        \"name\": \"ValidationError\",\n        \"message\": \"Validation failed: avatar: Do not upload a new avatar if you are removing the old one\"\n    }\n}"
+				},
+				{
+					"name": "404 ~ Delete Empty Avatar Failed",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "fullName",
+									"value": "Septian Ali Nugroho",
+									"description": "Required",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "septian@example.net",
+									"description": "Required",
+									"type": "text"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "0878334455541",
+									"description": "Required; Set it to empty string to remove the phone number",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"description": "Optional; Do not attach it to the request body if you want to remove the old avatar with query url ?removeAvatar",
+									"type": "file",
+									"src": "/C:/Users/ASUS/Downloads/photo1660050195.jpeg",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/members?removeAvatar",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"members"
+							],
+							"query": [
+								{
+									"key": "removeAvatar",
+									"value": null
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "444"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1bc-7awLCS5imCVRCwdnEfhYFUS+dlg\""
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 25 Dec 2022 07:53:08 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Cannot remove the avatar because it has not been set yet\",\n    \"cause\": {\n        \"errors\": {\n            \"avatar\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"Cannot remove the avatar because it has not been set yet\",\n                \"properties\": {\n                    \"message\": \"Cannot remove the avatar because it has not been set yet\"\n                }\n            }\n        },\n        \"_message\": \"Validation failed\",\n        \"status\": 404,\n        \"name\": \"ValidationError\",\n        \"message\": \"Validation failed: avatar: Cannot remove the avatar because it has not been set yet\"\n    }\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "MEMBER_JWT_TOKEN",
+			"value": "member-jwt-token"
+		}
+	]
+}
