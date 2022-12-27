@@ -1,0 +1,45 @@
+services:
+  mongodb:
+    image: "mongo"
+    volumes:
+      - database:/data/db
+    env_file:
+      - ./.env.production
+    ports:
+      - "27017:27017"
+    profiles:
+      - initial-run
+      - run
+
+  seed:
+    build:
+      context: .
+      dockerfile: Dockerfile.seed
+    env_file:
+      - ./.env.production
+    volumes:
+      - public_uploads:/home/public/uploads
+    depends_on:
+      - mongodb
+    profiles:
+      - initial-run
+
+  express:
+    container_name: express
+    build: .
+    volumes:
+      - public_uploads:/home/public/uploads
+    env_file:
+      - ./.env.production
+    ports:
+      - "3000:3000"
+    depends_on:
+      - seed
+      - mongodb
+    profiles:
+      - initial-run
+      - run
+
+volumes:
+  database:
+  public_uploads:
